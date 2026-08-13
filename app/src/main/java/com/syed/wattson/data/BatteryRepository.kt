@@ -15,6 +15,8 @@ import com.syed.wattson.data.parser.BatteryHistoryParser
 import com.syed.wattson.data.parser.BatteryStatsParser
 import com.syed.wattson.data.source.LiveBatterySource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
 /**
@@ -41,6 +43,15 @@ class BatteryRepository(
     @Volatile
     private var tier: DataTier? = null
 
+    /**
+     * uid -> resolved name and icon.
+     *
+     * Inflating a launcher icon opens the target APK's resources, which is easily the
+     * most expensive per-app step here. Package identities do not change while the app
+     * is open, so every refresh after the first reuses these.
+     */
+    private val identityCache = HashMap<Int, AppUsage>()
+
     fun currentTier(): DataTier = tier ?: capabilities.detect().also { tier = it }
 
     /**
@@ -53,15 +64,28 @@ class BatteryRepository(
      */
     suspend fun load(): BatteryReport = withContext(Dispatchers.IO) {
         val activeTier = currentTier()
-        val live = readLive(activeTier)
 
-        BatteryReport(
-            tier = activeTier,
-            now = live.now,
-            stats = if (activeTier == DataTier.BASIC) null else readDumpsysStats(activeTier),
-            charging = live.charging,
-            history = if (activeTier == DataTier.BASIC) emptyList() else loadHistory(activeTier),
-        )
+        // The two dumps are independent reads, and the history one alone costs ~6s.
+        // Running them concurrently overlaps that with the --charged dump instead of
+        // paying for both end to end. Same commands, same output, same accuracy.
+        coroutineScope {
+            val live = async { readLive(activeTier) }
+            val stats = async {
+                if (activeTier == DataTier.BASIC) null else readDumpsysStats(activeTier)
+            }
+            val history = async {
+                if (activeTier == DataTier.BASIC) emptyList() else loadHistory(activeTier)
+            }
+
+            val snapshot = live.await()
+            BatteryReport(
+                tier = activeTier,
+                now = snapshot.now,
+                stats = stats.await(),
+                charging = snapshot.charging,
+                history = history.await(),
+            )
+        }
     }
 
     /**
@@ -163,7 +187,22 @@ class BatteryRepository(
     private fun resolveIdentity(app: AppUsage, withIcon: Boolean): AppUsage {
         val uid = app.uid ?: return app
 
-        knownSystemUid(uid)?.let { return app.copy(label = it) }
+        // Reuse a previous resolution when it already carries what this row needs.
+        identityCache[uid]?.let { cached ->
+            if (!withIcon || cached.icon != null) {
+                return app.copy(
+                    packageName = cached.packageName,
+                    label = cached.label,
+                    icon = cached.icon,
+                )
+            }
+        }
+
+        knownSystemUid(uid)?.let {
+            val resolved = app.copy(label = it)
+            identityCache[uid] = resolved
+            return resolved
+        }
 
         val primaryPackage = runCatching { packageManager.getPackagesForUid(uid) }
             .getOrNull()
@@ -182,7 +221,7 @@ class BatteryRepository(
             } else {
                 null
             },
-        )
+        ).also { identityCache[uid] = it }
     }
 
     private fun knownSystemUid(uid: Int): String? = when (uid) {
@@ -223,8 +262,11 @@ class BatteryRepository(
         const val LIVE_TIMEOUT_SECONDS = 10L
         const val MICRO_PER_MILLI = 1_000
 
-        /** Apps whose launcher icon is decoded — comfortably above the list length. */
-        const val ICON_BUDGET = 15
+        /**
+         * Apps whose launcher icon is decoded. Matches the Top apps list length exactly:
+         * decoding spares cost real time on first load and nothing else displays one.
+         */
+        const val ICON_BUDGET = 10
 
         /** Emits `key=value` lines for the nodes we care about, skipping any that are absent. */
         const val CMD_POWER_SUPPLY = """

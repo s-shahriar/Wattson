@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.syed.wattson.data.BatteryRepository
 import com.syed.wattson.data.model.StatsUnavailableException
 import com.syed.wattson.ui.model.UiState
+import com.syed.wattson.ui.model.toLiveOnlyUiModel
 import com.syed.wattson.ui.model.toUiModel
 import com.syed.wattson.ui.model.withLive
 import kotlinx.coroutines.Job
@@ -40,6 +41,10 @@ class BatteryViewModel(application: Application) : AndroidViewModel(application)
     var isRefreshing by mutableStateOf(false)
         private set
 
+    /** True while the slow dumpsys reads are still running behind a live-only model. */
+    var isLoadingStats by mutableStateOf(false)
+        private set
+
     private var liveJob: Job? = null
 
     init {
@@ -51,9 +56,19 @@ class BatteryViewModel(application: Application) : AndroidViewModel(application)
         if (isRefreshing) return
         viewModelScope.launch {
             isRefreshing = true
-            // Keep the previous report on screen while a manual refresh runs.
-            if (state !is UiState.Ready) state = UiState.Loading
+            isLoadingStats = true
+
+            // First paint: the live snapshot costs microseconds, so show the status card
+            // immediately rather than holding a blank screen for the multi-second dumps.
+            if (state !is UiState.Ready) {
+                val quick = runCatching {
+                    repository.loadLive()?.toLiveOnlyUiModel(repository.currentTier())
+                }.getOrNull()
+                if (quick != null) state = UiState.Ready(quick)
+            }
+
             state = loadState()
+            isLoadingStats = false
             isRefreshing = false
         }
     }

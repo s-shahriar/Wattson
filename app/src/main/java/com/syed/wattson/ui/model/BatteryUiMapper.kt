@@ -266,3 +266,46 @@ fun BatteryUiModel.withLive(snapshot: LiveSnapshot): BatteryUiModel = copy(
 
 /** True when the tier can supply historical accounting at all. */
 val BatteryUiModel.hasHistoricalStats: Boolean get() = tier != DataTier.BASIC
+
+/**
+ * Builds a model from just the live snapshot, with every historical figure empty.
+ *
+ * Used for the first paint: BatteryManager answers in microseconds, so the status card
+ * can be on screen while the multi-second dumpsys reads are still running. The sections
+ * that need those reads hide themselves until the full model replaces this one.
+ */
+fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel = BatteryUiModel(
+    tier = tier,
+    levelPercent = now.levelPercent,
+    status = now.status,
+    health = now.health,
+    temperatureC = now.temperatureC,
+    chargeCounterMah = now.chargeCounterMah,
+    startClock = null,
+    timeOnBatteryMs = 0L,
+    totalRunTimeMs = 0L,
+    dischargeMah = null,
+    designCapacityMah = null,
+    screenOnMs = 0L,
+    screenOffMs = 0L,
+    screenOnFraction = 0f,
+    screenOnCount = 0,
+    categories = emptyList(),
+    totalCategoryMah = 0.0,
+    topApps = emptyList(),
+    totalAppMah = 0.0,
+    drain = null,
+    charging = ChargingUi(
+        status = now.status,
+        isCharging = now.isCharging,
+        currentMa = charging.currentMilliAmps,
+        voltageVolts = charging.voltageVolts,
+        healthFraction = charging.healthFraction,
+        chargeFullMah = charging.chargeFullMah,
+        designCapacityMah = charging.chargeFullDesignMah,
+        cycleCount = charging.cycleCount,
+        hoursToFull = charging.hoursToFull(),
+    ),
+    historyCycle = null,
+    historyDay = null,
+)

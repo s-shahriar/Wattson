@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +16,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
@@ -65,6 +67,7 @@ fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
+            Column {
             MediumTopAppBar(
                 title = { TitleBlock(state) },
                 actions = {
@@ -79,6 +82,11 @@ fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
                 },
                 scrollBehavior = scrollBehavior,
             )
+            // Only while the live card is up but the dumps have not landed yet.
+            if (viewModel.isLoadingStats && state is UiState.Ready) {
+                LinearProgressIndicator(Modifier.fillMaxWidth())
+            }
+            }
         },
     ) { padding ->
         PullToRefreshBox(

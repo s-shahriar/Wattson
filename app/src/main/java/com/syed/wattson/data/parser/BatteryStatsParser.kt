@@ -20,6 +20,9 @@ object BatteryStatsParser {
     private val UID_HEADER = Regex("""^UID\s+(\S+):\s+([-\d.eE+]+)""")
     private val KEY_VALUE = Regex("""(?:^|\s)([a-z_]+)=([-\d.eE+]+)""")
     private val BRIGHTNESS = Regex("""^(dark|dim|medium|light|bright)\s+(.+?)\s*\(([\d.]+)%\)$""")
+    private val FIRST_NUMBER = Regex("""([\d.]+)""")
+    private val SCREEN_ON_COUNT = Regex("""\)\s*(\d+)x""")
+    private val CAPACITY = Regex("""Capacity:\s*(\d+)""")
 
     /** Sums every `<n><unit>` token in [text], e.g. "21h 6m 10s 571ms" -> milliseconds. */
     fun parseDurationMs(text: String): Long =
@@ -91,15 +94,15 @@ object BatteryStatsParser {
                     totalRunTime = durationAfter(line, "Total run time:")
 
                 line.startsWith("Discharge:") && dischargeMah == null ->
-                    dischargeMah = Regex("""([\d.]+)""").find(line)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
+                    dischargeMah = FIRST_NUMBER.find(line)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
 
                 line.startsWith("Screen on:") && screenOn == 0L -> {
                     screenOn = durationAfter(line, "Screen on:")
-                    screenOnCount = Regex("""\)\s*(\d+)x""").find(line)?.groupValues?.get(1)?.toIntOrNull() ?: 0
+                    screenOnCount = SCREEN_ON_COUNT.find(line)?.groupValues?.get(1)?.toIntOrNull() ?: 0
                 }
 
                 line.startsWith("Capacity:") && designCapacity == null ->
-                    designCapacity = Regex("""Capacity:\s*(\d+)""").find(line)?.groupValues?.get(1)?.toIntOrNull()
+                    designCapacity = CAPACITY.find(line)?.groupValues?.get(1)?.toIntOrNull()
 
                 line.startsWith("Screen brightnesses:") -> {
                     inBrightnessBlock = true
@@ -161,7 +164,9 @@ object BatteryStatsParser {
             }
 
             // A UID header owns the indented lines that follow it.
-            val uidMatch = UID_HEADER.find(line)
+            // Cheap prefix test first: this regex would otherwise run on every one of
+            // ~5,800 lines to match the ~50 that are actually UID headers.
+            val uidMatch = if (line.startsWith("UID ")) UID_HEADER.find(line) else null
             if (uidMatch != null) {
                 inGlobalBlock = false
                 inBrightnessBlock = false
@@ -194,6 +199,11 @@ object BatteryStatsParser {
                     icon = null,
                     buckets = buckets.sortedByDescending { it.mah },
                 )
+
+                // The inner loop already consumed these; without this the outer loop
+                // re-examines all ~2,200 of them, a third of the whole dump.
+                index = cursor
+                continue
             }
 
             index++

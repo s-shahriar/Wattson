@@ -11,3 +11,6 @@ captures/
 # Release signing — never commit
 *.jks
 keystore.properties
+
+# Built release APKs
+Wattson-v*.apk
