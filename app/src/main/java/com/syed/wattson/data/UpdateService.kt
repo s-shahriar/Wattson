@@ -4,7 +4,9 @@ import android.content.Context
 import com.syed.wattson.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.BufferedOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -18,6 +20,22 @@ data class UpdateInfo(
     val notes: String?,
 )
 
+/** Live download state, reported at a human rate rather than per buffer. */
+data class DownloadProgress(
+    val fraction: Float,
+    val bytesDownloaded: Long,
+    val totalBytes: Long?,
+    val bytesPerSecond: Long,
+) {
+    /** Seconds remaining at the current rate, or null when it cannot be estimated. */
+    val etaSeconds: Long?
+        get() {
+            val total = totalBytes ?: return null
+            if (bytesPerSecond <= 0L) return null
+            return ((total - bytesDownloaded) / bytesPerSecond).coerceAtLeast(0)
+        }
+}
+
 /**
  * Checks GitHub releases for a newer APK and installs it.
  *
@@ -28,7 +46,7 @@ data class UpdateInfo(
 class UpdateService(private val context: Context) {
 
     suspend fun checkForUpdate(): UpdateInfo = withContext(Dispatchers.IO) {
-        val feed = fetch(RELEASES_FEED)
+        val feed = fetchFeed(RELEASES_FEED)
         val entry = feed.split("<entry>").getOrNull(1)
             ?: throw IllegalStateException("No releases published yet")
 
@@ -49,33 +67,90 @@ class UpdateService(private val context: Context) {
         )
     }
 
-    /** Downloads the APK into cache and returns the file, reporting 0f..1f progress. */
+    /**
+     * Downloads the APK into cache, resuming a partial file when one exists.
+     *
+     * Resume matters here: on a slow link a 20 MB APK takes minutes, and without a Range
+     * request every dropped connection would start again from zero.
+     *
+     * [onProgress] is throttled — it previously fired on every buffer, which on a 20 MB
+     * file meant well over a thousand UI state writes and recompositions competing with
+     * the transfer itself.
+     */
     suspend fun download(
         info: UpdateInfo,
-        onProgress: (Float) -> Unit,
+        onProgress: (DownloadProgress) -> Unit,
     ): File = withContext(Dispatchers.IO) {
         val url = info.downloadUrl ?: throw IllegalStateException("No download URL")
-        val target = File(context.cacheDir, info.assetName ?: "wattson-update.apk")
+        val target = File(context.cacheDir, info.assetName ?: DEFAULT_ASSET)
 
-        // Any earlier attempt is stale the moment a new one starts.
-        target.delete()
+        val alreadyHave = if (target.exists()) target.length() else 0L
+        val connection = openDownloadConnection(url, resumeFrom = alreadyHave)
 
-        openConnection(url).run {
-            val total = contentLengthLong.takeIf { it > 0 }
-            inputStream.use { input ->
-                target.outputStream().use { output ->
+        // A 206 means the server honoured our range; anything else restarts the file.
+        val resuming = connection.responseCode == HttpURLConnection.HTTP_PARTIAL
+        val startOffset = if (resuming) alreadyHave else 0L
+        val remaining = connection.contentLengthLong.takeIf { it > 0 }
+        val total = remaining?.plus(startOffset)
+
+        val startedAt = System.nanoTime()
+        var copied = startOffset
+        var lastReportAt = 0L
+        var lastReportedPercent = -1
+
+        try {
+            connection.inputStream.use { input ->
+                BufferedOutputStream(
+                    FileOutputStream(target, resuming),
+                    DOWNLOAD_BUFFER,
+                ).use { output ->
                     val buffer = ByteArray(DOWNLOAD_BUFFER)
-                    var copied = 0L
                     while (true) {
                         val read = input.read(buffer)
                         if (read < 0) break
                         output.write(buffer, 0, read)
                         copied += read
-                        total?.let { onProgress((copied.toFloat() / it).coerceIn(0f, 1f)) }
+
+                        val elapsedNanos = System.nanoTime() - startedAt
+                        val percent = total
+                            ?.let { ((copied * 100) / it).toInt() }
+                            ?: -1
+
+                        // Report on a whole percent, or on a timer when size is unknown.
+                        val dueByPercent = percent != lastReportedPercent
+                        val dueByTime = elapsedNanos - lastReportAt >= REPORT_INTERVAL_NANOS
+                        if (dueByPercent || dueByTime) {
+                            lastReportedPercent = percent
+                            lastReportAt = elapsedNanos
+                            val seconds = elapsedNanos / 1_000_000_000.0
+                            val rate = if (seconds > 0) {
+                                ((copied - startOffset) / seconds).toLong()
+                            } else {
+                                0L
+                            }
+                            onProgress(
+                                DownloadProgress(
+                                    fraction = total
+                                        ?.let { (copied.toFloat() / it).coerceIn(0f, 1f) }
+                                        ?: 0f,
+                                    bytesDownloaded = copied,
+                                    totalBytes = total,
+                                    bytesPerSecond = rate,
+                                ),
+                            )
+                        }
                     }
                 }
             }
-            disconnect()
+        } finally {
+            connection.disconnect()
+        }
+
+        // A truncated transfer must not be handed to the package installer.
+        if (total != null && target.length() < total) {
+            throw IllegalStateException(
+                "Download incomplete: ${target.length()} of $total bytes. Try again to resume."
+            )
         }
         target
     }
@@ -100,23 +175,37 @@ class UpdateService(private val context: Context) {
         return 0
     }
 
-    private fun fetch(url: String): String =
-        openConnection(url).run {
-            try {
-                inputStream.bufferedReader().readText()
-            } finally {
-                disconnect()
-            }
-        }
-
-    private fun openConnection(url: String): HttpURLConnection =
-        (URL(url).openConnection() as HttpURLConnection).apply {
-            connectTimeout = TIMEOUT_MS
-            readTimeout = TIMEOUT_MS
+    private fun fetchFeed(url: String): String {
+        val connection = (URL(url).openConnection() as HttpURLConnection).apply {
+            connectTimeout = CONNECT_TIMEOUT_MS
+            readTimeout = FEED_READ_TIMEOUT_MS
             instanceFollowRedirects = true
             setRequestProperty("Accept", "application/atom+xml")
-            setRequestProperty("User-Agent", "Wattson")
-            if (responseCode !in 200..299) {
+            setRequestProperty("User-Agent", USER_AGENT)
+        }
+        return try {
+            if (connection.responseCode !in 200..299) {
+                throw IllegalStateException("GitHub returned HTTP ${connection.responseCode}")
+            }
+            connection.inputStream.bufferedReader().readText()
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+    /**
+     * Binary fetch. The read timeout is generous because a slow link can legitimately
+     * stall well past what a feed request should tolerate.
+     */
+    private fun openDownloadConnection(url: String, resumeFrom: Long): HttpURLConnection =
+        (URL(url).openConnection() as HttpURLConnection).apply {
+            connectTimeout = CONNECT_TIMEOUT_MS
+            readTimeout = DOWNLOAD_READ_TIMEOUT_MS
+            instanceFollowRedirects = true
+            setRequestProperty("Accept", "*/*")
+            setRequestProperty("User-Agent", USER_AGENT)
+            if (resumeFrom > 0) setRequestProperty("Range", "bytes=$resumeFrom-")
+            if (responseCode !in 200..299 && responseCode != HttpURLConnection.HTTP_PARTIAL) {
                 val code = responseCode
                 disconnect()
                 throw IllegalStateException("GitHub returned HTTP $code")
@@ -146,10 +235,22 @@ class UpdateService(private val context: Context) {
         /** Release assets must be named `Wattson-vX.Y.Z.apk` for this to resolve. */
         const val ASSET_PREFIX = "Wattson"
 
+        fun releasePageUrl(): String = "https://github.com/$REPO/releases/latest"
+
         private const val RELEASES_FEED = "https://github.com/$REPO/releases.atom"
         private const val RELEASE_DOWNLOAD_BASE = "https://github.com/$REPO/releases/download"
-        private const val TIMEOUT_MS = 15_000
-        private const val DOWNLOAD_BUFFER = 16 * 1024
+        private const val DEFAULT_ASSET = "wattson-update.apk"
+        private const val USER_AGENT = "Wattson"
+
+        private const val CONNECT_TIMEOUT_MS = 15_000
+        private const val FEED_READ_TIMEOUT_MS = 15_000
+        private const val DOWNLOAD_READ_TIMEOUT_MS = 60_000
+
+        /** 64 KiB: fewer syscalls per megabyte than the previous 16 KiB. */
+        private const val DOWNLOAD_BUFFER = 64 * 1024
+
+        /** Floor on progress reporting when the total size is unknown. */
+        private const val REPORT_INTERVAL_NANOS = 500_000_000L
 
         private val TAG_PATTERN = Regex("""href="[^"]*/releases/tag/([^"]+)"""")
         private val NOTES_PATTERN = Regex("""<content[^>]*>([\s\S]*?)</content>""")

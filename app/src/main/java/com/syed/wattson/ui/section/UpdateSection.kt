@@ -23,6 +23,19 @@ import com.syed.wattson.ui.UpdateViewModel
 import com.syed.wattson.ui.component.SectionCard
 import kotlin.math.roundToInt
 
+/** "12.4 MB", "804 KB" — compact sizes for the download readout. */
+private fun formatBytes(bytes: Long): String = when {
+    bytes >= 1024L * 1024 -> String.format("%.1f MB", bytes / 1024.0 / 1024.0)
+    bytes >= 1024L -> "${bytes / 1024} KB"
+    else -> "$bytes B"
+}
+
+private fun formatEta(seconds: Long): String = when {
+    seconds >= 3600 -> "${seconds / 3600}h ${(seconds % 3600) / 60}m"
+    seconds >= 60 -> "${seconds / 60}m ${seconds % 60}s"
+    else -> "${seconds}s"
+}
+
 /** Maximum release-note lines shown inline. */
 private const val NOTES_MAX_LINES = 6
 
@@ -95,15 +108,36 @@ fun UpdateSection(
             }
 
             is UpdateState.Downloading -> {
+                val p = state.progress
                 Text(
-                    text = "Downloading… ${(state.progress * 100).roundToInt()}%",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "Downloading… ${(p.fraction * 100).roundToInt()}%",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = buildString {
+                        append(formatBytes(p.bytesDownloaded))
+                        p.totalBytes?.let { append(" of ").append(formatBytes(it)) }
+                        if (p.bytesPerSecond > 0) {
+                            append(" · ").append(formatBytes(p.bytesPerSecond)).append("/s")
+                        }
+                        p.etaSeconds?.let { append(" · ").append(formatEta(it)).append(" left") }
+                    },
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(Modifier.height(10.dp))
                 LinearProgressIndicator(
-                    progress = { state.progress },
+                    progress = { p.fraction },
                     modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "A slow connection can take several minutes. If it stalls, " +
+                        "retrying resumes where it left off.",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
 

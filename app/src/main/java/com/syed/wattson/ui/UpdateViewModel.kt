@@ -10,6 +10,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.syed.wattson.BuildConfig
+import com.syed.wattson.data.DownloadProgress
 import com.syed.wattson.data.UpdateInfo
 import com.syed.wattson.data.UpdateService
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ sealed interface UpdateState {
     data object Checking : UpdateState
     data class UpToDate(val version: String) : UpdateState
     data class Available(val info: UpdateInfo) : UpdateState
-    data class Downloading(val progress: Float) : UpdateState
+    data class Downloading(val progress: DownloadProgress) : UpdateState
     data class ReadyToInstall(val file: File, val info: UpdateInfo) : UpdateState
     data class Failed(val message: String) : UpdateState
 }
@@ -39,10 +40,8 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
 
     val currentVersion: String = BuildConfig.VERSION_NAME
 
-    init {
-        // An interrupted install can leave a half-written APK in the cache.
-        service.clearStaleDownloads()
-    }
+    // Partial downloads are deliberately NOT cleared here: on a slow link a retry
+    // should resume via a Range request rather than start over.
 
     fun check() {
         if (state is UpdateState.Checking || state is UpdateState.Downloading) return
@@ -65,7 +64,7 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
     fun download(info: UpdateInfo) {
         if (state is UpdateState.Downloading) return
         viewModelScope.launch {
-            state = UpdateState.Downloading(0f)
+            state = UpdateState.Downloading(DownloadProgress(0f, 0L, null, 0L))
             state = runCatching {
                 val file = service.download(info) { progress ->
                     state = UpdateState.Downloading(progress)
@@ -93,7 +92,7 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
         val context = getApplication<Application>()
         val intent = Intent(
             Intent.ACTION_VIEW,
-            "https://github.com/${UpdateService.REPO}/releases/latest".toUri(),
+            UpdateService.releasePageUrl().toUri(),
         ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         runCatching { context.startActivity(intent) }
     }

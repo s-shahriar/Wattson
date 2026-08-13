@@ -21,8 +21,8 @@ android {
         applicationId = "com.syed.wattson"
         minSdk = 31
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.1.1"
     }
 
     signingConfigs {
@@ -39,7 +39,11 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.findByName("release")
-            isMinifyEnabled = false
+            // Unshrunk, the Compose + Material3 runtime alone made classes.dex 21 MB,
+            // which is 97% of the APK. On a slow link that download dominates
+            // everything else about the update experience.
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
