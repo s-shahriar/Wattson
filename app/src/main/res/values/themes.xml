@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Only the launch window is styled here; every pixel after first frame is drawn by
+      Compose. DeviceDefault.DayNight follows the system light/dark setting so the
+      splash window does not flash the wrong colour before Compose takes over.
+    -->
+    <style name="Theme.Wattson" parent="android:Theme.DeviceDefault.DayNight">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>
