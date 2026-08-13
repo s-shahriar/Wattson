@@ -38,6 +38,9 @@ data class AppUi(
  * values they are handed — no arithmetic in the recomposition path.
  */
 data class BatteryUiModel(
+    /** Which accounting sources were available when this was built. */
+    val tier: com.syed.wattson.data.DataTier,
+
     // Live battery
     val levelPercent: Int,
     val status: String,
@@ -65,7 +68,7 @@ data class BatteryUiModel(
     val totalAppMah: Double,
 
     // Drain + charging
-    val drain: DrainUi,
+    val drain: DrainUi?,
     val charging: ChargingUi,
     /** Since the last stats reset — the default view. */
     val historyCycle: HistoryUi?,

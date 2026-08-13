@@ -10,8 +10,10 @@ import com.syed.wattson.data.model.HistoryPoint
 import com.syed.wattson.data.model.LiveSnapshot
 import com.syed.wattson.data.model.RootUnavailableException
 import com.syed.wattson.data.model.StatsUnavailableException
+import com.syed.wattson.data.model.BatteryStats
 import com.syed.wattson.data.parser.BatteryHistoryParser
 import com.syed.wattson.data.parser.BatteryStatsParser
+import com.syed.wattson.data.source.LiveBatterySource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -32,45 +34,69 @@ class BatteryRepository(
 ) {
 
     private val packageManager: PackageManager get() = context.packageManager
+    private val capabilities = Capabilities(context, shell)
+    private val liveSource = LiveBatterySource(context)
+
+    /** Cached so a non-rooted device is not re-probed (and re-prompted) on every load. */
+    @Volatile
+    private var tier: DataTier? = null
+
+    fun currentTier(): DataTier = tier ?: capabilities.detect().also { tier = it }
 
     /**
-     * Full report: live figures plus the parsed historical stats.
+     * Full report for whatever tier this device supports.
      *
-     * @throws RootUnavailableException when `su` is absent or denied.
-     * @throws StatsUnavailableException when dumpsys yields nothing parseable.
+     * Never throws for a missing tier: BASIC simply returns live figures with no
+     * historical stats, and the UI hides the sections it cannot fill.
+     *
+     * @throws StatsUnavailableException when dumpsys was reachable but produced nothing.
      */
     suspend fun load(): BatteryReport = withContext(Dispatchers.IO) {
-        if (!shell.hasRoot()) {
-            throw RootUnavailableException(
-                "Wattson reads the same data Android keeps internally " +
-                    "(dumpsys batterystats), which needs root to access. Grant Wattson " +
-                    "superuser permission in KernelSU/Magisk and pull to refresh."
-            )
+        val activeTier = currentTier()
+        val live = readLive(activeTier)
+
+        BatteryReport(
+            tier = activeTier,
+            now = live.now,
+            stats = if (activeTier == DataTier.BASIC) null else readDumpsysStats(activeTier),
+            charging = live.charging,
+            history = if (activeTier == DataTier.BASIC) emptyList() else loadHistory(activeTier),
+        )
+    }
+
+    /**
+     * Runs a command with whatever elevation the tier provides.
+     *
+     * ROOT goes through `su`. PRIVILEGED runs in the app's own shell, which suffices
+     * because `dumpsys` executes as the caller and each service checks the caller's DUMP
+     * permission — so the text is identical either way.
+     */
+    private fun runShell(command: String, activeTier: DataTier, timeoutSeconds: Long): Shell.Result =
+        if (activeTier == DataTier.ROOT) {
+            shell.runAsRoot(command, timeoutSeconds)
+        } else {
+            shell.runPlain(command, timeoutSeconds)
         }
 
-        val statsDump = shell.runAsRoot(CMD_BATTERY_STATS, timeoutSeconds = STATS_TIMEOUT_SECONDS)
+    /** Full dumpsys parse — identical on ROOT and PRIVILEGED. */
+    private fun readDumpsysStats(activeTier: DataTier): BatteryStats {
+        val statsDump = runShell(CMD_BATTERY_STATS, activeTier, STATS_TIMEOUT_SECONDS)
         if (!statsDump.ok || statsDump.out.isBlank()) {
             throw StatsUnavailableException(
                 statsDump.error.ifBlank { "dumpsys batterystats returned nothing" }
             )
         }
-
-        val stats = BatteryStatsParser.parseStats(statsDump.out)
-        val live = readLive()
-
-        BatteryReport(
-            now = live.now,
-            stats = stats.copy(
-                apps = stats.apps
-                    .filter { it.mah > 0.0 }
-                    // Icons are only decoded for the apps that can actually appear in the
-                    // list; the tail keeps its label and skips the Drawable entirely.
-                    .mapIndexed { index, app -> resolveIdentity(app, withIcon = index < ICON_BUDGET) },
-            ),
-            charging = live.charging,
-            history = loadHistory(),
-        )
+        return BatteryStatsParser.parseStats(statsDump.out).withIdentities()
     }
+
+    /** Resolves UIDs to labels and icons, budgeting icon decoding to the visible rows. */
+    private fun BatteryStats.withIdentities(): BatteryStats = copy(
+        apps = apps
+            .filter { it.mah > 0.0 }
+            // Icons are only decoded for the apps that can actually appear in the list;
+            // the tail keeps its label and skips the Drawable entirely.
+            .mapIndexed { index, app -> resolveIdentity(app, withIcon = index < ICON_BUDGET) },
+    )
 
     /**
      * Battery level history, reduced on-device before it crosses the shell boundary.
@@ -79,8 +105,8 @@ class BatteryRepository(
      * level, charge state or screen state, which brings it to a couple of thousand.
      * Returns empty rather than throwing — the chart simply hides if history is absent.
      */
-    private fun loadHistory(): List<HistoryPoint> {
-        val dump = shell.runAsRoot(CMD_HISTORY, timeoutSeconds = HISTORY_TIMEOUT_SECONDS)
+    private fun loadHistory(activeTier: DataTier): List<HistoryPoint> {
+        val dump = runShell(CMD_HISTORY, activeTier, HISTORY_TIMEOUT_SECONDS)
         if (!dump.ok || dump.out.isBlank()) return emptyList()
         return runCatching { BatteryHistoryParser.parse(dump.out) }.getOrDefault(emptyList())
     }
@@ -92,7 +118,7 @@ class BatteryRepository(
      * rather than flashing an error for a transient hiccup.
      */
     suspend fun loadLive(): LiveSnapshot? = withContext(Dispatchers.IO) {
-        runCatching { readLive() }.getOrNull()
+        runCatching { readLive(currentTier()) }.getOrNull()
     }
 
     /**
@@ -101,7 +127,19 @@ class BatteryRepository(
      * Everything both live cards need comes from here, so the poll never has to touch
      * `dumpsys` — which would cost orders of magnitude more per tick.
      */
-    private fun readLive(): LiveSnapshot {
+    /**
+     * Live values come from public APIs on every tier — no privilege needed, and it keeps
+     * the 5-second poll from forking a `su` process. On rooted devices the exact
+     * charge_full/design pair is layered on top, since sysfs is more precise than the
+     * platform's rounded state-of-health percentage.
+     */
+    private fun readLive(activeTier: DataTier): LiveSnapshot {
+        val snapshot = liveSource.read()
+        if (activeTier != DataTier.ROOT) return snapshot
+        return runCatching { snapshot.withSysfsCapacity() }.getOrDefault(snapshot)
+    }
+
+    private fun LiveSnapshot.withSysfsCapacity(): LiveSnapshot {
         val dump = shell.runAsRoot(CMD_POWER_SUPPLY, timeoutSeconds = LIVE_TIMEOUT_SECONDS)
         val values = dump.out.lineSequence()
             .mapNotNull { line ->
@@ -112,25 +150,11 @@ class BatteryRepository(
 
         fun intOf(key: String): Int? = values[key]?.toIntOrNull()
 
-        val status = values["status"].orEmpty().ifBlank { "Unknown" }
-
-        return LiveSnapshot(
-            now = BatteryNow(
-                levelPercent = intOf("capacity") ?: 0,
-                status = status,
-                health = values["health"].orEmpty().ifBlank { "Unknown" },
-                temperatureC = (intOf("temp") ?: 0) / 10.0,
-                chargeCounterMah = intOf("charge_counter")?.div(MICRO_PER_MILLI),
-                isCharging = status.equals("Charging", ignoreCase = true) ||
-                    status.equals("Full", ignoreCase = true),
-            ),
-            charging = ChargingInfo(
-                currentNowMicroAmps = intOf("current_now"),
-                voltageMicroVolts = intOf("voltage_now"),
+        return copy(
+            charging = charging.copy(
                 chargeFullMah = intOf("charge_full")?.div(MICRO_PER_MILLI),
                 chargeFullDesignMah = intOf("charge_full_design")?.div(MICRO_PER_MILLI),
-                chargeCounterMah = intOf("charge_counter")?.div(MICRO_PER_MILLI),
-                cycleCount = intOf("cycle_count"),
+                cycleCount = intOf("cycle_count") ?: charging.cycleCount,
             ),
         )
     }

@@ -13,6 +13,31 @@
       which fetches the GitHub releases feed. Nothing is sent, and no request is made
       unless you press it. Battery data never leaves the device.
     -->
+    <!--
+      Both are declared so they can be granted over adb on non-rooted devices:
+        adb shell pm grant com.syed.wattson android.permission.DUMP
+        adb shell pm grant com.syed.wattson android.permission.BATTERY_STATS
+
+      DUMP alone is not enough: it lets the app invoke dumpsys, but the batterystats
+      service performs its own BATTERY_STATS check on the caller. Both are
+      development-level, so neither is ever auto-granted — without them, and without
+      root, the app simply runs in its basic tier.
+    -->
+    <uses-permission
+        android:name="android.permission.DUMP"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.BATTERY_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <!--
+      BatteryStatsService's dump handler checks this one too. It is appop-level, so
+      unlike the other two it can be granted on the device itself via
+      Settings > Special app access > Usage access.
+    -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 

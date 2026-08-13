@@ -7,7 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.syed.wattson.data.BatteryRepository
-import com.syed.wattson.data.model.RootUnavailableException
 import com.syed.wattson.data.model.StatsUnavailableException
 import com.syed.wattson.ui.model.UiState
 import com.syed.wattson.ui.model.toUiModel
@@ -89,8 +88,6 @@ class BatteryViewModel(application: Application) : AndroidViewModel(application)
 
     private suspend fun loadState(): UiState = try {
         UiState.Ready(repository.load().toUiModel())
-    } catch (e: RootUnavailableException) {
-        UiState.NoRoot(e.message.orEmpty())
     } catch (e: StatsUnavailableException) {
         UiState.Failed(e.message.orEmpty())
     } catch (e: Exception) {

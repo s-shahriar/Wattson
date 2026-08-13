@@ -70,8 +70,11 @@ data class BatteryNow(
 
 /** The complete domain snapshot handed to the UI layer for mapping. */
 data class BatteryReport(
+    /** Which accounting sources were available for this load. */
+    val tier: com.syed.wattson.data.DataTier,
     val now: BatteryNow,
-    val stats: BatteryStats,
+    /** Null when the tier cannot read historical accounting at all. */
+    val stats: BatteryStats?,
     val charging: ChargingInfo,
     val history: List<HistoryPoint>,
 )
@@ -113,18 +116,28 @@ data class ChargingInfo(
     val chargeFullDesignMah: Int?,
     val chargeCounterMah: Int?,
     val cycleCount: Int?,
+    /** Platform-reported remaining capacity as a percent of design (API 34+). */
+    val stateOfHealthPercent: Int? = null,
 ) {
     /** Absolute charge/discharge rate in mA, or null when unavailable. */
     val currentMilliAmps: Int? get() = currentNowMicroAmps?.let { kotlin.math.abs(it) / 1000 }
 
     val voltageVolts: Double? get() = voltageMicroVolts?.let { it / 1_000_000.0 }
 
-    /** Remaining capacity health as a 0f..1f ratio of design. */
+    /**
+     * Remaining capacity health as a 0f..1f ratio of design.
+     *
+     * Prefers the exact sysfs pair when a rooted read supplied it, falling back to the
+     * platform's state-of-health percentage, which needs no privileges at all.
+     */
     val healthFraction: Float?
         get() {
-            val full = chargeFullMah ?: return null
-            val design = chargeFullDesignMah?.takeIf { it > 0 } ?: return null
-            return (full.toFloat() / design).coerceIn(0f, 1f)
+            val full = chargeFullMah
+            val design = chargeFullDesignMah?.takeIf { it > 0 }
+            if (full != null && design != null) {
+                return (full.toFloat() / design).coerceIn(0f, 1f)
+            }
+            return stateOfHealthPercent?.let { (it / 100f).coerceIn(0f, 1f) }
         }
 
     /** Hours until full at the present rate, or null if not meaningfully charging. */

@@ -24,8 +24,31 @@ your cell's real capacity is against its factory rating.
 
 ## Requirements
 
-- **Root** (Magisk or KernelSU). `dumpsys batterystats` is not readable by a normal app.
-- Android 12+ (minSdk 31).
+Android 12+ (minSdk 31). Wattson adapts to whatever the device allows:
+
+| Tier | Needs | You get |
+|---|---|---|
+| **Root** | Magisk / KernelSU | Everything, automatically |
+| **Privileged** | three adb grants, no root | Everything — same data |
+| **Basic** | nothing | Live charge state only |
+
+For the privileged tier, connect the phone to a computer once and run:
+
+```bash
+adb shell pm grant com.syed.wattson android.permission.DUMP
+adb shell pm grant com.syed.wattson android.permission.BATTERY_STATS
+adb shell pm grant com.syed.wattson android.permission.PACKAGE_USAGE_STATS
+```
+
+All three are `development`-level permissions, so none is ever granted automatically.
+`dumpsys` runs as the calling app, and the batterystats service checks all three on the
+caller — DUMP alone yields *"does not have android.permission.BATTERY_STATS"*, and adding
+that yields *"missing android.permission.PACKAGE_USAGE_STATS"*.
+
+Without root and without those grants the app still shows charge level, current draw,
+voltage, temperature and cycle count, all from public APIs. Capacity health is not
+available there: `BATTERY_PROPERTY_STATE_OF_HEALTH` throws `SecurityException` without
+`BATTERY_STATS`.
 
 ## Design notes
 

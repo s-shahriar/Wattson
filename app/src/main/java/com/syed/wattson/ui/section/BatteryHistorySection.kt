@@ -64,7 +64,6 @@ fun BatteryHistorySection(
         HistoryRange.Day -> model.historyDay ?: model.historyCycle
     } ?: return
 
-    val drain = model.drain
     val palette = chartPalette()
 
     SectionCard(
@@ -103,22 +102,24 @@ fun BatteryHistorySection(
 
         Spacer(Modifier.height(8.dp))
 
-        MeterRow(
-            label = "Screen on drain",
-            value = "${formatMah(drain.screenOnMah)} mAh",
-            trailing = formatSharePercent(drain.screenOnShare),
-            fraction = drain.screenOnShare,
-            color = palette.discharging,
-            detail = drain.screenOnRateMa?.let { formatMilliAmps(it) },
-        )
-        MeterRow(
-            label = "Screen off drain",
-            value = "${formatMah(drain.screenOffMah)} mAh",
-            trailing = formatSharePercent(drain.screenOffShare),
-            fraction = drain.screenOffShare,
-            color = palette.charging,
-            detail = drain.screenOffRateMa?.let { formatMilliAmps(it) },
-        )
+        model.drain?.let { drain ->
+            MeterRow(
+                label = "Screen on drain",
+                value = "${formatMah(drain.screenOnMah)} mAh",
+                trailing = formatSharePercent(drain.screenOnShare),
+                fraction = drain.screenOnShare,
+                color = palette.discharging,
+                detail = drain.screenOnRateMa?.let { formatMilliAmps(it) },
+            )
+            MeterRow(
+                label = "Screen off drain",
+                value = "${formatMah(drain.screenOffMah)} mAh",
+                trailing = formatSharePercent(drain.screenOffShare),
+                fraction = drain.screenOffShare,
+                color = palette.charging,
+                detail = drain.screenOffRateMa?.let { formatMilliAmps(it) },
+            )
+        }
     }
 }
 

@@ -35,6 +35,7 @@ import com.syed.wattson.ui.model.BatteryUiModel
 import com.syed.wattson.ui.model.UiState
 import com.syed.wattson.ui.section.BatteryHistorySection
 import com.syed.wattson.ui.section.BatteryStatusSection
+import com.syed.wattson.ui.section.CapabilitySection
 import com.syed.wattson.ui.section.PowerBreakdownSection
 import com.syed.wattson.ui.section.SessionSection
 import com.syed.wattson.ui.section.TopAppsSection
@@ -81,7 +82,10 @@ fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
         },
     ) { padding ->
         PullToRefreshBox(
-            isRefreshing = viewModel.isRefreshing,
+            // Only drive the pull indicator once a report is on screen. During the first
+            // load the centred spinner is already showing, and both at once read as two
+            // competing progress indicators.
+            isRefreshing = viewModel.isRefreshing && state is UiState.Ready,
             onRefresh = viewModel::refresh,
             modifier = Modifier
                 .fillMaxSize()
@@ -120,6 +124,7 @@ private fun ReportContent(model: BatteryUiModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item(key = "status") { BatteryStatusSection(model) }
+        item(key = "capability") { CapabilitySection(model) }
         item(key = "history") { BatteryHistorySection(model) }
         item(key = "session") { SessionSection(model) }
         item(key = "categories") { PowerBreakdownSection(model) }

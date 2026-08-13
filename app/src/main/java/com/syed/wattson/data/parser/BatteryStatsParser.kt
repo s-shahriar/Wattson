@@ -15,7 +15,7 @@ import com.syed.wattson.data.model.PowerByState
  */
 object BatteryStatsParser {
 
-    private val DURATION = Regex("""(\d+)\s*(ms|h|m|s)""")
+    private val DURATION = Regex("""(\d+)\s*(ms|d|h|m|s)""")
     private val GLOBAL_BUCKET = Regex("""^([a-z_]+):\s+([-\d.eE+]+)""")
     private val UID_HEADER = Regex("""^UID\s+(\S+):\s+([-\d.eE+]+)""")
     private val KEY_VALUE = Regex("""(?:^|\s)([a-z_]+)=([-\d.eE+]+)""")
@@ -30,6 +30,7 @@ object BatteryStatsParser {
                 "s" -> value * 1_000
                 "m" -> value * 60_000
                 "h" -> value * 3_600_000
+                "d" -> value * 86_400_000
                 else -> 0L
             }
         }
@@ -76,28 +77,28 @@ object BatteryStatsParser {
             val line = rawLine.trim()
 
             when {
-                line.startsWith("Start clock time:") ->
+                line.startsWith("Start clock time:") && startClock == null ->
                     startClock = line.substringAfter("Start clock time:").trim()
 
                 // Must be tested before the shorter "Time on battery:" prefix.
-                line.startsWith("Time on battery screen off:") ->
+                line.startsWith("Time on battery screen off:") && screenOff == 0L ->
                     screenOff = durationAfter(line, "Time on battery screen off:")
 
-                line.startsWith("Time on battery:") ->
+                line.startsWith("Time on battery:") && timeOnBattery == 0L ->
                     timeOnBattery = durationAfter(line, "Time on battery:")
 
-                line.startsWith("Total run time:") ->
+                line.startsWith("Total run time:") && totalRunTime == 0L ->
                     totalRunTime = durationAfter(line, "Total run time:")
 
-                line.startsWith("Discharge:") ->
+                line.startsWith("Discharge:") && dischargeMah == null ->
                     dischargeMah = Regex("""([\d.]+)""").find(line)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
 
-                line.startsWith("Screen on:") -> {
+                line.startsWith("Screen on:") && screenOn == 0L -> {
                     screenOn = durationAfter(line, "Screen on:")
                     screenOnCount = Regex("""\)\s*(\d+)x""").find(line)?.groupValues?.get(1)?.toIntOrNull() ?: 0
                 }
 
-                line.startsWith("Capacity:") ->
+                line.startsWith("Capacity:") && designCapacity == null ->
                     designCapacity = Regex("""Capacity:\s*(\d+)""").find(line)?.groupValues?.get(1)?.toIntOrNull()
 
                 line.startsWith("Screen brightnesses:") -> {

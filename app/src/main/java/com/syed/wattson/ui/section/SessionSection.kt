@@ -34,6 +34,8 @@ fun SessionSection(
     model: BatteryUiModel,
     modifier: Modifier = Modifier,
 ) {
+    // Nothing to show on the basic tier: these all come from batterystats.
+    if (model.timeOnBatteryMs <= 0L) return
     val palette = chartPalette()
 
     SectionCard(

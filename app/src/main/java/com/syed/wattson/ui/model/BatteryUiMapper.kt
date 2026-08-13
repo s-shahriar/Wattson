@@ -1,5 +1,6 @@
 package com.syed.wattson.ui.model
 
+import com.syed.wattson.data.DataTier
 import com.syed.wattson.data.model.BatteryReport
 import com.syed.wattson.data.model.LiveSnapshot
 import com.syed.wattson.ui.util.bucketLabel
@@ -14,15 +15,31 @@ private const val CONTRIBUTORS_PER_CATEGORY = 4
 /** How many apps the Top apps list shows. */
 private const val TOP_APPS = 10
 
+/** Hours of history the rolling chart covers. */
+private const val HISTORY_SPAN_HOURS = 24
+
+/** Column count — roughly one per 12 minutes over a 24-hour span. */
+private const val HISTORY_COLUMNS = 120
+
+/** Number of clock labels along the x-axis. */
+private const val HISTORY_LABELS = 4
+
+private const val MILLIS_PER_HOUR = 3_600_000.0
+
 /**
- * Projects the domain report into [BatteryUiModel], resolving every share and colour up
- * front. Kept as a pure function so it stays trivially testable.
+ * Projects the domain report into [BatteryUiModel], resolving every share up front.
+ * Kept as a pure function so it stays trivially testable.
+ *
+ * Tolerates a null [BatteryReport.stats]: on the basic tier there is no historical
+ * accounting at all, and the corresponding sections simply receive empty data.
  */
 fun BatteryReport.toUiModel(): BatteryUiModel {
-    val buckets = stats.globalBuckets
+    val snapshot = stats
+    val buckets = snapshot?.globalBuckets.orEmpty()
     val totalCategoryMah = buckets.sumOf { it.mah }
     val maxCategoryMah = buckets.maxOfOrNull { it.mah } ?: 0.0
-    val totalAppMah = stats.apps.sumOf { it.mah }
+    val allApps = snapshot?.apps.orEmpty()
+    val totalAppMah = allApps.sumOf { it.mah }
 
     val categories = buckets.map { bucket ->
         CategoryUi(
@@ -32,14 +49,14 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
             share = bucket.mah.safeShareOf(totalCategoryMah),
             relativeToMax = bucket.mah.safeShareOf(maxCategoryMah),
             durationMs = bucket.durationMs?.takeIf { it > 0L },
-            contributors = stats.apps
+            contributors = allApps
                 .mapNotNull { app -> app.mahFor(bucket.name)?.let { ContributorUi(app.label, it) } }
                 .sortedByDescending { it.mah }
                 .take(CONTRIBUTORS_PER_CATEGORY),
         )
     }
 
-    val topApps = stats.apps
+    val topApps = allApps
         .take(TOP_APPS)
         .mapIndexed { index, app ->
             AppUi(
@@ -52,20 +69,21 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         }
 
     return BatteryUiModel(
+        tier = tier,
         levelPercent = now.levelPercent,
         status = now.status,
         health = now.health,
         temperatureC = now.temperatureC,
         chargeCounterMah = now.chargeCounterMah,
-        startClock = stats.startClock,
-        timeOnBatteryMs = stats.timeOnBatteryMs,
-        totalRunTimeMs = stats.totalRunTimeMs,
-        dischargeMah = stats.dischargeMah,
-        designCapacityMah = stats.designCapacityMah,
-        screenOnMs = stats.screenOnMs,
-        screenOffMs = stats.screenOffMs,
-        screenOnFraction = stats.screenOnFraction,
-        screenOnCount = stats.screenOnCount,
+        startClock = snapshot?.startClock,
+        timeOnBatteryMs = snapshot?.timeOnBatteryMs ?: 0L,
+        totalRunTimeMs = snapshot?.totalRunTimeMs ?: 0L,
+        dischargeMah = snapshot?.dischargeMah,
+        designCapacityMah = snapshot?.designCapacityMah,
+        screenOnMs = snapshot?.screenOnMs ?: 0L,
+        screenOffMs = snapshot?.screenOffMs ?: 0L,
+        screenOnFraction = snapshot?.screenOnFraction ?: 0f,
+        screenOnCount = snapshot?.screenOnCount ?: 0,
         categories = categories,
         totalCategoryMah = totalCategoryMah,
         topApps = topApps,
@@ -78,17 +96,19 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
 }
 
 /** Splits on-battery power into the screen-on and screen-off halves, plus their rates. */
-private fun BatteryReport.toDrainUi(): DrainUi {
-    val byState = stats.powerByState
+private fun BatteryReport.toDrainUi(): DrainUi? {
+    val snapshot = stats ?: return null
+    val byState = snapshot.powerByState
     val total = byState.totalOnBatteryMah
+    if (total <= 0.0) return null
 
     return DrainUi(
         screenOnMah = byState.onBatteryScreenOnMah,
         screenOffMah = byState.onBatteryScreenOffMah,
         screenOnShare = byState.onBatteryScreenOnMah.safeShareOf(total),
         screenOffShare = byState.onBatteryScreenOffMah.safeShareOf(total),
-        screenOnRateMa = byState.onBatteryScreenOnMah.perHour(stats.screenOnOnBatteryMs),
-        screenOffRateMa = byState.onBatteryScreenOffMah.perHour(stats.screenOffMs),
+        screenOnRateMa = byState.onBatteryScreenOnMah.perHour(snapshot.screenOnOnBatteryMs),
+        screenOffRateMa = byState.onBatteryScreenOffMah.perHour(snapshot.screenOffMs),
         totalOnBatteryMah = total,
         chargingUsageMah = byState.totalChargingMah,
     )
@@ -100,59 +120,11 @@ private fun BatteryReport.toChargingUi(): ChargingUi = ChargingUi(
     currentMa = charging.currentMilliAmps,
     voltageVolts = charging.voltageVolts,
     healthFraction = charging.healthFraction,
-    chargeFullMah = charging.chargeFullMah ?: stats.designCapacityMah,
+    chargeFullMah = charging.chargeFullMah ?: stats?.designCapacityMah,
     designCapacityMah = charging.chargeFullDesignMah,
     cycleCount = charging.cycleCount,
     hoursToFull = charging.hoursToFull(),
 )
-
-/** mAh spread over a duration, expressed as an average milliamp draw. */
-private fun Double.perHour(durationMs: Long): Double? {
-    if (durationMs <= 0L) return null
-    val hours = durationMs / MILLIS_PER_HOUR
-    return if (hours <= 0.0) null else this / hours
-}
-
-private const val MILLIS_PER_HOUR = 3_600_000.0
-
-/** Division guarded against a zero or negative denominator. */
-private fun Double.safeShareOf(total: Double): Float =
-    if (total <= 0.0) 0f else (this / total).toFloat().coerceIn(0f, 1f)
-
-/**
- * Folds a cheap live poll into an existing model, touching only the fields the Battery
- * now and Charging cards read.
- *
- * The historical stats — screen time, drain split, categories, top apps — are left
- * untouched, so a 5-second tick never re-runs or invalidates the expensive dump.
- */
-fun BatteryUiModel.withLive(snapshot: LiveSnapshot): BatteryUiModel = copy(
-    levelPercent = snapshot.now.levelPercent,
-    status = snapshot.now.status,
-    health = snapshot.now.health,
-    temperatureC = snapshot.now.temperatureC,
-    chargeCounterMah = snapshot.now.chargeCounterMah,
-    charging = ChargingUi(
-        status = snapshot.now.status,
-        isCharging = snapshot.now.isCharging,
-        currentMa = snapshot.charging.currentMilliAmps,
-        voltageVolts = snapshot.charging.voltageVolts,
-        healthFraction = snapshot.charging.healthFraction,
-        chargeFullMah = snapshot.charging.chargeFullMah ?: charging.chargeFullMah,
-        designCapacityMah = snapshot.charging.chargeFullDesignMah ?: charging.designCapacityMah,
-        cycleCount = snapshot.charging.cycleCount ?: charging.cycleCount,
-        hoursToFull = snapshot.charging.hoursToFull(),
-    ),
-)
-
-/** Hours of history the chart covers. */
-private const val HISTORY_SPAN_HOURS = 24
-
-/** Column count — roughly one per 12 minutes over the span. */
-private const val HISTORY_COLUMNS = 120
-
-/** Number of clock labels along the x-axis. */
-private const val HISTORY_LABELS = 4
 
 /**
  * Buckets raw history samples into fixed-width columns over an arbitrary window.
@@ -174,7 +146,6 @@ private fun BatteryReport.toHistoryUi(
     val sliceMs = (endMs - startMs).toDouble() / HISTORY_COLUMNS
     if (sliceMs <= 0.0) return null
 
-    // Level before the window opens, so the first columns are not blank.
     var carriedLevel = history.lastOrNull { it.timestampMs < startMs }?.level
         ?: windowed.first().level
     var cursor = 0
@@ -236,7 +207,7 @@ private fun BatteryReport.toDayHistory(): HistoryUi? {
  */
 private fun BatteryReport.toCycleHistory(): HistoryUi? {
     val endMs = history.lastOrNull()?.timestampMs ?: return null
-    val cycleStart = parseStartClock(stats.startClock) ?: return null
+    val cycleStart = parseStartClock(stats?.startClock) ?: return null
     val oldestSample = history.first().timestampMs
     return toHistoryUi(
         startMs = maxOf(cycleStart, oldestSample),
@@ -257,3 +228,41 @@ private fun parseStartClock(raw: String?): Long? {
             .toEpochMilli()
     }.getOrNull()
 }
+
+/** mAh spread over a duration, expressed as an average milliamp draw. */
+private fun Double.perHour(durationMs: Long): Double? {
+    if (durationMs <= 0L) return null
+    val hours = durationMs / MILLIS_PER_HOUR
+    return if (hours <= 0.0) null else this / hours
+}
+
+/** Division guarded against a zero or negative denominator. */
+private fun Double.safeShareOf(total: Double): Float =
+    if (total <= 0.0) 0f else (this / total).toFloat().coerceIn(0f, 1f)
+
+/**
+ * Folds a cheap live poll into an existing model, touching only the fields the status
+ * card reads. The historical sections are left untouched, so a 5-second tick never
+ * re-runs or invalidates the expensive dump.
+ */
+fun BatteryUiModel.withLive(snapshot: LiveSnapshot): BatteryUiModel = copy(
+    levelPercent = snapshot.now.levelPercent,
+    status = snapshot.now.status,
+    health = snapshot.now.health,
+    temperatureC = snapshot.now.temperatureC,
+    chargeCounterMah = snapshot.now.chargeCounterMah,
+    charging = ChargingUi(
+        status = snapshot.now.status,
+        isCharging = snapshot.now.isCharging,
+        currentMa = snapshot.charging.currentMilliAmps,
+        voltageVolts = snapshot.charging.voltageVolts,
+        healthFraction = snapshot.charging.healthFraction ?: charging.healthFraction,
+        chargeFullMah = snapshot.charging.chargeFullMah ?: charging.chargeFullMah,
+        designCapacityMah = snapshot.charging.chargeFullDesignMah ?: charging.designCapacityMah,
+        cycleCount = snapshot.charging.cycleCount ?: charging.cycleCount,
+        hoursToFull = snapshot.charging.hoursToFull(),
+    ),
+)
+
+/** True when the tier can supply historical accounting at all. */
+val BatteryUiModel.hasHistoricalStats: Boolean get() = tier != DataTier.BASIC
