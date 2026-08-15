@@ -1,11 +1,8 @@
 package com.syed.wattson.data.parser
 
-import com.syed.wattson.data.model.AppUsage
 import com.syed.wattson.data.model.BatteryNow
 import com.syed.wattson.data.model.BatteryStats
-import com.syed.wattson.data.model.BrightnessBin
 import com.syed.wattson.data.model.MeasuredDischarge
-import com.syed.wattson.data.model.PowerBucket
 import com.syed.wattson.data.model.PowerByState
 
 /**
@@ -18,9 +15,6 @@ object BatteryStatsParser {
 
     private val DURATION = Regex("""(\d+)\s*(ms|d|h|m|s)""")
     private val GLOBAL_BUCKET = Regex("""^([a-z_]+):\s+([-\d.eE+]+)""")
-    private val UID_HEADER = Regex("""^UID\s+(\S+):\s+([-\d.eE+]+)""")
-    private val KEY_VALUE = Regex("""(?:^|\s)([a-z_]+)=([-\d.eE+]+)""")
-    private val BRIGHTNESS = Regex("""^(dark|dim|medium|light|bright)\s+(.+?)\s*\(([\d.]+)%\)$""")
     private val FIRST_NUMBER = Regex("""([\d.]+)""")
     private val SCREEN_ON_COUNT = Regex("""\)\s*(\d+)x""")
     private val CAPACITY = Regex("""Capacity:\s*(\d+)""")
@@ -80,20 +74,11 @@ object BatteryStatsParser {
         var lightDozeDischarge: Int? = null
         var deepDozeDischarge: Int? = null
 
-        val globals = mutableListOf<PowerBucket>()
-        val brightness = mutableListOf<BrightnessBin>()
-        val apps = mutableListOf<AppUsage>()
-
-        var inGlobalBlock = false
-        var inBrightnessBlock = false
-
         // Running totals for the four "(on/not on battery, screen on/off)" sub-blocks.
         val stateTotals = mutableMapOf<PowerState, Double>()
         var currentState: PowerState? = null
 
-        var index = 0
-        while (index < lines.size) {
-            val rawLine = lines[index]
+        for (rawLine in lines) {
             val line = rawLine.trim()
 
             when {
@@ -145,54 +130,14 @@ object BatteryStatsParser {
                     }
                 }
 
-                line.startsWith("Screen brightnesses:") -> {
-                    inBrightnessBlock = true
-                    inGlobalBlock = false
-                }
-
-                line == "Global" -> {
-                    inGlobalBlock = true
-                    inBrightnessBlock = false
-                }
-
                 // "(on battery, screen on)" and friends open a per-state sub-block.
-                line.startsWith("(") -> {
-                    inGlobalBlock = false
-                    inBrightnessBlock = false
-                    currentState = PowerState.from(line)
-                }
+                // These four totals are only a fallback for devices whose dump carries no
+                // coulomb-counter lines; where it does, toDrainUi prefers those instead.
+                line.startsWith("(") -> currentState = PowerState.from(line)
 
-                inBrightnessBlock -> {
-                    val match = BRIGHTNESS.find(line)
-                    if (match != null) {
-                        brightness += BrightnessBin(
-                            name = match.groupValues[1],
-                            durationMs = parseDurationMs(match.groupValues[2]),
-                            percent = match.groupValues[3].toDoubleOrNull() ?: 0.0,
-                        )
-                    } else {
-                        inBrightnessBlock = false
-                    }
-                }
+                // A UID's own indented lines must not fold into a state total.
+                line.startsWith("UID ") -> currentState = null
 
-                inGlobalBlock -> {
-                    // The per-state repeats "(on battery, screen on)" end the aggregate block.
-                    if (line.startsWith("(") || line.startsWith("UID ")) {
-                        inGlobalBlock = false
-                        currentState = PowerState.from(line)
-                    } else {
-                        val match = GLOBAL_BUCKET.find(line)
-                        if (match != null) {
-                            val mah = match.groupValues[2].toDoubleOrNull() ?: 0.0
-                            val duration = line.substringAfter("duration:", "")
-                                .takeIf { it.isNotBlank() }
-                                ?.let { parseDurationMs(it) }
-                            globals += PowerBucket(match.groupValues[1], mah, duration)
-                        }
-                    }
-                }
-
-                // Inside a per-state sub-block: accumulate that state's total.
                 else -> {
                     val state = currentState
                     if (state != null) {
@@ -203,51 +148,6 @@ object BatteryStatsParser {
                     }
                 }
             }
-
-            // A UID header owns the indented lines that follow it.
-            // Cheap prefix test first: this regex would otherwise run on every one of
-            // ~5,800 lines to match the ~50 that are actually UID headers.
-            val uidMatch = if (line.startsWith("UID ")) UID_HEADER.find(line) else null
-            if (uidMatch != null) {
-                inGlobalBlock = false
-                inBrightnessBlock = false
-                currentState = null
-
-                val rawUid = uidMatch.groupValues[1]
-                val mah = uidMatch.groupValues[2].toDoubleOrNull() ?: 0.0
-
-                // The first following line holds the aggregate breakdown; per-state
-                // repeats begin with "(" and are skipped.
-                val buckets = mutableListOf<PowerBucket>()
-                var cursor = index + 1
-                while (cursor < lines.size) {
-                    val detail = lines[cursor].trim()
-                    if (detail.isEmpty() || detail.startsWith("UID ") || UID_HEADER.containsMatchIn(detail)) break
-                    if (detail.startsWith("(")) break
-                    KEY_VALUE.findAll(detail).forEach { pair ->
-                        val value = pair.groupValues[2].toDoubleOrNull() ?: 0.0
-                        if (value > 0.0) buckets += PowerBucket(pair.groupValues[1], value)
-                    }
-                    cursor++
-                }
-
-                apps += AppUsage(
-                    rawUid = rawUid,
-                    uid = decodeUid(rawUid),
-                    mah = mah,
-                    packageName = null,
-                    label = rawUid,
-                    icon = null,
-                    buckets = buckets.sortedByDescending { it.mah },
-                )
-
-                // The inner loop already consumed these; without this the outer loop
-                // re-examines all ~2,200 of them, a third of the whole dump.
-                index = cursor
-                continue
-            }
-
-            index++
         }
 
         return BatteryStats(
@@ -259,9 +159,6 @@ object BatteryStatsParser {
             totalRunTimeMs = totalRunTime,
             dischargeMah = dischargeMah,
             designCapacityMah = designCapacity,
-            globalBuckets = globals.sortedByDescending { it.mah },
-            brightness = brightness,
-            apps = apps.sortedByDescending { it.mah },
             powerByState = PowerByState(
                 onBatteryScreenOnMah = stateTotals[PowerState.ON_BATTERY_SCREEN_ON] ?: 0.0,
                 onBatteryScreenOffMah = stateTotals[PowerState.ON_BATTERY_SCREEN_OFF] ?: 0.0,

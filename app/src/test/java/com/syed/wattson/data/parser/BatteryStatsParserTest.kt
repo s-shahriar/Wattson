@@ -1,7 +1,6 @@
 package com.syed.wattson.data.parser
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -69,24 +68,6 @@ class BatteryStatsParserTest {
         assertEquals(46, stats.screenOnCount)
     }
 
-    /**
-     * The headline number the whole "By category" card rests on. Modelled attribution
-     * covering a small slice of real drain is exactly the case the UI must disclose.
-     */
-    @Test
-    fun `attribution coverage reflects how little the model explains`() {
-        assertEquals(253.84, stats.attributedMah, 0.01)
-        val unattributed = assertNotNull(stats.unattributedMah).let { stats.unattributedMah!! }
-        assertEquals(2111 - 253.84, unattributed, 0.01)
-        assertTrue("model should not claim to cover the cycle", stats.attributedMah < 2111 * 0.75)
-    }
-
-    /** No `cpu=` term anywhere means processor draw is absent from every app row. */
-    @Test
-    fun `cpu attribution is detected as unavailable on this dump`() {
-        assertFalse(stats.apps.any { it.mahFor("cpu") != null })
-    }
-
     @Test
     fun `uid encodings decode to real uids`() {
         assertEquals(10428, BatteryStatsParser.decodeUid("u0a428"))
@@ -94,12 +75,15 @@ class BatteryStatsParserTest {
         assertEquals(1000, BatteryStatsParser.decodeUid("1000"))
     }
 
+    /**
+     * The modelled per-state split is now only a fallback for dumps with no
+     * coulomb-counter lines, but it still has to add up when it is used.
+     */
     @Test
-    fun `apps are ranked by draw and carry their buckets`() {
-        val top = stats.apps.first()
-        assertEquals("u0a383", top.rawUid)
-        assertEquals(38.9, top.mah, 0.01)
-        assertEquals(31.3, top.mahFor("screen")!!, 0.01)
+    fun `per-state totals stay available as the drain fallback`() {
+        val byState = stats.powerByState
+        assertEquals(210.214, byState.onBatteryScreenOnMah, 0.001)
+        assertEquals(43.557, byState.onBatteryScreenOffMah, 0.001)
     }
 
     @Test

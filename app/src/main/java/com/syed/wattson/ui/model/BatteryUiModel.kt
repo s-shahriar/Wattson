@@ -2,35 +2,6 @@ package com.syed.wattson.ui.model
 
 import android.graphics.drawable.Drawable
 
-/** One app's contribution inside a power category. */
-data class ContributorUi(
-    val label: String,
-    val mah: Double,
-)
-
-/** A power category, already resolved to its display share, colour and contributors. */
-data class CategoryUi(
-    val key: String,
-    val label: String,
-    val mah: Double,
-    /** Share of all category power, 0f..1f. */
-    val share: Float,
-    /** Share of the largest category, 0f..1f — drives bar width. */
-    val relativeToMax: Float,
-    val durationMs: Long?,
-    val contributors: List<ContributorUi>,
-)
-
-/** A row in the Top apps list. */
-data class AppUi(
-    val rank: Int,
-    val label: String,
-    val mah: Double,
-    /** Share of all app-attributed power, 0f..1f. */
-    val share: Float,
-    val icon: Drawable?,
-)
-
 /**
  * View-ready projection of a [com.syed.wattson.data.model.BatteryReport].
  *
@@ -63,14 +34,6 @@ data class BatteryUiModel(
     val screenOnFraction: Float,
     val screenOnCount: Int,
 
-    // Breakdown
-    val categories: List<CategoryUi>,
-    val totalCategoryMah: Double,
-    val topApps: List<AppUi>,
-    val totalAppMah: Double,
-    /** How much of real drain the per-app numbers actually cover. */
-    val attribution: AttributionUi? = null,
-
     // Drain + charging
     val drain: DrainUi?,
     val charging: ChargingUi,
@@ -102,36 +65,6 @@ data class DrainUi(
             val off = screenOffRateMa?.takeIf { it > 0.0 } ?: return null
             return on / off
         }
-}
-
-/**
- * How complete the per-app and per-category attribution is.
- *
- * Android only breaks down the power it can model. Where the kernel does not report
- * per-UID CPU time, processor draw is absent from every app row and the modelled total
- * lands nowhere near the charge the cell actually gave up — so the breakdown has to say
- * what it does and does not cover instead of presenting itself as a full account.
- */
-data class AttributionUi(
-    /** Sum of every modelled bucket. */
-    val attributedMah: Double,
-    /** Coulomb-counter total, when the dump reported one. */
-    val measuredTotalMah: Double?,
-    /** False when no app carries a CPU term, i.e. processor draw is untracked. */
-    val cpuTracked: Boolean,
-) {
-    /** Fraction of real drain the breakdown explains, 0f..1f, or null if unknowable. */
-    val coverage: Float?
-        get() {
-            val total = measuredTotalMah?.takeIf { it > 0.0 } ?: return null
-            return (attributedMah / total).coerceIn(0.0, 1.0).toFloat()
-        }
-
-    val unattributedMah: Double?
-        get() = measuredTotalMah?.let { (it - attributedMah).coerceAtLeast(0.0) }
-
-    /** Worth warning about only when the gap is large enough to mislead. */
-    val isPartial: Boolean get() = (coverage ?: 1f) < 0.75f
 }
 
 /** Live charging state and cell health. */

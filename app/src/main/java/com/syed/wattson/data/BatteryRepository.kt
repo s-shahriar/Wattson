@@ -1,8 +1,6 @@
 package com.syed.wattson.data
 
 import android.content.Context
-import android.content.pm.PackageManager
-import com.syed.wattson.data.model.AppUsage
 import com.syed.wattson.data.model.BatteryNow
 import com.syed.wattson.data.model.BatteryReport
 import com.syed.wattson.data.model.ChargingInfo
@@ -35,22 +33,12 @@ class BatteryRepository(
     private val shell: Shell = Shell,
 ) {
 
-    private val packageManager: PackageManager get() = context.packageManager
     private val capabilities = Capabilities(context, shell)
     private val liveSource = LiveBatterySource(context)
 
     /** Cached so a non-rooted device is not re-probed (and re-prompted) on every load. */
     @Volatile
     private var tier: DataTier? = null
-
-    /**
-     * uid -> resolved name and icon.
-     *
-     * Inflating a launcher icon opens the target APK's resources, which is easily the
-     * most expensive per-app step here. Package identities do not change while the app
-     * is open, so every refresh after the first reuses these.
-     */
-    private val identityCache = HashMap<Int, AppUsage>()
 
     fun currentTier(): DataTier = tier ?: capabilities.detect().also { tier = it }
 
@@ -110,17 +98,8 @@ class BatteryRepository(
                 statsDump.error.ifBlank { "dumpsys batterystats returned nothing" }
             )
         }
-        return BatteryStatsParser.parseStats(statsDump.out).withIdentities()
+        return BatteryStatsParser.parseStats(statsDump.out)
     }
-
-    /** Resolves UIDs to labels and icons, budgeting icon decoding to the visible rows. */
-    private fun BatteryStats.withIdentities(): BatteryStats = copy(
-        apps = apps
-            .filter { it.mah > 0.0 }
-            // Icons are only decoded for the apps that can actually appear in the list;
-            // the tail keeps its label and skips the Drawable entirely.
-            .mapIndexed { index, app -> resolveIdentity(app, withIcon = index < ICON_BUDGET) },
-    )
 
     /**
      * Battery level history, reduced on-device before it crosses the shell boundary.
@@ -183,57 +162,6 @@ class BatteryRepository(
         )
     }
 
-    /** Turns a bare UID into an app label + icon, falling back to the raw UID. */
-    private fun resolveIdentity(app: AppUsage, withIcon: Boolean): AppUsage {
-        val uid = app.uid ?: return app
-
-        // Reuse a previous resolution when it already carries what this row needs.
-        identityCache[uid]?.let { cached ->
-            if (!withIcon || cached.icon != null) {
-                return app.copy(
-                    packageName = cached.packageName,
-                    label = cached.label,
-                    icon = cached.icon,
-                )
-            }
-        }
-
-        knownSystemUid(uid)?.let {
-            val resolved = app.copy(label = it)
-            identityCache[uid] = resolved
-            return resolved
-        }
-
-        val primaryPackage = runCatching { packageManager.getPackagesForUid(uid) }
-            .getOrNull()
-            ?.firstOrNull()
-            ?: return app.copy(label = "UID $uid")
-
-        val info = runCatching { packageManager.getApplicationInfo(primaryPackage, 0) }.getOrNull()
-            ?: return app.copy(packageName = primaryPackage, label = primaryPackage)
-
-        return app.copy(
-            packageName = primaryPackage,
-            label = runCatching { packageManager.getApplicationLabel(info).toString() }
-                .getOrDefault(primaryPackage),
-            icon = if (withIcon) {
-                runCatching { packageManager.getApplicationIcon(info) }.getOrNull()
-            } else {
-                null
-            },
-        ).also { identityCache[uid] = it }
-    }
-
-    private fun knownSystemUid(uid: Int): String? = when (uid) {
-        0 -> "Root"
-        1000 -> "Android System"
-        1001 -> "Telephony"
-        1002 -> "Bluetooth"
-        1013 -> "Media server"
-        1027 -> "NFC"
-        else -> null
-    }
-
     private companion object {
         const val CMD_BATTERY_STATS = "dumpsys batterystats --charged"
         const val STATS_TIMEOUT_SECONDS = 60L
@@ -261,12 +189,6 @@ class BatteryRepository(
         """.trimIndent()
         const val LIVE_TIMEOUT_SECONDS = 10L
         const val MICRO_PER_MILLI = 1_000
-
-        /**
-         * Apps whose launcher icon is decoded. Matches the Top apps list length exactly:
-         * decoding spares cost real time on first load and nothing else displays one.
-         */
-        const val ICON_BUDGET = 10
 
         /** Emits `key=value` lines for the nodes we care about, skipping any that are absent. */
         const val CMD_POWER_SUPPLY = """

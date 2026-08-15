@@ -62,7 +62,11 @@ fun formatStartClock(raw: String?): String? {
 
 /** Human label for the dumpsys bucket keys. */
 fun bucketLabel(key: String): String = when (key) {
-    "screen" -> "Screen"
+    // Not "Screen": this bucket is the display panel alone, while "Screen on drain"
+    // higher up the page is everything the phone drew with the screen lit. The two
+    // differ by roughly 8x on a device that cannot attribute SoC power, and sharing a
+    // name made the smaller one look like a broken version of the larger.
+    "screen" -> "Display panel"
     "cpu" -> "CPU"
     "video" -> "Video"
     "audio" -> "Audio"

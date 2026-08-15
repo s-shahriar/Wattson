@@ -3,17 +3,10 @@ package com.syed.wattson.ui.model
 import com.syed.wattson.data.DataTier
 import com.syed.wattson.data.model.BatteryReport
 import com.syed.wattson.data.model.LiveSnapshot
-import com.syed.wattson.ui.util.bucketLabel
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-
-/** How many contributing apps to list beneath each power category. */
-private const val CONTRIBUTORS_PER_CATEGORY = 4
-
-/** How many apps the Top apps list shows. */
-private const val TOP_APPS = 10
 
 /** Hours of history the rolling chart covers. */
 private const val HISTORY_SPAN_HOURS = 24
@@ -35,38 +28,6 @@ private const val MILLIS_PER_HOUR = 3_600_000.0
  */
 fun BatteryReport.toUiModel(): BatteryUiModel {
     val snapshot = stats
-    val buckets = snapshot?.globalBuckets.orEmpty()
-    val totalCategoryMah = buckets.sumOf { it.mah }
-    val maxCategoryMah = buckets.maxOfOrNull { it.mah } ?: 0.0
-    val allApps = snapshot?.apps.orEmpty()
-    val totalAppMah = allApps.sumOf { it.mah }
-
-    val categories = buckets.map { bucket ->
-        CategoryUi(
-            key = bucket.name,
-            label = bucketLabel(bucket.name),
-            mah = bucket.mah,
-            share = bucket.mah.safeShareOf(totalCategoryMah),
-            relativeToMax = bucket.mah.safeShareOf(maxCategoryMah),
-            durationMs = bucket.durationMs?.takeIf { it > 0L },
-            contributors = allApps
-                .mapNotNull { app -> app.mahFor(bucket.name)?.let { ContributorUi(app.label, it) } }
-                .sortedByDescending { it.mah }
-                .take(CONTRIBUTORS_PER_CATEGORY),
-        )
-    }
-
-    val topApps = allApps
-        .take(TOP_APPS)
-        .mapIndexed { index, app ->
-            AppUi(
-                rank = index + 1,
-                label = app.label,
-                mah = app.mah,
-                share = app.mah.safeShareOf(totalAppMah),
-                icon = app.icon,
-            )
-        }
 
     return BatteryUiModel(
         tier = tier,
@@ -85,19 +46,6 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         screenOffMs = snapshot?.screenOffMs ?: 0L,
         screenOnFraction = snapshot?.screenOnFraction ?: 0f,
         screenOnCount = snapshot?.screenOnCount ?: 0,
-        categories = categories,
-        totalCategoryMah = totalCategoryMah,
-        topApps = topApps,
-        totalAppMah = totalAppMah,
-        attribution = snapshot?.let {
-            AttributionUi(
-                attributedMah = it.attributedMah,
-                measuredTotalMah = it.measured?.totalMah?.toDouble(),
-                // No `cpu=` term anywhere means the kernel never handed batterystats
-                // per-UID CPU time, so processor draw is missing from every app row.
-                cpuTracked = it.apps.any { app -> app.mahFor("cpu") != null },
-            )
-        },
         drain = toDrainUi(),
         charging = toChargingUi(),
         historyCycle = toCycleHistory(),
@@ -348,10 +296,6 @@ fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel {
         screenOffMs = 0L,
         screenOnFraction = 0f,
         screenOnCount = 0,
-        categories = emptyList(),
-        totalCategoryMah = 0.0,
-        topApps = emptyList(),
-        totalAppMah = 0.0,
         drain = null,
         charging = ChargingUi(
             status = now.status,

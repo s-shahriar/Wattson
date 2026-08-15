@@ -1,36 +1,5 @@
 package com.syed.wattson.data.model
 
-import android.graphics.drawable.Drawable
-
-/** A single named power draw reported by batterystats, e.g. "screen" at 765 mAh. */
-data class PowerBucket(
-    val name: String,
-    val mah: Double,
-    val durationMs: Long? = null,
-)
-
-/** One bin of the screen-brightness histogram. */
-data class BrightnessBin(
-    val name: String,
-    val durationMs: Long,
-    val percent: Double,
-)
-
-/** Per-app battery attribution, resolved to a human label + icon where possible. */
-data class AppUsage(
-    val rawUid: String,
-    val uid: Int?,
-    val mah: Double,
-    val packageName: String?,
-    val label: String,
-    val icon: Drawable?,
-    val buckets: List<PowerBucket>,
-) {
-    /** How much of this app's draw a given category accounts for, or null if untracked. */
-    fun mahFor(bucketName: String): Double? =
-        buckets.firstOrNull { it.name == bucketName }?.mah
-}
-
 /**
  * Charge actually taken out of the cell, as measured by the coulomb counter.
  *
@@ -58,25 +27,11 @@ data class BatteryStats(
     val totalRunTimeMs: Long,
     val dischargeMah: Int?,
     val designCapacityMah: Int?,
-    val globalBuckets: List<PowerBucket>,
-    val brightness: List<BrightnessBin>,
-    val apps: List<AppUsage>,
     val powerByState: PowerByState,
     val measured: MeasuredDischarge? = null,
     /** "Computed drain" from the estimated-power header — the model's own grand total. */
     val computedDrainMah: Int? = null,
 ) {
-    /** Sum of every modelled bucket, i.e. how much drain the model can explain at all. */
-    val attributedMah: Double get() = globalBuckets.sumOf { it.mah }
-
-    /**
-     * Drain the platform could not attribute to any bucket, or null when unknowable.
-     *
-     * On this class of device it is the overwhelming majority, and hiding it makes a
-     * 12%-complete breakdown look like a full account of the battery.
-     */
-    val unattributedMah: Double?
-        get() = measured?.totalMah?.let { (it - attributedMah).coerceAtLeast(0.0) }
     /** Screen-on time while actually on battery — the denominator for the on-drain rate. */
     val screenOnOnBatteryMs: Long
         get() = (timeOnBatteryMs - screenOffMs).coerceAtLeast(0L)
