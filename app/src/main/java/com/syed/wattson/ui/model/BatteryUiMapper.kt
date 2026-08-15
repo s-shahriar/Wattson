@@ -150,17 +150,26 @@ private fun BatteryReport.toDrainUi(): DrainUi? {
     )
 }
 
-private fun BatteryReport.toChargingUi(): ChargingUi = ChargingUi(
-    status = now.status,
-    isCharging = now.isCharging,
-    currentMa = charging.currentMilliAmps,
-    voltageVolts = charging.voltageVolts,
-    healthFraction = charging.healthFraction,
-    chargeFullMah = charging.chargeFullMah ?: stats?.designCapacityMah,
-    designCapacityMah = charging.chargeFullDesignMah,
-    cycleCount = charging.cycleCount,
-    hoursRemaining = charging.hoursRemaining(now.isCharging),
-)
+private fun BatteryReport.toChargingUi(): ChargingUi {
+    // Resolved once so the tile and the ETA agree; computing the ETA straight off
+    // ChargingInfo used a field only the rooted path ever fills, which blanked
+    // "Until full" for the whole of every charge on an unrooted device.
+    val fullMah = charging.chargeFullMah
+        ?: stats?.designCapacityMah
+        ?: charging.inferredFullMah(now.levelPercent)
+
+    return ChargingUi(
+        status = now.status,
+        isCharging = now.isCharging,
+        currentMa = charging.currentMilliAmps,
+        voltageVolts = charging.voltageVolts,
+        healthFraction = charging.healthFraction,
+        chargeFullMah = fullMah,
+        designCapacityMah = charging.chargeFullDesignMah,
+        cycleCount = charging.cycleCount,
+        hoursRemaining = charging.hoursRemaining(now.isCharging, fullMah),
+    )
+}
 
 /**
  * Buckets raw history samples into fixed-width columns over an arbitrary window.
@@ -281,24 +290,32 @@ private fun Double.safeShareOf(total: Double): Float =
  * card reads. The historical sections are left untouched, so a 5-second tick never
  * re-runs or invalidates the expensive dump.
  */
-fun BatteryUiModel.withLive(snapshot: LiveSnapshot): BatteryUiModel = copy(
-    levelPercent = snapshot.now.levelPercent,
-    status = snapshot.now.status,
-    health = snapshot.now.health,
-    temperatureC = snapshot.now.temperatureC,
-    chargeCounterMah = snapshot.now.chargeCounterMah,
-    charging = ChargingUi(
+fun BatteryUiModel.withLive(snapshot: LiveSnapshot): BatteryUiModel {
+    // Carry forward the capacity already resolved by the full load: the live snapshot
+    // alone never carries one, and the poll must not blank a tile the dump had filled.
+    val fullMah = snapshot.charging.chargeFullMah
+        ?: charging.chargeFullMah
+        ?: snapshot.charging.inferredFullMah(snapshot.now.levelPercent)
+
+    return copy(
+        levelPercent = snapshot.now.levelPercent,
         status = snapshot.now.status,
-        isCharging = snapshot.now.isCharging,
-        currentMa = snapshot.charging.currentMilliAmps,
-        voltageVolts = snapshot.charging.voltageVolts,
-        healthFraction = snapshot.charging.healthFraction ?: charging.healthFraction,
-        chargeFullMah = snapshot.charging.chargeFullMah ?: charging.chargeFullMah,
-        designCapacityMah = snapshot.charging.chargeFullDesignMah ?: charging.designCapacityMah,
-        cycleCount = snapshot.charging.cycleCount ?: charging.cycleCount,
-        hoursRemaining = snapshot.charging.hoursRemaining(snapshot.now.isCharging),
-    ),
-)
+        health = snapshot.now.health,
+        temperatureC = snapshot.now.temperatureC,
+        chargeCounterMah = snapshot.now.chargeCounterMah,
+        charging = ChargingUi(
+            status = snapshot.now.status,
+            isCharging = snapshot.now.isCharging,
+            currentMa = snapshot.charging.currentMilliAmps,
+            voltageVolts = snapshot.charging.voltageVolts,
+            healthFraction = snapshot.charging.healthFraction ?: charging.healthFraction,
+            chargeFullMah = fullMah,
+            designCapacityMah = snapshot.charging.chargeFullDesignMah ?: charging.designCapacityMah,
+            cycleCount = snapshot.charging.cycleCount ?: charging.cycleCount,
+            hoursRemaining = snapshot.charging.hoursRemaining(snapshot.now.isCharging, fullMah),
+        ),
+    )
+}
 
 /** True when the tier can supply historical accounting at all. */
 val BatteryUiModel.hasHistoricalStats: Boolean get() = tier != DataTier.BASIC
@@ -310,39 +327,44 @@ val BatteryUiModel.hasHistoricalStats: Boolean get() = tier != DataTier.BASIC
  * can be on screen while the multi-second dumpsys reads are still running. The sections
  * that need those reads hide themselves until the full model replaces this one.
  */
-fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel = BatteryUiModel(
-    tier = tier,
-    levelPercent = now.levelPercent,
-    status = now.status,
-    health = now.health,
-    temperatureC = now.temperatureC,
-    chargeCounterMah = now.chargeCounterMah,
-    startClock = null,
-    timeOnBatteryMs = 0L,
-    totalRunTimeMs = 0L,
-    avgDrainMa = null,
-    dischargeMah = null,
-    designCapacityMah = null,
-    screenOnMs = 0L,
-    screenOffMs = 0L,
-    screenOnFraction = 0f,
-    screenOnCount = 0,
-    categories = emptyList(),
-    totalCategoryMah = 0.0,
-    topApps = emptyList(),
-    totalAppMah = 0.0,
-    drain = null,
-    charging = ChargingUi(
+fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel {
+    // No dumpsys here, so design capacity is unavailable and inference is all there is.
+    val fullMah = charging.chargeFullMah ?: charging.inferredFullMah(now.levelPercent)
+
+    return BatteryUiModel(
+        tier = tier,
+        levelPercent = now.levelPercent,
         status = now.status,
-        isCharging = now.isCharging,
-        currentMa = charging.currentMilliAmps,
-        voltageVolts = charging.voltageVolts,
-        healthFraction = charging.healthFraction,
-        chargeFullMah = charging.chargeFullMah,
-        designCapacityMah = charging.chargeFullDesignMah,
-        cycleCount = charging.cycleCount,
-        hoursRemaining = charging.hoursRemaining(now.isCharging),
-    ),
-    historyCycle = null,
-    historyDay = null,
-)
+        health = now.health,
+        temperatureC = now.temperatureC,
+        chargeCounterMah = now.chargeCounterMah,
+        startClock = null,
+        timeOnBatteryMs = 0L,
+        totalRunTimeMs = 0L,
+        avgDrainMa = null,
+        dischargeMah = null,
+        designCapacityMah = null,
+        screenOnMs = 0L,
+        screenOffMs = 0L,
+        screenOnFraction = 0f,
+        screenOnCount = 0,
+        categories = emptyList(),
+        totalCategoryMah = 0.0,
+        topApps = emptyList(),
+        totalAppMah = 0.0,
+        drain = null,
+        charging = ChargingUi(
+            status = now.status,
+            isCharging = now.isCharging,
+            currentMa = charging.currentMilliAmps,
+            voltageVolts = charging.voltageVolts,
+            healthFraction = charging.healthFraction,
+            chargeFullMah = fullMah,
+            designCapacityMah = charging.chargeFullDesignMah,
+            cycleCount = charging.cycleCount,
+            hoursRemaining = charging.hoursRemaining(now.isCharging, fullMah),
+        ),
+        historyCycle = null,
+        historyDay = null,
+    )
+}

@@ -175,23 +175,47 @@ data class ChargingInfo(
      * Hours left at the present rate — until full when charging, until empty when not.
      *
      * The two directions measure opposite quantities: charging counts the gap up to
-     * [chargeFullMah], discharging counts the charge actually left in the cell. Using the
-     * charging formula while on battery reported "time to full" against a current that
-     * was flowing the other way, which is why a discharging phone showed an ETA at all.
+     * [fullCapacityMah], discharging counts the charge actually left in the cell. Using
+     * the charging formula while on battery reported "time to full" against a current
+     * that was flowing the other way, which is why a discharging phone showed an ETA.
+     *
+     * [fullCapacityMah] is passed in rather than read off [chargeFullMah]: only a rooted
+     * sysfs read populates that field, so computing it here left every non-rooted device
+     * with a blank tile for the whole of a charge. The caller resolves the same capacity
+     * it displays.
+     *
+     * Linear at the present current, so it runs optimistic near a full cell — charging
+     * tapers through the constant-voltage phase and this does not model that.
      */
-    fun hoursRemaining(isCharging: Boolean): Double? {
+    fun hoursRemaining(isCharging: Boolean, fullCapacityMah: Int?): Double? {
         val counter = chargeCounterMah ?: return null
         val rate = currentMilliAmps?.takeIf { it > MIN_MEANINGFUL_MA } ?: return null
         val remaining = if (isCharging) {
-            (chargeFullMah ?: return null) - counter
+            (fullCapacityMah ?: return null) - counter
         } else {
             counter
         }
         return remaining.takeIf { it > 0 }?.toDouble()?.div(rate)
     }
 
+    /**
+     * Full-charge capacity inferred from the charge counter and level.
+     *
+     * Last resort for devices that expose neither a rooted `charge_full` nor a dumpsys
+     * design capacity. Accurate to a few percent mid-range; ignored at very low levels
+     * where the counter's own rounding dominates.
+     */
+    fun inferredFullMah(levelPercent: Int): Int? {
+        val counter = chargeCounterMah?.takeIf { it > 0 } ?: return null
+        if (levelPercent < MIN_INFERENCE_LEVEL || levelPercent > 100) return null
+        return (counter * 100.0 / levelPercent).toInt()
+    }
+
     private companion object {
         const val MIN_MEANINGFUL_MA = 5
+
+        /** Below this the counter's rounding swamps the ratio. */
+        const val MIN_INFERENCE_LEVEL = 5
     }
 }
 
