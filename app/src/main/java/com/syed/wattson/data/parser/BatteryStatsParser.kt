@@ -4,6 +4,7 @@ import com.syed.wattson.data.model.AppUsage
 import com.syed.wattson.data.model.BatteryNow
 import com.syed.wattson.data.model.BatteryStats
 import com.syed.wattson.data.model.BrightnessBin
+import com.syed.wattson.data.model.MeasuredDischarge
 import com.syed.wattson.data.model.PowerBucket
 import com.syed.wattson.data.model.PowerByState
 
@@ -23,6 +24,8 @@ object BatteryStatsParser {
     private val FIRST_NUMBER = Regex("""([\d.]+)""")
     private val SCREEN_ON_COUNT = Regex("""\)\s*(\d+)x""")
     private val CAPACITY = Regex("""Capacity:\s*(\d+)""")
+    private val COMPUTED_DRAIN = Regex("""Computed drain:\s*(\d+)""")
+    private val MAH_VALUE = Regex("""(-?\d+)\s*mAh""")
 
     /** Sums every `<n><unit>` token in [text], e.g. "21h 6m 10s 571ms" -> milliseconds. */
     fun parseDurationMs(text: String): Long =
@@ -51,6 +54,10 @@ object BatteryStatsParser {
         return parseDurationMs(slice)
     }
 
+    /** Reads the "<n> mAh" that follows [label], e.g. "Screen on discharge: 1463 mAh". */
+    private fun mahAfter(line: String, label: String): Int? =
+        MAH_VALUE.find(line.substringAfter(label, ""))?.groupValues?.get(1)?.toIntOrNull()
+
     fun parseStats(dump: String): BatteryStats {
         val lines = dump.lineSequence().toList()
 
@@ -62,6 +69,16 @@ object BatteryStatsParser {
         var totalRunTime = 0L
         var dischargeMah: Int? = null
         var designCapacity: Int? = null
+        var computedDrain: Int? = null
+
+        // Coulomb-counter figures. Parsed separately from the modelled buckets because
+        // they are measurements, not estimates, and the two disagree by an order of
+        // magnitude whenever per-UID CPU tracking is unavailable.
+        var screenOnDischarge: Int? = null
+        var screenOffDischarge: Int? = null
+        var screenDozeDischarge: Int? = null
+        var lightDozeDischarge: Int? = null
+        var deepDozeDischarge: Int? = null
 
         val globals = mutableListOf<PowerBucket>()
         val brightness = mutableListOf<BrightnessBin>()
@@ -96,13 +113,37 @@ object BatteryStatsParser {
                 line.startsWith("Discharge:") && dischargeMah == null ->
                     dischargeMah = FIRST_NUMBER.find(line)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
 
+                line.startsWith("Screen on discharge:") && screenOnDischarge == null ->
+                    screenOnDischarge = mahAfter(line, "Screen on discharge:")
+
+                line.startsWith("Screen off discharge:") && screenOffDischarge == null ->
+                    screenOffDischarge = mahAfter(line, "Screen off discharge:")
+
+                line.startsWith("Screen doze discharge:") && screenDozeDischarge == null ->
+                    screenDozeDischarge = mahAfter(line, "Screen doze discharge:")
+
+                line.startsWith("Device light doze discharge:") && lightDozeDischarge == null ->
+                    lightDozeDischarge = mahAfter(line, "Device light doze discharge:")
+
+                line.startsWith("Device deep doze discharge:") && deepDozeDischarge == null ->
+                    deepDozeDischarge = mahAfter(line, "Device deep doze discharge:")
+
                 line.startsWith("Screen on:") && screenOn == 0L -> {
                     screenOn = durationAfter(line, "Screen on:")
                     screenOnCount = SCREEN_ON_COUNT.find(line)?.groupValues?.get(1)?.toIntOrNull() ?: 0
                 }
 
-                line.startsWith("Capacity:") && designCapacity == null ->
-                    designCapacity = CAPACITY.find(line)?.groupValues?.get(1)?.toIntOrNull()
+                // Both figures live on the one line — "Capacity: 3979, Computed drain:
+                // 1975, actual drain: 1975" — and `when` runs a single branch, so they
+                // have to be read together rather than from two matching conditions.
+                line.startsWith("Capacity:") -> {
+                    if (designCapacity == null) {
+                        designCapacity = CAPACITY.find(line)?.groupValues?.get(1)?.toIntOrNull()
+                    }
+                    if (computedDrain == null) {
+                        computedDrain = COMPUTED_DRAIN.find(line)?.groupValues?.get(1)?.toIntOrNull()
+                    }
+                }
 
                 line.startsWith("Screen brightnesses:") -> {
                     inBrightnessBlock = true
@@ -227,6 +268,17 @@ object BatteryStatsParser {
                 chargingScreenOnMah = stateTotals[PowerState.CHARGING_SCREEN_ON] ?: 0.0,
                 chargingScreenOffMah = stateTotals[PowerState.CHARGING_SCREEN_OFF] ?: 0.0,
             ),
+            measured = dischargeMah?.let {
+                MeasuredDischarge(
+                    totalMah = it,
+                    screenOnMah = screenOnDischarge,
+                    screenOffMah = screenOffDischarge,
+                    screenDozeMah = screenDozeDischarge,
+                    lightDozeMah = lightDozeDischarge,
+                    deepDozeMah = deepDozeDischarge,
+                )
+            },
+            computedDrainMah = computedDrain,
         )
     }
 

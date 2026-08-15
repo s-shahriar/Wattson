@@ -31,6 +31,23 @@ data class AppUsage(
         buckets.firstOrNull { it.name == bucketName }?.mah
 }
 
+/**
+ * Charge actually taken out of the cell, as measured by the coulomb counter.
+ *
+ * This is a different and far more trustworthy quantity than [PowerByState], which is
+ * modelled from the power profile. On devices where the kernel does not expose per-UID
+ * CPU time the model can only account for a small fraction of real drain, so anything
+ * presented as a total must come from here.
+ */
+data class MeasuredDischarge(
+    val totalMah: Int,
+    val screenOnMah: Int?,
+    val screenOffMah: Int?,
+    val screenDozeMah: Int?,
+    val lightDozeMah: Int?,
+    val deepDozeMah: Int?,
+)
+
 /** Everything parsed out of `dumpsys batterystats --charged`. */
 data class BatteryStats(
     val startClock: String?,
@@ -45,7 +62,21 @@ data class BatteryStats(
     val brightness: List<BrightnessBin>,
     val apps: List<AppUsage>,
     val powerByState: PowerByState,
+    val measured: MeasuredDischarge? = null,
+    /** "Computed drain" from the estimated-power header — the model's own grand total. */
+    val computedDrainMah: Int? = null,
 ) {
+    /** Sum of every modelled bucket, i.e. how much drain the model can explain at all. */
+    val attributedMah: Double get() = globalBuckets.sumOf { it.mah }
+
+    /**
+     * Drain the platform could not attribute to any bucket, or null when unknowable.
+     *
+     * On this class of device it is the overwhelming majority, and hiding it makes a
+     * 12%-complete breakdown look like a full account of the battery.
+     */
+    val unattributedMah: Double?
+        get() = measured?.totalMah?.let { (it - attributedMah).coerceAtLeast(0.0) }
     /** Screen-on time while actually on battery — the denominator for the on-drain rate. */
     val screenOnOnBatteryMs: Long
         get() = (timeOnBatteryMs - screenOffMs).coerceAtLeast(0L)
@@ -140,13 +171,23 @@ data class ChargingInfo(
             return stateOfHealthPercent?.let { (it / 100f).coerceIn(0f, 1f) }
         }
 
-    /** Hours until full at the present rate, or null if not meaningfully charging. */
-    fun hoursToFull(): Double? {
-        val full = chargeFullMah ?: return null
+    /**
+     * Hours left at the present rate — until full when charging, until empty when not.
+     *
+     * The two directions measure opposite quantities: charging counts the gap up to
+     * [chargeFullMah], discharging counts the charge actually left in the cell. Using the
+     * charging formula while on battery reported "time to full" against a current that
+     * was flowing the other way, which is why a discharging phone showed an ETA at all.
+     */
+    fun hoursRemaining(isCharging: Boolean): Double? {
         val counter = chargeCounterMah ?: return null
         val rate = currentMilliAmps?.takeIf { it > MIN_MEANINGFUL_MA } ?: return null
-        val remaining = (full - counter).takeIf { it > 0 } ?: return null
-        return remaining.toDouble() / rate
+        val remaining = if (isCharging) {
+            (chargeFullMah ?: return null) - counter
+        } else {
+            counter
+        }
+        return remaining.takeIf { it > 0 }?.toDouble()?.div(rate)
     }
 
     private companion object {

@@ -32,7 +32,7 @@ fun TopAppsSection(
 
     SectionCard(
         title = "Top apps",
-        subtitle = "Share of ${formatMah(model.totalAppMah)} mAh attributed to apps",
+        subtitle = "Share of ${formatMah(model.totalAppMah)} mAh Android could attribute",
         modifier = modifier,
     ) {
         Column {

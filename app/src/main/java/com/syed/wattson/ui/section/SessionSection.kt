@@ -20,6 +20,7 @@ import com.syed.wattson.ui.model.BatteryUiModel
 import com.syed.wattson.ui.theme.chartPalette
 import com.syed.wattson.ui.util.formatDuration
 import com.syed.wattson.ui.util.formatPercent
+import com.syed.wattson.ui.util.formatMilliAmps
 
 private const val EMPTY = "—"
 
@@ -82,9 +83,11 @@ fun SessionSection(
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                // Not "Total run time": this cycle starts at unplug, so run time and
+                // on-battery time are the same clock and the tile said nothing twice.
                 StatTile(
-                    value = formatDuration(model.totalRunTimeMs),
-                    label = "Total run time",
+                    value = model.avgDrainMa?.let { formatMilliAmps(it) } ?: EMPTY,
+                    label = "Avg drain",
                     modifier = Modifier.weight(1f),
                     accent = MaterialTheme.colorScheme.secondaryContainer,
                     onAccent = MaterialTheme.colorScheme.onSecondaryContainer,

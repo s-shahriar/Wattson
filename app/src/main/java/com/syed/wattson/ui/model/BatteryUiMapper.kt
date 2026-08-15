@@ -78,6 +78,7 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         startClock = snapshot?.startClock,
         timeOnBatteryMs = snapshot?.timeOnBatteryMs ?: 0L,
         totalRunTimeMs = snapshot?.totalRunTimeMs ?: 0L,
+        avgDrainMa = snapshot?.dischargeMah?.toDouble()?.perHour(snapshot.timeOnBatteryMs),
         dischargeMah = snapshot?.dischargeMah,
         designCapacityMah = snapshot?.designCapacityMah,
         screenOnMs = snapshot?.screenOnMs ?: 0L,
@@ -88,6 +89,15 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         totalCategoryMah = totalCategoryMah,
         topApps = topApps,
         totalAppMah = totalAppMah,
+        attribution = snapshot?.let {
+            AttributionUi(
+                attributedMah = it.attributedMah,
+                measuredTotalMah = it.measured?.totalMah?.toDouble(),
+                // No `cpu=` term anywhere means the kernel never handed batterystats
+                // per-UID CPU time, so processor draw is missing from every app row.
+                cpuTracked = it.apps.any { app -> app.mahFor("cpu") != null },
+            )
+        },
         drain = toDrainUi(),
         charging = toChargingUi(),
         historyCycle = toCycleHistory(),
@@ -95,22 +105,48 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
     )
 }
 
-/** Splits on-battery power into the screen-on and screen-off halves, plus their rates. */
+/**
+ * Splits on-battery drain into the screen-on and screen-off halves, plus their rates.
+ *
+ * Prefers the coulomb-counter figures ("Screen on discharge: 1463 mAh") over the
+ * power-profile model. The model only sums the buckets it can attribute, which on a
+ * device without per-UID CPU tracking is a small fraction of real drain — reporting it
+ * here claimed 242 mAh for a cycle that actually took 2111 mAh out of the cell.
+ */
 private fun BatteryReport.toDrainUi(): DrainUi? {
     val snapshot = stats ?: return null
-    val byState = snapshot.powerByState
-    val total = byState.totalOnBatteryMah
+    val measured = snapshot.measured
+
+    val screenOn: Double
+    val screenOff: Double
+    val fromMeasurement: Boolean
+
+    if (measured?.screenOnMah != null && measured.screenOffMah != null) {
+        screenOn = measured.screenOnMah.toDouble()
+        // Doze is reported separately but is still screen-off time in the cell's view.
+        screenOff = measured.screenOffMah.toDouble() +
+            (measured.screenDozeMah ?: 0).toDouble()
+        fromMeasurement = true
+    } else {
+        val byState = snapshot.powerByState
+        screenOn = byState.onBatteryScreenOnMah
+        screenOff = byState.onBatteryScreenOffMah
+        fromMeasurement = false
+    }
+
+    val total = screenOn + screenOff
     if (total <= 0.0) return null
 
     return DrainUi(
-        screenOnMah = byState.onBatteryScreenOnMah,
-        screenOffMah = byState.onBatteryScreenOffMah,
-        screenOnShare = byState.onBatteryScreenOnMah.safeShareOf(total),
-        screenOffShare = byState.onBatteryScreenOffMah.safeShareOf(total),
-        screenOnRateMa = byState.onBatteryScreenOnMah.perHour(snapshot.screenOnOnBatteryMs),
-        screenOffRateMa = byState.onBatteryScreenOffMah.perHour(snapshot.screenOffMs),
+        screenOnMah = screenOn,
+        screenOffMah = screenOff,
+        screenOnShare = screenOn.safeShareOf(total),
+        screenOffShare = screenOff.safeShareOf(total),
+        screenOnRateMa = screenOn.perHour(snapshot.screenOnOnBatteryMs),
+        screenOffRateMa = screenOff.perHour(snapshot.screenOffMs),
         totalOnBatteryMah = total,
-        chargingUsageMah = byState.totalChargingMah,
+        chargingUsageMah = snapshot.powerByState.totalChargingMah,
+        fromMeasurement = fromMeasurement,
     )
 }
 
@@ -123,7 +159,7 @@ private fun BatteryReport.toChargingUi(): ChargingUi = ChargingUi(
     chargeFullMah = charging.chargeFullMah ?: stats?.designCapacityMah,
     designCapacityMah = charging.chargeFullDesignMah,
     cycleCount = charging.cycleCount,
-    hoursToFull = charging.hoursToFull(),
+    hoursRemaining = charging.hoursRemaining(now.isCharging),
 )
 
 /**
@@ -260,7 +296,7 @@ fun BatteryUiModel.withLive(snapshot: LiveSnapshot): BatteryUiModel = copy(
         chargeFullMah = snapshot.charging.chargeFullMah ?: charging.chargeFullMah,
         designCapacityMah = snapshot.charging.chargeFullDesignMah ?: charging.designCapacityMah,
         cycleCount = snapshot.charging.cycleCount ?: charging.cycleCount,
-        hoursToFull = snapshot.charging.hoursToFull(),
+        hoursRemaining = snapshot.charging.hoursRemaining(snapshot.now.isCharging),
     ),
 )
 
@@ -284,6 +320,7 @@ fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel = BatteryUiMo
     startClock = null,
     timeOnBatteryMs = 0L,
     totalRunTimeMs = 0L,
+    avgDrainMa = null,
     dischargeMah = null,
     designCapacityMah = null,
     screenOnMs = 0L,
@@ -304,7 +341,7 @@ fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel = BatteryUiMo
         chargeFullMah = charging.chargeFullMah,
         designCapacityMah = charging.chargeFullDesignMah,
         cycleCount = charging.cycleCount,
-        hoursToFull = charging.hoursToFull(),
+        hoursRemaining = charging.hoursRemaining(now.isCharging),
     ),
     historyCycle = null,
     historyDay = null,

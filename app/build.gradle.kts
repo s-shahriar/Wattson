@@ -89,4 +89,6 @@ dependencies {
     implementation(libs.androidx.material.icons.core)
 
     debugImplementation(libs.androidx.ui.tooling)
+
+    testImplementation(libs.junit)
 }

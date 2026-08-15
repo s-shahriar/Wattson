@@ -103,12 +103,15 @@ fun BatteryHistorySection(
         Spacer(Modifier.height(8.dp))
 
         model.drain?.let { drain ->
+            // Amber matches the "Screen on" legend directly above; the screen-off row
+            // takes a neutral tone rather than the charging green, which the legend has
+            // already claimed for a different meaning.
             MeterRow(
                 label = "Screen on drain",
                 value = "${formatMah(drain.screenOnMah)} mAh",
                 trailing = formatSharePercent(drain.screenOnShare),
                 fraction = drain.screenOnShare,
-                color = palette.discharging,
+                color = palette.screenOn,
                 detail = drain.screenOnRateMa?.let { formatMilliAmps(it) },
             )
             MeterRow(
@@ -116,9 +119,17 @@ fun BatteryHistorySection(
                 value = "${formatMah(drain.screenOffMah)} mAh",
                 trailing = formatSharePercent(drain.screenOffShare),
                 fraction = drain.screenOffShare,
-                color = palette.charging,
+                color = MaterialTheme.colorScheme.outline,
                 detail = drain.screenOffRateMa?.let { formatMilliAmps(it) },
             )
+            if (drain.fromMeasurement) {
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "Measured from the charge counter",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
     }
 }

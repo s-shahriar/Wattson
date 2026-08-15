@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.syed.wattson.ui.component.AttributionNote
 import com.syed.wattson.ui.component.MeterRow
 import com.syed.wattson.ui.component.SectionCard
 import com.syed.wattson.ui.component.SubItemRow
@@ -50,7 +51,7 @@ fun PowerBreakdownSection(
 
     SectionCard(
         title = "By category",
-        subtitle = "${formatMah(model.totalCategoryMah)} mAh across ${model.categories.size} categories",
+        subtitle = "${formatMah(model.totalCategoryMah)} mAh attributed across ${model.categories.size} categories",
         modifier = modifier.animateContentSize(),
     ) {
         visible.forEachIndexed { index, category ->
@@ -88,6 +89,8 @@ fun PowerBreakdownSection(
                     .padding(vertical = 10.dp),
             )
         }
+
+        AttributionNote(model.attribution)
     }
 }
 

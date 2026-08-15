@@ -52,6 +52,8 @@ data class BatteryUiModel(
     val startClock: String?,
     val timeOnBatteryMs: Long,
     val totalRunTimeMs: Long,
+    /** Mean current over the whole on-battery window, from measured discharge. */
+    val avgDrainMa: Double?,
     val dischargeMah: Int?,
     val designCapacityMah: Int?,
 
@@ -66,6 +68,8 @@ data class BatteryUiModel(
     val totalCategoryMah: Double,
     val topApps: List<AppUi>,
     val totalAppMah: Double,
+    /** How much of real drain the per-app numbers actually cover. */
+    val attribution: AttributionUi? = null,
 
     // Drain + charging
     val drain: DrainUi?,
@@ -88,6 +92,8 @@ data class DrainUi(
     val totalOnBatteryMah: Double,
     /** Power consumed while plugged in — never came out of the cell. */
     val chargingUsageMah: Double,
+    /** True when these came from the coulomb counter rather than the power-profile model. */
+    val fromMeasurement: Boolean = false,
 ) {
     /** How many times harder the screen-on state drew, e.g. 22× idle. */
     val rateMultiple: Double?
@@ -96,6 +102,36 @@ data class DrainUi(
             val off = screenOffRateMa?.takeIf { it > 0.0 } ?: return null
             return on / off
         }
+}
+
+/**
+ * How complete the per-app and per-category attribution is.
+ *
+ * Android only breaks down the power it can model. Where the kernel does not report
+ * per-UID CPU time, processor draw is absent from every app row and the modelled total
+ * lands nowhere near the charge the cell actually gave up — so the breakdown has to say
+ * what it does and does not cover instead of presenting itself as a full account.
+ */
+data class AttributionUi(
+    /** Sum of every modelled bucket. */
+    val attributedMah: Double,
+    /** Coulomb-counter total, when the dump reported one. */
+    val measuredTotalMah: Double?,
+    /** False when no app carries a CPU term, i.e. processor draw is untracked. */
+    val cpuTracked: Boolean,
+) {
+    /** Fraction of real drain the breakdown explains, 0f..1f, or null if unknowable. */
+    val coverage: Float?
+        get() {
+            val total = measuredTotalMah?.takeIf { it > 0.0 } ?: return null
+            return (attributedMah / total).coerceIn(0.0, 1.0).toFloat()
+        }
+
+    val unattributedMah: Double?
+        get() = measuredTotalMah?.let { (it - attributedMah).coerceAtLeast(0.0) }
+
+    /** Worth warning about only when the gap is large enough to mislead. */
+    val isPartial: Boolean get() = (coverage ?: 1f) < 0.75f
 }
 
 /** Live charging state and cell health. */
@@ -109,7 +145,8 @@ data class ChargingUi(
     val chargeFullMah: Int?,
     val designCapacityMah: Int?,
     val cycleCount: Int?,
-    val hoursToFull: Double?,
+    /** Time left at the current rate: to full when charging, to empty when discharging. */
+    val hoursRemaining: Double?,
 )
 
 /** One column of the history chart: a time slice with its level and what was happening. */

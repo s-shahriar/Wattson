@@ -52,7 +52,12 @@ fun formatStartClock(raw: String?): String? {
     )
     val month = parts[1].toIntOrNull()?.let { months.getOrNull(it - 1) } ?: return raw
     val day = parts[2].toIntOrNull() ?: return raw
-    return "$day $month, ${parts[3]}:${parts[4]}"
+    val hour24 = parts[3].toIntOrNull() ?: return raw
+    // dumpsys reports a 24-hour clock; the history chart labels use "h:mm a", and the two
+    // sat side by side reading 14:42 and 2:42 PM for the same instant.
+    val hour12 = (hour24 % 12).takeIf { it != 0 } ?: 12
+    val meridiem = if (hour24 < 12) "AM" else "PM"
+    return "$day $month, $hour12:${parts[4]} $meridiem"
 }
 
 /** Human label for the dumpsys bucket keys. */

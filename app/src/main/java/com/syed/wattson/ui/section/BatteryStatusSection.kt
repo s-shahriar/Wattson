@@ -76,8 +76,8 @@ fun BatteryStatusSection(
                 modifier = Modifier.weight(1f),
             )
             StatTile(
-                value = charging.hoursToFull?.let(::formatHours) ?: EMPTY,
-                label = "Until full",
+                value = charging.hoursRemaining?.let(::formatHours) ?: EMPTY,
+                label = if (charging.isCharging) "Until full" else "Until empty",
                 modifier = Modifier.weight(1f),
                 accent = MaterialTheme.colorScheme.secondaryContainer,
                 onAccent = MaterialTheme.colorScheme.onSecondaryContainer,

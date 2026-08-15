@@ -1,0 +1,75 @@
+  Time on battery: 7h 7m 3s 148ms (100.0%) realtime, 2h 44m 56s 293ms (38.6%) uptime
+  Time on battery screen off: 4h 56m 11s 929ms (69.4%) realtime, 34m 5s 72ms (8.0%) uptime
+  Time on battery screen doze: 0ms (0.0%)
+  Total run time: 7h 7m 3s 148ms realtime, 2h 44m 56s 293ms uptime
+  Battery time remaining: 4h 59m 45s 880ms 
+  Discharge: 2111 mAh
+  Screen off discharge: 648 mAh
+  Screen doze discharge: 0 mAh
+  Screen on discharge: 1463 mAh
+  Device light doze discharge: 332 mAh
+  Device deep doze discharge: 230 mAh
+  Start clock time: 2026-08-15-14-42-53
+  Screen on: 2h 10m 51s 219ms (30.6%) 46x, Interactive: 2h 11m 58s 576ms (30.9%)
+  Screen brightnesses:
+    dark 1h 46m 16s 950ms (81.2%)
+    dim 5m 8s 786ms (3.9%)
+    medium 15m 58s 847ms (12.2%)
+    bright 3m 26s 636ms (2.6%)
+  Device light idling: 2h 25m 39s 868ms (34.1%) 12x
+  Idle mode light time: 2h 24m 23s 550ms (33.8%) 16x -- longest 16m 57s 956ms 
+  Device full idling: 1h 21m 7s 142ms (19.0%) 8x
+  Idle mode full time: 1h 21m 7s 142ms (19.0%) 8x -- longest 28m 55s 488ms 
+  Connectivity changes: 641
+  Total full wakelock time: 55m 22s 529ms
+  Total partial wakelock time: 27m 59s 798ms
+  Total WiFi Multicast wakelock Count: 10
+  Total WiFi Multicast wakelock time: 26m 5s 24ms
+
+  CONNECTIVITY POWER SUMMARY START
+  Logging duration for connectivity statistics: 7h 7m 3s 148ms 
+  Cellular Statistics:
+
+  Estimated power use (mAh):
+    Capacity: 3979, Computed drain: 1975, actual drain: 1975
+    Global
+    screen: 163 apps: 163
+    camera: 10.6 apps: 10.6 duration: 5m 26s 691ms 
+    audio: 18.6 apps: 18.6 duration: 1h 6m 27s 507ms 
+    video: 18.3 apps: 18.3 duration: 17m 47s 352ms 
+    mobile_radio: 21.4 apps: 0
+    sensors: 3.04 apps: 3.04
+    gnss: 5.10 apps: 5.10 duration: 6m 40s 671ms 
+    wifi: 0.290 apps: 0.292
+    wakelock: 5.44 apps: 5.44 duration: 33m 39s 79ms 
+    phone: 8.07 apps: 0
+      (on battery, screen on)
+      screen: 163 apps: 163
+      camera: 9.82 apps: 9.82 duration: 5m 3s 707ms 
+      audio: 12.2 apps: 12.2 duration: 43m 44s 148ms 
+      video: 18.0 apps: 18.0 duration: 17m 29s 437ms 
+      mobile_radio: 1.80 apps: 0
+      sensors: 1.13 apps: 1.13
+      gnss: 1.01 apps: 1.01 duration: 1m 19s 529ms 
+      wifi: 0.224 apps: 0.220
+      wakelock: 1.67 apps: 1.74 duration: 10m 18s 297ms 
+      phone: 1.36 apps: 0
+      (on battery, screen off/doze)
+      camera: 0.743 apps: 0.743 duration: 22s 984ms 
+      audio: 6.36 apps: 6.36 duration: 22m 43s 359ms 
+      video: 0.308 apps: 0.308 duration: 17s 915ms 
+      mobile_radio: 19.6 apps: 0
+      sensors: 1.91 apps: 1.91
+      gnss: 4.09 apps: 4.09 duration: 5m 21s 142ms 
+      wifi: 0.0653 apps: 0.0722
+      wakelock: 3.77 apps: 3.70 duration: 23m 20s 782ms 
+      phone: 6.71 apps: 0
+  UID u0a383: 38.9 fg: 7.13 (24m 51s 940ms) bg: 0.396 (45m 38s 825ms) cached: 0.155 (3h 45m 51s 586ms)
+      screen=31.3 audio=5.89 (22m 8s 437ms) audio:fg=5.54 (20m 49s 867ms) audio:bg=0.308 (1m 9s 519ms) audio:cached=0.0401 (9s 51ms) video=1.60 (1m 33s 733ms) video:fg=1.58 (1m 32s 637ms) video:cached=0.0187 (1s 96ms) sensors=0.159 sensors:fg=0.00928 sensors:bg=0.0658 sensors:cached=0.0843 wakelock=0.0351 (7s 675ms) wakelock:fg=0.000720 (254ms) wakelock:bg=0.0220 (4s 893ms) wakelock:cached=0.0123 (2s 528ms)
+      (on battery, screen on) screen=31.3 audio=5.89 (22m 8s 437ms) audio:fg=5.54 (20m 49s 867ms) audio:bg=0.308 (1m 9s 519ms) audio:cached=0.0401 (9s 51ms) video=1.60 (1m 33s 733ms) video:fg=1.58 (1m 32s 637ms) video:cached=0.0187 (1s 96ms) sensors=0.0574 sensors:fg=0.00928 sensors:bg=0.0332 sensors:cached=0.0149 wakelock=0.00873 (2s 163ms) wakelock:fg=0.000720 (254ms) wakelock:bg=0.00458 (981ms) wakelock:cached=0.00342 (928ms)
+      (on battery, screen off/doze) sensors=0.102 sensors:bg=0.0326 sensors:cached=0.0695 wakelock=0.0263 (5s 512ms) wakelock:bg=0.0174 (3s 912ms) wakelock:cached=0.00891 (1s 600ms)
+  UID u0a415: 38.0 fg: 9.11 (16m 25s 687ms) bg: 0.984 (2h 48m 10s 290ms) fgs: 0.000882 (1m 14s 484ms) cached: 0.0790 (2h 23m 57s 713ms)
+      screen=27.9 audio=1.84 (6m 55s 976ms) audio:fg=1.65 (6m 11s 470ms) audio:bg=0.197 (44s 422ms) audio:fgs=0.000358 (81ms) audio:cached=0.0000130 (3ms) video=8.30 (8m 2s 2ms) video:fg=7.47 (7m 18s 442ms) video:bg=0.769 (39s 508ms) video:fgs=0.000442 (26ms) video:cached=0.0690 (4s 26ms) sensors=0.0284 sensors:fg=0.00109 sensors:bg=0.0177 sensors:fgs=0.0000810 sensors:cached=0.00959 wakelock=0.00145 (299ms) wakelock:fg=0.0000730 (25ms) wakelock:bg=0.000961 (175ms) wakelock:fgs=0.00000100 wakelock:cached=0.000416 (99ms)
+      (on battery, screen on) screen=27.9 audio=1.84 (6m 55s 976ms) audio:fg=1.65 (6m 11s 470ms) audio:bg=0.197 (44s 422ms) audio:fgs=0.000358 (81ms) audio:cached=0.0000130 (3ms) video=8.10 (7m 55s 898ms) video:fg=7.47 (7m 18s 442ms) video:bg=0.569 (33s 430ms) video:fgs=0.000442 (26ms) video:cached=0.0681 (4s 0ms) sensors=0.00871 sensors:fg=0.00109 sensors:bg=0.00602 sensors:fgs=0.0000800 sensors:cached=0.00152 wakelock=0.000534 (87ms) wakelock:fg=0.0000730 (25ms) wakelock:bg=0.000403 (53ms) wakelock:fgs=0.00000100 wakelock:cached=0.0000570 (9ms)
+      (on battery, screen off/doze) video=0.200 (6s 104ms) video:bg=0.199 (6s 78ms) video:cached=0.000853 (26ms) sensors=0.0197 sensors:bg=0.0117 sensors:fgs=0.00000100 sensors:cached=0.00807 wakelock=0.000917 (212ms) wakelock:bg=0.000558 (122ms) wakelock:cached=0.000359 (90ms)
+  UID u0a414: 29.2 fg: 2.78 (18m 18s 820ms) bg: 0.330 (1h 28m 50s 862ms) fgs: 0.00243 (31s 298ms) cached: 0.439 (5h 11m 31s 128ms)
