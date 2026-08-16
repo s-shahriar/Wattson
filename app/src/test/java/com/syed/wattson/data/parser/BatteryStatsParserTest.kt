@@ -26,19 +26,19 @@ class BatteryStatsParserTest {
     @Test
     fun `reads the coulomb-counter discharge figures`() {
         val measured = assertNotNull("measured discharge missing", stats.measured).let { stats.measured!! }
-        assertEquals(2111, measured.totalMah)
-        assertEquals(1463, measured.screenOnMah)
-        assertEquals(648, measured.screenOffMah)
-        assertEquals(0, measured.screenDozeMah)
-        assertEquals(332, measured.lightDozeMah)
-        assertEquals(230, measured.deepDozeMah)
+        assertEquals(2111.0, measured.totalMah, 0.001)
+        assertEquals(1463.0, measured.screenOnMah!!, 0.001)
+        assertEquals(648.0, measured.screenOffMah!!, 0.001)
+        assertEquals(0.0, measured.screenDozeMah!!, 0.001)
+        assertEquals(332.0, measured.lightDozeMah!!, 0.001)
+        assertEquals(230.0, measured.deepDozeMah!!, 0.001)
     }
 
     /** The split has to reconcile, or the drain card is telling two different stories. */
     @Test
     fun `screen-on and screen-off discharge sum to the total`() {
         val m = stats.measured!!
-        assertEquals(m.totalMah, m.screenOnMah!! + m.screenOffMah!! + m.screenDozeMah!!)
+        assertEquals(m.totalMah, m.screenOnMah!! + m.screenOffMah!! + m.screenDozeMah!!, 0.001)
     }
 
     /**
@@ -89,5 +89,49 @@ class BatteryStatsParserTest {
     @Test
     fun `start clock is captured verbatim for the header`() {
         assertEquals("2026-08-15-14-42-53", stats.startClock)
+    }
+
+    /**
+     * batterystats formats charge by magnitude — two decimals below 10 mAh, one below
+     * 100, whole numbers above — so the fixture above, which happens to be all whole
+     * numbers, exercises only one of the three shapes.
+     *
+     * An integer-only pattern did not miss the other two, which would have been obvious.
+     * It skipped the whole number and matched the digits *after* the point: "93.4 mAh"
+     * read as 4, and "5.56 mAh" read as 56 — off by a factor of ten, in the direction
+     * that makes a sleeping phone look like it is drawing 2.3 A.
+     */
+    @Test
+    fun `charge is read at all three magnitudes dumpsys formats`() {
+        val decimal = BatteryStatsParser.parseStats(
+            """
+              Discharge: 144 mAh
+              Screen off discharge: 5.56 mAh
+              Screen doze discharge: 0 mAh
+              Screen on discharge: 93.4 mAh
+              Device light doze discharge: 12.6 mAh
+              Device deep doze discharge: 0 mAh
+            """.trimIndent()
+        )
+        val measured = decimal.measured!!
+
+        assertEquals(144.0, decimal.dischargeMah!!, 0.001)
+        assertEquals(93.4, measured.screenOnMah!!, 0.001)
+        assertEquals(5.56, measured.screenOffMah!!, 0.001)
+        assertEquals(12.6, measured.lightDozeMah!!, 0.001)
+    }
+
+    /** Negative figures still parse — the pattern's sign group has to survive the fix. */
+    @Test
+    fun `signed charge keeps its sign`() {
+        val negative = BatteryStatsParser.parseStats(
+            """
+              Discharge: 12.5 mAh
+              Screen on discharge: -1.25 mAh
+              Screen off discharge: 0 mAh
+            """.trimIndent()
+        )
+
+        assertEquals(-1.25, negative.measured!!.screenOnMah!!, 0.001)
     }
 }

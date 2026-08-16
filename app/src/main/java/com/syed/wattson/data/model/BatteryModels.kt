@@ -9,12 +9,12 @@ package com.syed.wattson.data.model
  * presented as a total must come from here.
  */
 data class MeasuredDischarge(
-    val totalMah: Int,
-    val screenOnMah: Int?,
-    val screenOffMah: Int?,
-    val screenDozeMah: Int?,
-    val lightDozeMah: Int?,
-    val deepDozeMah: Int?,
+    val totalMah: Double,
+    val screenOnMah: Double?,
+    val screenOffMah: Double?,
+    val screenDozeMah: Double?,
+    val lightDozeMah: Double?,
+    val deepDozeMah: Double?,
 )
 
 /** Everything parsed out of `dumpsys batterystats --charged`. */
@@ -25,7 +25,12 @@ data class BatteryStats(
     val screenOffMs: Long,
     val screenOnCount: Int,
     val totalRunTimeMs: Long,
-    val dischargeMah: Int?,
+    /**
+     * Charge taken out of the cell this cycle. Kept fractional: batterystats prints these
+     * to two decimals below 10 mAh and one below 100, and rounding to a whole number
+     * throws away most of the figure for the first minutes of a cycle.
+     */
+    val dischargeMah: Double?,
     val designCapacityMah: Int?,
     val powerByState: PowerByState,
     val measured: MeasuredDischarge? = null,

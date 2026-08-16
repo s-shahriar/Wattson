@@ -19,7 +19,17 @@ object BatteryStatsParser {
     private val SCREEN_ON_COUNT = Regex("""\)\s*(\d+)x""")
     private val CAPACITY = Regex("""Capacity:\s*(\d+)""")
     private val COMPUTED_DRAIN = Regex("""Computed drain:\s*(\d+)""")
-    private val MAH_VALUE = Regex("""(-?\d+)\s*mAh""")
+    /**
+     * The fractional part is not optional decoration. batterystats formats charge by
+     * magnitude — two decimals below 10 mAh, one below 100, whole numbers above — so most
+     * of these lines carry a decimal point for most of a cycle.
+     *
+     * Matching integers only did not fail on those, which would have been obvious. It
+     * skipped the whole number and matched digits *after* the point: "93.4 mAh" read as
+     * 4, and "5.56 mAh" read as 56 — a tenfold overstatement that then drove a screen-off
+     * drain rate of 2349 mA.
+     */
+    private val MAH_VALUE = Regex("""(-?\d+(?:\.\d+)?)\s*mAh""")
 
     /** Sums every `<n><unit>` token in [text], e.g. "21h 6m 10s 571ms" -> milliseconds. */
     fun parseDurationMs(text: String): Long =
@@ -49,8 +59,10 @@ object BatteryStatsParser {
     }
 
     /** Reads the "<n> mAh" that follows [label], e.g. "Screen on discharge: 1463 mAh". */
-    private fun mahAfter(line: String, label: String): Int? =
-        MAH_VALUE.find(line.substringAfter(label, ""))?.groupValues?.get(1)?.toIntOrNull()
+    private fun mahAfter(line: String, label: String): Double? =
+        MAH_VALUE.find(line.substringAfter(label, ""))
+            ?.groupValues?.get(1)
+            ?.toDoubleOrNull()
 
     fun parseStats(dump: String): BatteryStats {
         val lines = dump.lineSequence().toList()
@@ -61,18 +73,18 @@ object BatteryStatsParser {
         var screenOn = 0L
         var screenOnCount = 0
         var totalRunTime = 0L
-        var dischargeMah: Int? = null
+        var dischargeMah: Double? = null
         var designCapacity: Int? = null
         var computedDrain: Int? = null
 
         // Coulomb-counter figures. Parsed separately from the modelled buckets because
         // they are measurements, not estimates, and the two disagree by an order of
         // magnitude whenever per-UID CPU tracking is unavailable.
-        var screenOnDischarge: Int? = null
-        var screenOffDischarge: Int? = null
-        var screenDozeDischarge: Int? = null
-        var lightDozeDischarge: Int? = null
-        var deepDozeDischarge: Int? = null
+        var screenOnDischarge: Double? = null
+        var screenOffDischarge: Double? = null
+        var screenDozeDischarge: Double? = null
+        var lightDozeDischarge: Double? = null
+        var deepDozeDischarge: Double? = null
 
         // Running totals for the four "(on/not on battery, screen on/off)" sub-blocks.
         val stateTotals = mutableMapOf<PowerState, Double>()
@@ -96,7 +108,7 @@ object BatteryStatsParser {
                     totalRunTime = durationAfter(line, "Total run time:")
 
                 line.startsWith("Discharge:") && dischargeMah == null ->
-                    dischargeMah = FIRST_NUMBER.find(line)?.groupValues?.get(1)?.toDoubleOrNull()?.toInt()
+                    dischargeMah = FIRST_NUMBER.find(line)?.groupValues?.get(1)?.toDoubleOrNull()
 
                 line.startsWith("Screen on discharge:") && screenOnDischarge == null ->
                     screenOnDischarge = mahAfter(line, "Screen on discharge:")

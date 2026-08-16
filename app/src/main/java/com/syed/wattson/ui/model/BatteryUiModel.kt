@@ -25,7 +25,7 @@ data class BatteryUiModel(
     val totalRunTimeMs: Long,
     /** Mean current over the whole on-battery window, from measured discharge. */
     val avgDrainMa: Double?,
-    val dischargeMah: Int?,
+    val dischargeMah: Double?,
     val designCapacityMah: Int?,
 
     // Screen

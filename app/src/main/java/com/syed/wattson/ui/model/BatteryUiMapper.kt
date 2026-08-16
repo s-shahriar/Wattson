@@ -39,7 +39,7 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         startClock = snapshot?.startClock,
         timeOnBatteryMs = snapshot?.timeOnBatteryMs ?: 0L,
         totalRunTimeMs = snapshot?.totalRunTimeMs ?: 0L,
-        avgDrainMa = snapshot?.dischargeMah?.toDouble()?.perHour(snapshot.timeOnBatteryMs),
+        avgDrainMa = snapshot?.dischargeMah?.perHour(snapshot.timeOnBatteryMs),
         dischargeMah = snapshot?.dischargeMah,
         designCapacityMah = snapshot?.designCapacityMah,
         screenOnMs = snapshot?.screenOnMs ?: 0L,
@@ -70,10 +70,9 @@ private fun BatteryReport.toDrainUi(): DrainUi? {
     val fromMeasurement: Boolean
 
     if (measured?.screenOnMah != null && measured.screenOffMah != null) {
-        screenOn = measured.screenOnMah.toDouble()
+        screenOn = measured.screenOnMah
         // Doze is reported separately but is still screen-off time in the cell's view.
-        screenOff = measured.screenOffMah.toDouble() +
-            (measured.screenDozeMah ?: 0).toDouble()
+        screenOff = measured.screenOffMah + (measured.screenDozeMah ?: 0.0)
         fromMeasurement = true
     } else {
         val byState = snapshot.powerByState

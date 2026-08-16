@@ -19,6 +19,7 @@ import com.syed.wattson.ui.component.chart.SplitBar
 import com.syed.wattson.ui.model.BatteryUiModel
 import com.syed.wattson.ui.theme.chartPalette
 import com.syed.wattson.ui.util.formatDuration
+import com.syed.wattson.ui.util.formatMah
 import com.syed.wattson.ui.util.formatPercent
 import com.syed.wattson.ui.util.formatMilliAmps
 
@@ -75,7 +76,7 @@ fun SessionSection(
                     modifier = Modifier.weight(1f),
                 )
                 StatTile(
-                    value = model.dischargeMah?.let { "$it mAh" } ?: EMPTY,
+                    value = model.dischargeMah?.let { "${formatMah(it)} mAh" } ?: EMPTY,
                     label = "Discharged",
                     modifier = Modifier.weight(1f),
                     accent = MaterialTheme.colorScheme.tertiaryContainer,
