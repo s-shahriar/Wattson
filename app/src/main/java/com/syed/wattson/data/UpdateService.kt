@@ -85,7 +85,19 @@ class UpdateService(private val context: Context) {
         val target = File(context.cacheDir, info.assetName ?: DEFAULT_ASSET)
 
         val alreadyHave = if (target.exists()) target.length() else 0L
-        val connection = openDownloadConnection(url, resumeFrom = alreadyHave)
+        var connection = openDownloadConnection(url, resumeFrom = alreadyHave)
+
+        // A cached file that is *already complete* asks for "bytes=<size>-", which is
+        // unsatisfiable — GitHub answers 416, verified against the live endpoint. That
+        // happens after any finished download the user did not install (tapped "Later",
+        // cancelled the installer, killed the app), and since nothing clears the cache it
+        // repeated forever: every future update attempt died on 416 with no way out of
+        // the app. Drop the file and fetch it once from the start.
+        if (connection.responseCode == HTTP_RANGE_NOT_SATISFIABLE) {
+            connection.disconnect()
+            target.delete()
+            connection = openDownloadConnection(url, resumeFrom = 0L)
+        }
 
         // A 206 means the server honoured our range; anything else restarts the file.
         val resuming = connection.responseCode == HttpURLConnection.HTTP_PARTIAL
@@ -205,7 +217,11 @@ class UpdateService(private val context: Context) {
             setRequestProperty("Accept", "*/*")
             setRequestProperty("User-Agent", USER_AGENT)
             if (resumeFrom > 0) setRequestProperty("Range", "bytes=$resumeFrom-")
-            if (responseCode !in 200..299 && responseCode != HttpURLConnection.HTTP_PARTIAL) {
+            // 416 is not an error here — the caller retries it from zero.
+            if (responseCode !in 200..299 &&
+                responseCode != HttpURLConnection.HTTP_PARTIAL &&
+                responseCode != HTTP_RANGE_NOT_SATISFIABLE
+            ) {
                 val code = responseCode
                 disconnect()
                 throw IllegalStateException("GitHub returned HTTP $code")
@@ -241,6 +257,9 @@ class UpdateService(private val context: Context) {
         private const val RELEASE_DOWNLOAD_BASE = "https://github.com/$REPO/releases/download"
         private const val DEFAULT_ASSET = "wattson-update.apk"
         private const val USER_AGENT = "Wattson"
+
+        /** java.net.HttpURLConnection has no constant for "Range Not Satisfiable". */
+        private const val HTTP_RANGE_NOT_SATISFIABLE = 416
 
         private const val CONNECT_TIMEOUT_MS = 15_000
         private const val FEED_READ_TIMEOUT_MS = 15_000

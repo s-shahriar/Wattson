@@ -42,8 +42,8 @@ fun CapabilitySection(
         Text(
             text = "Charge level, current, voltage, temperature and cycle count are " +
                 "shown above — those need no permissions. Capacity health, screen time, " +
-                "per-app usage, the category breakdown and the level history all come " +
-                "from Android's battery accounting, which an ordinary app cannot read." +
+                "the drain split and the level history all come from Android's battery " +
+                "accounting, which an ordinary app cannot read." +
                 "\n\nConnect this phone to a computer once and run:",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

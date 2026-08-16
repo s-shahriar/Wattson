@@ -33,7 +33,9 @@ object Shell {
             }
 
             // Drain stderr on a side thread so a chatty command cannot deadlock on a full pipe.
-            val errorBuffer = StringBuilder()
+            // StringBuffer, not StringBuilder: the join below is bounded, so on a slow
+            // drain this is read while that thread is still appending to it.
+            val errorBuffer = StringBuffer()
             val errorThread = Thread {
                 runCatching {
                     process.errorStream.bufferedReader().forEachLine { errorBuffer.appendLine(it) }

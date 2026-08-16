@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +56,10 @@ fun BatteryHistorySection(
     model: BatteryUiModel,
     modifier: Modifier = Modifier,
 ) {
-    var range by remember { mutableStateOf(HistoryRange.Cycle) }
+    // Saveable, not just remembered: this card lives in a LazyColumn, so scrolling it
+    // off screen disposes it and a plain remember silently snapped the toggle back to
+    // "This cycle" every time it came back.
+    var range by rememberSaveable { mutableStateOf(HistoryRange.Cycle) }
 
     // Fall back to whichever window actually has data.
     val selected: HistoryUi = when (range) {

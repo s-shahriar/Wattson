@@ -99,13 +99,22 @@ fun BatteryStatusSection(
 
         charging.healthFraction?.let { health ->
             Spacer(Modifier.height(18.dp))
+            // Both halves or neither. The percentage can come from the platform's
+            // state-of-health alone, while the design capacity behind it is a rooted
+            // sysfs read — so on an unrooted Android 14 device the old unconditional
+            // line rendered as "3979 of 0 mAh design" underneath a valid percentage.
+            val full = charging.chargeFullMah
+            val design = charging.designCapacityMah?.takeIf { it > 0 }
             MeterRow(
                 label = "Capacity health",
                 value = formatSharePercent(health),
                 fraction = health,
                 color = MaterialTheme.colorScheme.primary,
-                detail = "${charging.chargeFullMah ?: 0} of " +
-                    "${charging.designCapacityMah ?: 0} mAh design",
+                detail = if (full != null && design != null) {
+                    "$full of $design mAh design"
+                } else {
+                    null
+                },
             )
         }
     }

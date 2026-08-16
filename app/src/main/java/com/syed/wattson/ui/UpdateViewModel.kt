@@ -53,6 +53,9 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
                         if (info.available) {
                             UpdateState.Available(info)
                         } else {
+                            // Already on the latest: whatever APK is sitting in cache is
+                            // for a version we are running, so it will never be installed.
+                            service.clearStaleDownloads()
                             UpdateState.UpToDate(info.currentVersion)
                         }
                     },
