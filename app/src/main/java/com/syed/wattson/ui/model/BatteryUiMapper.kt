@@ -39,7 +39,7 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         startClock = snapshot?.startClock,
         timeOnBatteryMs = snapshot?.timeOnBatteryMs ?: 0L,
         totalRunTimeMs = snapshot?.totalRunTimeMs ?: 0L,
-        avgDrainMa = snapshot?.dischargeMah?.perHour(snapshot.timeOnBatteryMs),
+        avgDrainPercentPerHour = avgDrainPercentPerHour(),
         dischargeMah = snapshot?.dischargeMah,
         designCapacityMah = snapshot?.designCapacityMah,
         screenOnMs = snapshot?.screenOnMs ?: 0L,
@@ -89,12 +89,28 @@ private fun BatteryReport.toDrainUi(): DrainUi? {
         screenOffMah = screenOff,
         screenOnShare = screenOn.safeShareOf(total),
         screenOffShare = screenOff.safeShareOf(total),
-        screenOnRateMa = screenOn.perHour(snapshot.screenOnOnBatteryMs),
-        screenOffRateMa = screenOff.perHour(snapshot.screenOffMs),
         totalOnBatteryMah = total,
         chargingUsageMah = snapshot.powerByState.totalChargingMah,
         fromMeasurement = fromMeasurement,
     )
+}
+
+/**
+ * Battery percentage the cycle has been burning through per hour on battery.
+ *
+ * Deliberately not mAh per hour: that is the same quantity as a milliamp draw, which the
+ * status card and both drain rows already report, so the tile would have restated a
+ * number rather than added one. Against the cell's full capacity it becomes a figure you
+ * can divide the remaining charge by.
+ */
+private fun BatteryReport.avgDrainPercentPerHour(): Double? {
+    val snapshot = stats ?: return null
+    val discharged = snapshot.dischargeMah ?: return null
+    // Same capacity the "Full capacity" tile beside it shows, falling back to the sysfs
+    // reading so a device whose dumpsys omits the design figure still gets a rate.
+    val fullMah = (snapshot.designCapacityMah ?: charging.chargeFullMah)
+        ?.takeIf { it > 0 } ?: return null
+    return (discharged / fullMah * 100.0).perHour(snapshot.timeOnBatteryMs)
 }
 
 private fun BatteryReport.toChargingUi(): ChargingUi {
@@ -124,22 +140,33 @@ private fun BatteryReport.toChargingUi(): ChargingUi {
  * Levels are carried forward across empty slices so a gap in sampling shows the last
  * known level rather than dropping to zero; slices with no sample at all are flagged so
  * the chart can render them as "device off" instead of a real reading.
+ *
+ * [fillGaps] suppresses that flagging, and carries the charge and screen state forward
+ * as well. It is for windows the device is known to have been running through, where an
+ * empty slice only means nothing changed — see [toCycleHistory].
  */
 private fun BatteryReport.toHistoryUi(
     startMs: Long,
     endMs: Long,
     spanLabel: String,
+    fillGaps: Boolean = false,
 ): HistoryUi? {
     if (history.isEmpty() || endMs <= startMs) return null
 
     val windowed = history.filter { it.timestampMs in startMs..endMs }
-    if (windowed.size < 2) return null
+
+    // A window needs one known state to start from: either a sample inside it, or the
+    // last one before it to carry in. Requiring two samples *inside* is what made a
+    // minutes-old cycle — which has barely had time to log a level change — resolve to
+    // nothing and silently hand the chart over to the rolling 24-hour window.
+    var carried = history.lastOrNull { it.timestampMs < startMs }
+        ?: windowed.firstOrNull()
+        ?: return null
+    if (!fillGaps && windowed.size < 2) return null
 
     val sliceMs = (endMs - startMs).toDouble() / HISTORY_COLUMNS
     if (sliceMs <= 0.0) return null
 
-    var carriedLevel = history.lastOrNull { it.timestampMs < startMs }?.level
-        ?: windowed.first().level
     var cursor = 0
 
     val zone = ZoneId.systemDefault()
@@ -153,18 +180,19 @@ private fun BatteryReport.toHistoryUi(
 
         while (cursor < windowed.size && windowed[cursor].timestampMs <= sliceEnd) {
             val point = windowed[cursor]
-            carriedLevel = point.level
+            carried = point
             if (point.charging) charging = true
             if (point.screenOn) screenOn = true
             seen = true
             cursor++
         }
 
+        val inherited = fillGaps && !seen
         HistoryColumn(
-            level = carriedLevel,
-            charging = charging,
-            screenOn = screenOn,
-            hasData = seen,
+            level = carried.level,
+            charging = if (inherited) carried.charging else charging,
+            screenOn = if (inherited) carried.screenOn else screenOn,
+            hasData = seen || fillGaps,
             timeLabel = Instant.ofEpochMilli(sliceEnd).atZone(zone).format(formatter),
         )
     }
@@ -196,15 +224,22 @@ private fun BatteryReport.toDayHistory(): HistoryUi? {
  * The ongoing battery cycle — everything since the stats last reset, which is the same
  * window the rest of the screen reports on. Clamped to the oldest sample the history
  * buffer still holds, since that buffer is finite and can be shorter than the cycle.
+ *
+ * Runs to the capture instant rather than to the newest history record: a cycle a few
+ * minutes old has logged one level change at most, so ending on that record cut the
+ * chart off minutes before the "On battery" figure beside it. Gaps are filled for the
+ * same reason — inside one cycle the device has been awake and unplugged throughout, so
+ * a slice with no record of its own is a quiet slice, not a powered-off one.
  */
 private fun BatteryReport.toCycleHistory(): HistoryUi? {
-    val endMs = history.lastOrNull()?.timestampMs ?: return null
+    val newestSample = history.lastOrNull()?.timestampMs ?: return null
     val cycleStart = parseStartClock(stats?.startClock) ?: return null
     val oldestSample = history.first().timestampMs
     return toHistoryUi(
         startMs = maxOf(cycleStart, oldestSample),
-        endMs = endMs,
+        endMs = maxOf(capturedAtMs, newestSample),
         spanLabel = "This cycle",
+        fillGaps = true,
     )
 }
 
@@ -221,7 +256,7 @@ private fun parseStartClock(raw: String?): Long? {
     }.getOrNull()
 }
 
-/** mAh spread over a duration, expressed as an average milliamp draw. */
+/** A quantity spread over a duration, expressed as a rate per hour. */
 private fun Double.perHour(durationMs: Long): Double? {
     if (durationMs <= 0L) return null
     val hours = durationMs / MILLIS_PER_HOUR
@@ -288,7 +323,7 @@ fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel {
         startClock = null,
         timeOnBatteryMs = 0L,
         totalRunTimeMs = 0L,
-        avgDrainMa = null,
+        avgDrainPercentPerHour = null,
         dischargeMah = null,
         designCapacityMah = null,
         screenOnMs = 0L,

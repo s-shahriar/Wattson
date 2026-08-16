@@ -21,7 +21,7 @@ import com.syed.wattson.ui.theme.chartPalette
 import com.syed.wattson.ui.util.formatDuration
 import com.syed.wattson.ui.util.formatMah
 import com.syed.wattson.ui.util.formatPercent
-import com.syed.wattson.ui.util.formatMilliAmps
+import com.syed.wattson.ui.util.formatPercentPerHour
 
 private const val EMPTY = "—"
 
@@ -42,7 +42,9 @@ fun SessionSection(
 
     SectionCard(
         title = "This session",
-        subtitle = "${model.screenOnCount} screen-ons since last charge",
+        subtitle = "${model.screenOnCount} " +
+            (if (model.screenOnCount == 1) "screen-on" else "screen-ons") +
+            " since last charge",
         modifier = modifier,
     ) {
         SplitBar(
@@ -87,7 +89,7 @@ fun SessionSection(
                 // Not "Total run time": this cycle starts at unplug, so run time and
                 // on-battery time are the same clock and the tile said nothing twice.
                 StatTile(
-                    value = model.avgDrainMa?.let { formatMilliAmps(it) } ?: EMPTY,
+                    value = model.avgDrainPercentPerHour?.let { formatPercentPerHour(it) } ?: EMPTY,
                     label = "Avg drain",
                     modifier = Modifier.weight(1f),
                     accent = MaterialTheme.colorScheme.secondaryContainer,

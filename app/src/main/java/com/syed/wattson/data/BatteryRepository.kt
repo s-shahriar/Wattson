@@ -72,6 +72,7 @@ class BatteryRepository(
                 stats = stats.await(),
                 charging = snapshot.charging,
                 history = history.await(),
+                capturedAtMs = System.currentTimeMillis(),
             )
         }
     }

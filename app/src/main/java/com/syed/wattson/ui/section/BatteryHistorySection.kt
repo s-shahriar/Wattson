@@ -34,7 +34,6 @@ import com.syed.wattson.ui.model.HistoryUi
 import com.syed.wattson.ui.theme.chartPalette
 import com.syed.wattson.ui.util.formatDuration
 import com.syed.wattson.ui.util.formatMah
-import com.syed.wattson.ui.util.formatMilliAmps
 import com.syed.wattson.ui.util.formatSharePercent
 
 /** Which window the chart is showing. */
@@ -112,7 +111,6 @@ fun BatteryHistorySection(
                 trailing = formatSharePercent(drain.screenOnShare),
                 fraction = drain.screenOnShare,
                 color = palette.screenOn,
-                detail = drain.screenOnRateMa?.let { formatMilliAmps(it) },
             )
             MeterRow(
                 label = "Screen off drain",
@@ -120,7 +118,6 @@ fun BatteryHistorySection(
                 trailing = formatSharePercent(drain.screenOffShare),
                 fraction = drain.screenOffShare,
                 color = MaterialTheme.colorScheme.outline,
-                detail = drain.screenOffRateMa?.let { formatMilliAmps(it) },
             )
             if (drain.fromMeasurement) {
                 Spacer(Modifier.height(6.dp))

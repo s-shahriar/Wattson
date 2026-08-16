@@ -68,6 +68,14 @@ data class BatteryReport(
     val stats: BatteryStats?,
     val charging: ChargingInfo,
     val history: List<HistoryPoint>,
+    /**
+     * Wall clock at the moment this report was assembled.
+     *
+     * History records land only when the level, charge state or screen state actually
+     * changes, so the newest one can be minutes behind. Charting up to here instead of
+     * up to that record keeps a window's right edge on "now".
+     */
+    val capturedAtMs: Long,
 )
 
 /** Raised when `su` is missing or refuses to elevate. */

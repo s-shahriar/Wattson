@@ -97,10 +97,10 @@ fun formatSharePercent(share: Float): String {
     }
 }
 
-/** Average current draw, e.g. "143 mA" or "6.5 mA" when the figure is small. */
-fun formatMilliAmps(value: Double): String = when {
-    value >= 10 -> "${value.roundToInt()} mA"
-    else -> String.format("%.1f mA", value)
+/** Battery percentage burnt per hour, e.g. "14 %/h" or "3.2 %/h" when the rate is low. */
+fun formatPercentPerHour(value: Double): String = when {
+    value >= 10 -> "${value.roundToInt()} %/h"
+    else -> String.format("%.1f %%/h", value)
 }
 
 /** Decimal hours as "9h 55m", or "48m" when under an hour. */

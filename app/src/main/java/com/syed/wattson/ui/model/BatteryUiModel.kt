@@ -23,8 +23,8 @@ data class BatteryUiModel(
     val startClock: String?,
     val timeOnBatteryMs: Long,
     val totalRunTimeMs: Long,
-    /** Mean current over the whole on-battery window, from measured discharge. */
-    val avgDrainMa: Double?,
+    /** Percent of full capacity drained per hour over the whole on-battery window. */
+    val avgDrainPercentPerHour: Double?,
     val dischargeMah: Double?,
     val designCapacityMah: Int?,
 
@@ -43,29 +43,18 @@ data class BatteryUiModel(
     val historyDay: HistoryUi?,
 )
 
-/** Drain split between screen-on and screen-off, with the rate each ran at. */
+/** Drain split between screen-on and screen-off, as charge and as a share of the total. */
 data class DrainUi(
     val screenOnMah: Double,
     val screenOffMah: Double,
     val screenOnShare: Float,
     val screenOffShare: Float,
-    /** Average milliamps drawn while the screen was on, or null if the window was empty. */
-    val screenOnRateMa: Double?,
-    val screenOffRateMa: Double?,
     val totalOnBatteryMah: Double,
     /** Power consumed while plugged in — never came out of the cell. */
     val chargingUsageMah: Double,
     /** True when these came from the coulomb counter rather than the power-profile model. */
     val fromMeasurement: Boolean = false,
-) {
-    /** How many times harder the screen-on state drew, e.g. 22× idle. */
-    val rateMultiple: Double?
-        get() {
-            val on = screenOnRateMa ?: return null
-            val off = screenOffRateMa?.takeIf { it > 0.0 } ?: return null
-            return on / off
-        }
-}
+)
 
 /** Live charging state and cell health. */
 data class ChargingUi(
