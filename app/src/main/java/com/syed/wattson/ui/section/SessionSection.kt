@@ -47,10 +47,12 @@ fun SessionSection(
             " since last charge",
         modifier = modifier,
     ) {
+        // Both halves take the same two tones the drain rows in the history card use, so
+        // "screen off" reads as one colour down the whole screen.
         SplitBar(
             fraction = model.screenOnFraction,
             leftColor = palette.screenOn,
-            rightColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+            rightColor = MaterialTheme.colorScheme.outline,
         )
         Spacer(Modifier.height(14.dp))
         Row(Modifier.fillMaxWidth()) {
@@ -85,22 +87,35 @@ fun SessionSection(
                     onAccent = MaterialTheme.colorScheme.onTertiaryContainer,
                 )
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                // Not "Total run time": this cycle starts at unplug, so run time and
-                // on-battery time are the same clock and the tile said nothing twice.
+            // Overall, then the same rate split by screen state. Full capacity used to
+            // sit here; it is a property of the cell rather than of this cycle, and the
+            // status card above already reports it against the design figure.
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 StatTile(
                     value = model.avgDrainPercentPerHour?.let { formatPercentPerHour(it) } ?: EMPTY,
                     label = "Avg drain",
                     modifier = Modifier.weight(1f),
                     accent = MaterialTheme.colorScheme.secondaryContainer,
                     onAccent = MaterialTheme.colorScheme.onSecondaryContainer,
+                    dense = true,
                 )
                 StatTile(
-                    value = model.designCapacityMah?.let { "$it mAh" } ?: EMPTY,
-                    label = "Full capacity",
+                    value = model.screenOnDrainPercentPerHour
+                        ?.let { formatPercentPerHour(it) } ?: EMPTY,
+                    label = "Screen on",
                     modifier = Modifier.weight(1f),
-                    accent = MaterialTheme.colorScheme.surfaceContainerHighest,
-                    onAccent = MaterialTheme.colorScheme.onSurface,
+                    accent = MaterialTheme.colorScheme.secondaryContainer,
+                    onAccent = MaterialTheme.colorScheme.onSecondaryContainer,
+                    dense = true,
+                )
+                StatTile(
+                    value = model.screenOffDrainPercentPerHour
+                        ?.let { formatPercentPerHour(it) } ?: EMPTY,
+                    label = "Screen off",
+                    modifier = Modifier.weight(1f),
+                    accent = MaterialTheme.colorScheme.secondaryContainer,
+                    onAccent = MaterialTheme.colorScheme.onSecondaryContainer,
+                    dense = true,
                 )
             }
         }

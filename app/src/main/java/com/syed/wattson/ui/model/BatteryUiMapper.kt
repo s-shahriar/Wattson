@@ -28,6 +28,10 @@ private const val MILLIS_PER_HOUR = 3_600_000.0
  */
 fun BatteryReport.toUiModel(): BatteryUiModel {
     val snapshot = stats
+    val drain = toDrainUi()
+    // One capacity behind all three session rates, so they stay comparable with each
+    // other and with the "Discharged" figure they are derived from.
+    val fullMah = (snapshot?.designCapacityMah ?: charging.chargeFullMah)?.takeIf { it > 0 }
 
     return BatteryUiModel(
         tier = tier,
@@ -39,14 +43,18 @@ fun BatteryReport.toUiModel(): BatteryUiModel {
         startClock = snapshot?.startClock,
         timeOnBatteryMs = snapshot?.timeOnBatteryMs ?: 0L,
         totalRunTimeMs = snapshot?.totalRunTimeMs ?: 0L,
-        avgDrainPercentPerHour = avgDrainPercentPerHour(),
+        avgDrainPercentPerHour =
+            snapshot?.dischargeMah.percentPerHour(fullMah, snapshot?.timeOnBatteryMs),
+        screenOnDrainPercentPerHour =
+            drain?.screenOnMah.percentPerHour(fullMah, snapshot?.screenOnOnBatteryMs),
+        screenOffDrainPercentPerHour =
+            drain?.screenOffMah.percentPerHour(fullMah, snapshot?.screenOffMs),
         dischargeMah = snapshot?.dischargeMah,
-        designCapacityMah = snapshot?.designCapacityMah,
         screenOnMs = snapshot?.screenOnMs ?: 0L,
         screenOffMs = snapshot?.screenOffMs ?: 0L,
         screenOnFraction = snapshot?.screenOnFraction ?: 0f,
         screenOnCount = snapshot?.screenOnCount ?: 0,
-        drain = toDrainUi(),
+        drain = drain,
         charging = toChargingUi(),
         historyCycle = toCycleHistory(),
         historyDay = toDayHistory(),
@@ -96,21 +104,25 @@ private fun BatteryReport.toDrainUi(): DrainUi? {
 }
 
 /**
- * Battery percentage the cycle has been burning through per hour on battery.
+ * Charge as a percentage of [fullMah], spread over [durationMs].
  *
- * Deliberately not mAh per hour: that is the same quantity as a milliamp draw, which the
- * status card and both drain rows already report, so the tile would have restated a
- * number rather than added one. Against the cell's full capacity it becomes a figure you
- * can divide the remaining charge by.
+ * Deliberately percent rather than mAh per hour: the latter is the same quantity as a
+ * milliamp draw, which the status card already reports, so the tiles would have restated
+ * a number rather than added one. Against the cell's capacity it becomes a figure you can
+ * divide the remaining charge by.
+ *
+ * Each screen state is measured over *its own* time, not the whole cycle — the point of
+ * splitting them is to compare a screen-on hour against a screen-off hour.
+ *
+ * Null unless all three inputs are known and the window is non-empty: a rate over zero
+ * elapsed time is not a small number, it is no number.
  */
-private fun BatteryReport.avgDrainPercentPerHour(): Double? {
-    val snapshot = stats ?: return null
-    val discharged = snapshot.dischargeMah ?: return null
-    // Same capacity the "Full capacity" tile beside it shows, falling back to the sysfs
-    // reading so a device whose dumpsys omits the design figure still gets a rate.
-    val fullMah = (snapshot.designCapacityMah ?: charging.chargeFullMah)
-        ?.takeIf { it > 0 } ?: return null
-    return (discharged / fullMah * 100.0).perHour(snapshot.timeOnBatteryMs)
+private fun Double?.percentPerHour(fullMah: Int?, durationMs: Long?): Double? {
+    val mah = this ?: return null
+    val capacity = fullMah ?: return null
+    val ms = durationMs ?: return null
+    if (ms <= 0L) return null
+    return (mah / capacity * 100.0) / (ms / MILLIS_PER_HOUR)
 }
 
 private fun BatteryReport.toChargingUi(): ChargingUi {
@@ -256,13 +268,6 @@ private fun parseStartClock(raw: String?): Long? {
     }.getOrNull()
 }
 
-/** A quantity spread over a duration, expressed as a rate per hour. */
-private fun Double.perHour(durationMs: Long): Double? {
-    if (durationMs <= 0L) return null
-    val hours = durationMs / MILLIS_PER_HOUR
-    return if (hours <= 0.0) null else this / hours
-}
-
 /** Division guarded against a zero or negative denominator. */
 private fun Double.safeShareOf(total: Double): Float =
     if (total <= 0.0) 0f else (this / total).toFloat().coerceIn(0f, 1f)
@@ -324,8 +329,9 @@ fun LiveSnapshot.toLiveOnlyUiModel(tier: DataTier): BatteryUiModel {
         timeOnBatteryMs = 0L,
         totalRunTimeMs = 0L,
         avgDrainPercentPerHour = null,
+        screenOnDrainPercentPerHour = null,
+        screenOffDrainPercentPerHour = null,
         dischargeMah = null,
-        designCapacityMah = null,
         screenOnMs = 0L,
         screenOffMs = 0L,
         screenOnFraction = 0f,

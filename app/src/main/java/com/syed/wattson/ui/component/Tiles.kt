@@ -23,16 +23,29 @@ fun StatTile(
     modifier: Modifier = Modifier,
     accent: Color = MaterialTheme.colorScheme.primaryContainer,
     onAccent: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    /**
+     * Tightens padding and drops the value a size, for rows of three. At the card's
+     * width three tiles leave about 100dp each, and "9.0 %/h" in titleLarge does not
+     * survive that — it ellipsises to "9.0 %...".
+     */
+    dense: Boolean = false,
 ) {
     Column(
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
             .background(accent)
-            .padding(horizontal = 14.dp, vertical = 14.dp),
+            .padding(
+                horizontal = if (dense) 10.dp else 14.dp,
+                vertical = if (dense) 12.dp else 14.dp,
+            ),
     ) {
         Text(
             text = value,
-            style = MaterialTheme.typography.titleLarge,
+            style = if (dense) {
+                MaterialTheme.typography.titleMedium
+            } else {
+                MaterialTheme.typography.titleLarge
+            },
             fontWeight = FontWeight.Bold,
             color = onAccent,
             maxLines = 1,
@@ -42,6 +55,8 @@ fun StatTile(
             text = label,
             style = MaterialTheme.typography.labelMedium,
             color = onAccent.copy(alpha = 0.75f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

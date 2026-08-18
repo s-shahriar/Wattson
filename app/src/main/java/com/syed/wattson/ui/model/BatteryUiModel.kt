@@ -25,8 +25,11 @@ data class BatteryUiModel(
     val totalRunTimeMs: Long,
     /** Percent of full capacity drained per hour over the whole on-battery window. */
     val avgDrainPercentPerHour: Double?,
+    /** The same rate over screen-on time alone. */
+    val screenOnDrainPercentPerHour: Double?,
+    /** The same rate over screen-off time alone. */
+    val screenOffDrainPercentPerHour: Double?,
     val dischargeMah: Double?,
-    val designCapacityMah: Int?,
 
     // Screen
     val screenOnMs: Long,
