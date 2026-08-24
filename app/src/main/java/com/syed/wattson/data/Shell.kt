@@ -1,6 +1,7 @@
 package com.syed.wattson.data
 
 import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.util.concurrent.TimeUnit
 
 /**
@@ -12,6 +13,18 @@ object Shell {
     /** How long to wait for the stderr drain thread after the process exits. */
     private const val ERROR_DRAIN_TIMEOUT_MS = 1_000L
 
+    /**
+     * Read buffer for the streaming path. The battery history dump is over 20 MB, and the
+     * consumer has to keep up with it — see [streamAsRoot].
+     */
+    private const val STREAM_BUFFER_BYTES = 1 shl 16
+
+    /** How often the streaming read checks its deadline, in lines. */
+    private const val DEADLINE_CHECK_INTERVAL = 4_096L
+
+    /** Ceiling on retained stderr. Only the first line of it is ever displayed. */
+    private const val ERROR_LIMIT_CHARS = 8 shl 10
+
     data class Result(val ok: Boolean, val out: String, val error: String)
 
     /** Runs [command] through `su`, feeding it on stdin (compatible with Magisk and KernelSU). */
@@ -20,7 +33,30 @@ object Shell {
     /** Runs [command] through the plain app shell (no elevation). */
     fun runPlain(command: String, timeoutSeconds: Long = 30): Result = runWith("sh", command, timeoutSeconds)
 
-    private fun runWith(shell: String, command: String, timeoutSeconds: Long): Result {
+    /**
+     * Runs [command] through `su` and hands every output line to [onLine] as it arrives,
+     * retaining none of it. [Result.out] is always empty.
+     *
+     * This exists for `dumpsys`, which enforces a timeout on the *service's* dump call and
+     * kills it mid-stream when it expires. A dump that writes into a pipe is only as fast
+     * as whatever is reading the other end, so a slow consumer makes dumpsys guillotine
+     * the output — silently, since the truncation marker goes to stdout and the exit
+     * status stays zero. Reading it straight into the JVM drains the pipe orders of
+     * magnitude faster than an on-device `awk` filter can.
+     */
+    fun streamAsRoot(command: String, timeoutSeconds: Long = 30, onLine: (String) -> Unit): Result =
+        runWith("su", command, timeoutSeconds, onLine)
+
+    /** [streamAsRoot] without elevation. */
+    fun streamPlain(command: String, timeoutSeconds: Long = 30, onLine: (String) -> Unit): Result =
+        runWith("sh", command, timeoutSeconds, onLine)
+
+    private fun runWith(
+        shell: String,
+        command: String,
+        timeoutSeconds: Long,
+        onLine: ((String) -> Unit)? = null,
+    ): Result {
         var process: Process? = null
         return try {
             process = ProcessBuilder(shell).redirectErrorStream(false).start()
@@ -34,17 +70,28 @@ object Shell {
 
             // Drain stderr on a side thread so a chatty command cannot deadlock on a full pipe.
             // StringBuffer, not StringBuilder: the join below is bounded, so on a slow
-            // drain this is read while that thread is still appending to it.
+            // drain this is read while that thread is still appending to it. Capped, because
+            // nothing downstream shows more than the first line of it and a command that
+            // fails per input line — an SELinux denial for every one of 350 000 records —
+            // would otherwise grow this without limit.
             val errorBuffer = StringBuffer()
             val errorThread = Thread {
                 runCatching {
-                    process.errorStream.bufferedReader().forEachLine { errorBuffer.appendLine(it) }
+                    process.errorStream.bufferedReader().forEachLine {
+                        if (errorBuffer.length < ERROR_LIMIT_CHARS) errorBuffer.appendLine(it)
+                    }
                 }
             }.apply { isDaemon = true; start() }
 
-            val output = process.inputStream.bufferedReader().use(BufferedReader::readText)
+            var readTimedOut = false
+            val output = if (onLine == null) {
+                process.inputStream.bufferedReader().use(BufferedReader::readText)
+            } else {
+                readTimedOut = drain(process.inputStream, timeoutSeconds, onLine)
+                ""
+            }
 
-            val finished = process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
+            val finished = !readTimedOut && process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
             if (!finished) {
                 return Result(false, output, "Timed out after ${timeoutSeconds}s")
             }
@@ -60,6 +107,34 @@ object Shell {
         }
     }
 
+
+    /**
+     * Reads [source] to EOF a line at a time, handing each to [onLine] and keeping none.
+     * Returns true if it gave up on [timeoutSeconds] first.
+     *
+     * The deadline is what stops a stuck child from pinning this thread for the life of the
+     * app: the read below blocks until the far end closes, so the caller's `waitFor` timeout
+     * is never even reached while it is waiting. It is checked every
+     * [DEADLINE_CHECK_INTERVAL] lines rather than every line — over a dump this size the
+     * clock read is otherwise a measurable part of the work.
+     */
+    private fun drain(
+        source: java.io.InputStream,
+        timeoutSeconds: Long,
+        onLine: (String) -> Unit,
+    ): Boolean {
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(timeoutSeconds)
+        BufferedReader(InputStreamReader(source), STREAM_BUFFER_BYTES).use { reader ->
+            var lines = 0L
+            while (true) {
+                val line = reader.readLine() ?: return false
+                onLine(line)
+                if (++lines % DEADLINE_CHECK_INTERVAL == 0L && System.nanoTime() > deadline) {
+                    return true
+                }
+            }
+        }
+    }
 
     /** True when a `su` binary exists and actually grants uid 0. */
     fun hasRoot(): Boolean {

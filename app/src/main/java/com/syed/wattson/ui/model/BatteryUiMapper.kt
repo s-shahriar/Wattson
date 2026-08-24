@@ -20,6 +20,14 @@ private const val HISTORY_LABELS = 4
 private const val MILLIS_PER_HOUR = 3_600_000.0
 
 /**
+ * Widest window the cycle chart will draw, however old the cycle claims to be.
+ *
+ * A week over 120 columns is already 84 minutes a column; past that the chart stops
+ * carrying information, and the only things that reach back further are a broken clock.
+ */
+private const val MAX_CYCLE_SPAN_MS = 7L * 24 * 3_600_000
+
+/**
  * Projects the domain report into [BatteryUiModel], resolving every share up front.
  * Kept as a pure function so it stays trivially testable.
  *
@@ -247,9 +255,15 @@ private fun BatteryReport.toCycleHistory(): HistoryUi? {
     val newestSample = history.lastOrNull()?.timestampMs ?: return null
     val cycleStart = parseStartClock(stats?.startClock) ?: return null
     val oldestSample = history.first().timestampMs
+    val endMs = maxOf(capturedAtMs, newestSample)
     return toHistoryUi(
-        startMs = maxOf(cycleStart, oldestSample),
-        endMs = maxOf(capturedAtMs, newestSample),
+        // The floor is not only about a cycle outliving the history buffer. The start
+        // clock is wall clock as it read when the cycle began, and pulling the battery
+        // cuts power to the RTC — so the first cycle after a swap reports having started
+        // in 1970, and a window eight months wide renders as one flat line with everything
+        // that actually happened crushed into the last column.
+        startMs = maxOf(cycleStart, oldestSample, endMs - MAX_CYCLE_SPAN_MS),
+        endMs = endMs,
         spanLabel = "This cycle",
         fillGaps = true,
     )

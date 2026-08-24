@@ -9,8 +9,9 @@ import com.syed.wattson.data.model.LiveSnapshot
 import com.syed.wattson.data.model.RootUnavailableException
 import com.syed.wattson.data.model.StatsUnavailableException
 import com.syed.wattson.data.model.BatteryStats
-import com.syed.wattson.data.parser.BatteryHistoryParser
+import com.syed.wattson.data.parser.BatteryHistoryReducer
 import com.syed.wattson.data.parser.BatteryStatsParser
+import com.syed.wattson.data.parser.DumpsysOutput
 import com.syed.wattson.data.source.LiveBatterySource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -53,25 +54,26 @@ class BatteryRepository(
     suspend fun load(): BatteryReport = withContext(Dispatchers.IO) {
         val activeTier = currentTier()
 
-        // The two dumps are independent reads, and the history one alone costs ~6s.
-        // Running them concurrently overlaps that with the --charged dump instead of
-        // paying for both end to end. Same commands, same output, same accuracy.
+        // The live read touches nothing dumpsys does, so it overlaps freely.
         coroutineScope {
             val live = async { readLive(activeTier) }
-            val stats = async {
-                if (activeTier == DataTier.BASIC) null else readDumpsysStats(activeTier)
-            }
-            val history = async {
-                if (activeTier == DataTier.BASIC) emptyList() else loadHistory(activeTier)
-            }
+
+            // The two batterystats dumps do NOT overlap. They contend for the one
+            // batterystats service lock, so running them together never actually
+            // overlapped anything — it only put one of them in a queue, where dumpsys'
+            // own per-service timeout ran out and killed it. That is what left the
+            // --charged dump six lines long, with the session card and the cycle chart
+            // silently hiding themselves for want of a "Start clock time".
+            val stats = if (activeTier == DataTier.BASIC) null else readDumpsysStats(activeTier)
+            val history = if (activeTier == DataTier.BASIC) emptyList() else loadHistory(activeTier)
 
             val snapshot = live.await()
             BatteryReport(
                 tier = activeTier,
                 now = snapshot.now,
-                stats = stats.await(),
+                stats = stats,
                 charging = snapshot.charging,
-                history = history.await(),
+                history = history,
                 capturedAtMs = System.currentTimeMillis(),
             )
         }
@@ -91,6 +93,19 @@ class BatteryRepository(
             shell.runPlain(command, timeoutSeconds)
         }
 
+    /** [runShell] for a dump too large to hold, handing each line straight to [onLine]. */
+    private fun streamShell(
+        command: String,
+        activeTier: DataTier,
+        timeoutSeconds: Long,
+        onLine: (String) -> Unit,
+    ): Shell.Result =
+        if (activeTier == DataTier.ROOT) {
+            shell.streamAsRoot(command, timeoutSeconds, onLine)
+        } else {
+            shell.streamPlain(command, timeoutSeconds, onLine)
+        }
+
     /** Full dumpsys parse — identical on ROOT and PRIVILEGED. */
     private fun readDumpsysStats(activeTier: DataTier): BatteryStats {
         val statsDump = runShell(CMD_BATTERY_STATS, activeTier, STATS_TIMEOUT_SECONDS)
@@ -99,20 +114,37 @@ class BatteryRepository(
                 statsDump.error.ifBlank { "dumpsys batterystats returned nothing" }
             )
         }
+        // A dump dumpsys abandoned part-way through still parses: every figure it never
+        // reached simply reads as absent, which the UI cannot tell apart from a device
+        // that has none. Better an error the refresh can retry than a screen quietly
+        // missing three of its cards.
+        if (DumpsysOutput.isTruncated(statsDump.out)) {
+            throw StatsUnavailableException("dumpsys cut the batterystats dump short")
+        }
         return BatteryStatsParser.parseStats(statsDump.out)
     }
 
     /**
-     * Battery level history, reduced on-device before it crosses the shell boundary.
+     * Battery level history, reduced line by line as the dump arrives.
      *
-     * The raw dump is ~300k lines; the awk filter emits one record per actual change in
-     * level, charge state or screen state, which brings it to a couple of thousand.
-     * Returns empty rather than throwing — the chart simply hides if history is absent.
+     * The raw dump is ~350k lines and over 20 MB; [BatteryHistoryReducer] keeps one sample
+     * per actual change in level, charge state or screen state, which brings it to a
+     * couple of thousand. Nothing else is retained, so the size of the dump never reaches
+     * the heap.
+     *
+     * Returns empty rather than throwing — the chart hides if history is absent, and a
+     * chart is worth less than the figures beside it. A dump dumpsys truncated is
+     * discarded: it ends at an arbitrary moment in the past, so every window drawn from it
+     * would be stale without looking stale.
      */
     private fun loadHistory(activeTier: DataTier): List<HistoryPoint> {
-        val dump = runShell(CMD_HISTORY, activeTier, HISTORY_TIMEOUT_SECONDS)
-        if (!dump.ok || dump.out.isBlank()) return emptyList()
-        return runCatching { BatteryHistoryParser.parse(dump.out) }.getOrDefault(emptyList())
+        val reducer = BatteryHistoryReducer()
+        val dump = runCatching {
+            streamShell(CMD_HISTORY, activeTier, HISTORY_TIMEOUT_SECONDS, reducer::accept)
+        }.getOrNull() ?: return emptyList()
+
+        if (!dump.ok || reducer.truncated) return emptyList()
+        return reducer.points()
     }
 
     /**
@@ -164,30 +196,28 @@ class BatteryRepository(
     }
 
     private companion object {
-        const val CMD_BATTERY_STATS = "dumpsys batterystats --charged"
-        const val STATS_TIMEOUT_SECONDS = 60L
-        const val HISTORY_TIMEOUT_SECONDS = 45L
-
         /**
-         * Reduces the history dump to one line per change: `MM-DD HH:MM:SS.mmm LLL C|D 1|0`.
+         * How long dumpsys is told to let the service write for.
          *
-         * `not-charging` is folded into `D` because chargers negotiate constantly and the
-         * raw state flaps between them several times a second, which would otherwise
-         * render as visual noise.
+         * Its default is ten seconds, and on a device whose history buffer has filled up
+         * the history dump takes longer than that on its own. When it expires dumpsys
+         * abandons the dump and exits zero, so the only symptom is a stream that stops
+         * mid-record — which is why this is set explicitly on both commands rather than
+         * left to the default.
          */
-        val CMD_HISTORY = """
-            dumpsys batterystats --history | awk '
-            {
-              lvl = ${'$'}3
-              if (lvl !~ /^[0-9][0-9][0-9]${'$'}/) next
-              if (${'$'}0 ~ /status=charging/ || ${'$'}0 ~ /status=full/) st = "C"
-              else if (${'$'}0 ~ /status=discharging/ || ${'$'}0 ~ /status=not-charging/) st = "D"
-              if (${'$'}0 ~ / \+screen([^_a-zA-Z]|${'$'})/) sc = 1
-              if (${'$'}0 ~ / -screen([^_a-zA-Z]|${'$'})/) sc = 0
-              key = lvl "|" st "|" sc
-              if (key != prev) { printf "%s %s %s %s %s\n", ${'$'}1, ${'$'}2, lvl, st, sc; prev = key }
-            }'
-        """.trimIndent()
+        const val DUMPSYS_TIMEOUT_SECONDS = 60
+
+        /** Outlives [DUMPSYS_TIMEOUT_SECONDS], or the shell would give up on it first. */
+        const val STATS_TIMEOUT_SECONDS = 75L
+        const val HISTORY_TIMEOUT_SECONDS = 75L
+
+        const val CMD_BATTERY_STATS =
+            "dumpsys -t $DUMPSYS_TIMEOUT_SECONDS batterystats --charged"
+
+        /** Reduced in-process by [BatteryHistoryReducer], not on the device — see its docs. */
+        const val CMD_HISTORY =
+            "dumpsys -t $DUMPSYS_TIMEOUT_SECONDS batterystats --history"
+
         const val LIVE_TIMEOUT_SECONDS = 10L
         const val MICRO_PER_MILLI = 1_000
 

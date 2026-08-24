@@ -65,7 +65,10 @@ object BatteryStatsParser {
             ?.toDoubleOrNull()
 
     fun parseStats(dump: String): BatteryStats {
-        val lines = dump.lineSequence().toList()
+        // Walked as a sequence, not a list: the dump is a few hundred kilobytes and this
+        // makes exactly one pass over it, so materialising every line first only doubled
+        // the peak for no gain.
+        val lines = dump.lineSequence()
 
         var startClock: String? = null
         var timeOnBattery = 0L

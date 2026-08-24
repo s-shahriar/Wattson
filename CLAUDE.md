@@ -86,3 +86,11 @@ ui/
 - Never add a service, receiver, boot hook or wakelock. The no-background-work guarantee
   is the point of the app.
 - App icons are decoded only for the top `ICON_BUDGET` apps; the tail keeps labels only.
+- **Nothing a dump touches may be retained.** A full `dumpsys batterystats --history` is
+  over 20 MB and 350 000 lines on a device whose history buffer has filled; it is reduced
+  a line at a time as it arrives (`parser/BatteryHistoryReducer`) and never held whole.
+  A load costs ~5 MB of peak heap and keeps ~300 KB of samples, and repeated refreshes
+  must leave that flat — measure with `dumpsys meminfo <pid>` across several refreshes
+  before believing otherwise. Every shell call is reaped in a `finally`, every read has a
+  deadline, and stderr is capped: an app that watches the battery must not be a reason to
+  charge it.
