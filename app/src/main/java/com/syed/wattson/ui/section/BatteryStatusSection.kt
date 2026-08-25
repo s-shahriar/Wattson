@@ -9,6 +9,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,23 +28,22 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.syed.wattson.ui.component.InfoChip
-import com.syed.wattson.ui.component.MeterRow
 import com.syed.wattson.ui.component.SectionCard
 import com.syed.wattson.ui.component.StatTile
 import com.syed.wattson.ui.component.chart.BatteryRing
 import com.syed.wattson.ui.model.BatteryUiModel
 import com.syed.wattson.ui.theme.chartPalette
 import com.syed.wattson.ui.util.formatHours
-import com.syed.wattson.ui.util.formatSharePercent
 
 private const val EMPTY = "—"
 
 /**
- * The single live card: charge level, flow rate and cell health.
+ * The single live card: charge level, flow rate and the cell's vital signs.
  *
  * Previously split across "Battery now" and "Charging", which repeated the status string
  * three times between them and pushed everything else a screen further down.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun BatteryStatusSection(
     model: BatteryUiModel,
@@ -58,35 +59,45 @@ fun BatteryStatusSection(
         modifier = modifier,
         trailing = { LiveDot() },
     ) {
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        // Ring on the left rather than centred over the whole card: side by side, the
+        // gauge and the two figures it explains occupy the height of the gauge alone.
+        Row(verticalAlignment = Alignment.CenterVertically) {
             BatteryRing(
                 fraction = model.levelPercent / 100f,
                 label = "${model.levelPercent}%",
                 caption = charging.status,
                 ringColor = accent,
+                diameter = 124.dp,
+                strokeWidth = 14.dp,
             )
+            Spacer(Modifier.width(16.dp))
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                StatTile(
+                    value = charging.currentMa?.let { "$it mA" } ?: EMPTY,
+                    label = if (charging.isCharging) "Flowing in" else "Flowing out",
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                StatTile(
+                    value = charging.hoursRemaining?.let(::formatHours) ?: EMPTY,
+                    label = if (charging.isCharging) "Until full" else "Until empty",
+                    modifier = Modifier.fillMaxWidth(),
+                    accent = MaterialTheme.colorScheme.secondaryContainer,
+                    onAccent = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+            }
         }
 
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(16.dp))
 
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            StatTile(
-                value = charging.currentMa?.let { "$it mA" } ?: EMPTY,
-                label = if (charging.isCharging) "Flowing in" else "Flowing out",
-                modifier = Modifier.weight(1f),
-            )
-            StatTile(
-                value = charging.hoursRemaining?.let(::formatHours) ?: EMPTY,
-                label = if (charging.isCharging) "Until full" else "Until empty",
-                modifier = Modifier.weight(1f),
-                accent = MaterialTheme.colorScheme.secondaryContainer,
-                onAccent = MaterialTheme.colorScheme.onSecondaryContainer,
-            )
-        }
-
-        Spacer(Modifier.height(14.dp))
-
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        // FlowRow, not Row: four chips overflow 360dp and the fourth used to be clipped
+        // off the edge of the card.
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             InfoChip("${model.temperatureC} °C")
             charging.voltageVolts?.let { InfoChip(String.format("%.2f V", it)) }
             InfoChip(
@@ -96,27 +107,8 @@ fun BatteryStatusSection(
             )
             charging.cycleCount?.let { InfoChip("$it cycles") }
         }
-
-        charging.healthFraction?.let { health ->
-            Spacer(Modifier.height(18.dp))
-            // Both halves or neither. The percentage can come from the platform's
-            // state-of-health alone, while the design capacity behind it is a rooted
-            // sysfs read — so on an unrooted Android 14 device the old unconditional
-            // line rendered as "3979 of 0 mAh design" underneath a valid percentage.
-            val full = charging.chargeFullMah
-            val design = charging.designCapacityMah?.takeIf { it > 0 }
-            MeterRow(
-                label = "Capacity health",
-                value = formatSharePercent(health),
-                fraction = health,
-                color = MaterialTheme.colorScheme.primary,
-                detail = if (full != null && design != null) {
-                    "$full of $design mAh design"
-                } else {
-                    null
-                },
-            )
-        }
+        // Capacity health used to close this card. It is a property of the cell that
+        // moves a percent a year, and it was costing a fifth of the screen to say so.
     }
 }
 

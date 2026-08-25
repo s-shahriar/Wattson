@@ -40,6 +40,8 @@ data class BatteryUiModel(
     // Drain + charging
     val drain: DrainUi?,
     val charging: ChargingUi,
+    /** The last completed unplugged runs, newest first. */
+    val cycles: List<CycleUi>,
     /** Since the last stats reset — the default view. */
     val historyCycle: HistoryUi?,
     /** Rolling 24 hours, available via the toggle. */
@@ -65,13 +67,35 @@ data class ChargingUi(
     val isCharging: Boolean,
     val currentMa: Int?,
     val voltageVolts: Double?,
-    /** Present capacity as a fraction of design, 0f..1f. */
-    val healthFraction: Float?,
+    /**
+     * Present full-charge capacity in mAh. Not displayed — capacity health was a static
+     * line that earned none of the height it took — but it is what the remaining-time
+     * estimate is measured against.
+     */
     val chargeFullMah: Int?,
-    val designCapacityMah: Int?,
     val cycleCount: Int?,
     /** Time left at the current rate: to full when charging, to empty when discharging. */
     val hoursRemaining: Double?,
+)
+
+/**
+ * One completed unplugged run, ready to draw.
+ *
+ * [screenOnFraction] splits the bar and [lengthFraction] sets its width, so both are
+ * resolved here rather than in the row.
+ */
+data class CycleUi(
+    /** When the run began, e.g. "23 Aug 11:40 PM". */
+    val label: String,
+    val screenOnMs: Long,
+    val screenOffMs: Long,
+    val onBatteryMs: Long,
+    /** Level drop across the run, in percent. */
+    val usedPercent: Int,
+    /** Screen-on share of this run, 0f..1f. */
+    val screenOnFraction: Float,
+    /** This run's length against the longest on show, 0f..1f. */
+    val lengthFraction: Float,
 )
 
 /** One column of the history chart: a time slice with its level and what was happening. */

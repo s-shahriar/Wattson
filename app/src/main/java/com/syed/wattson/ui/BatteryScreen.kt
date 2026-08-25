@@ -38,6 +38,7 @@ import com.syed.wattson.ui.model.UiState
 import com.syed.wattson.ui.section.BatteryHistorySection
 import com.syed.wattson.ui.section.BatteryStatusSection
 import com.syed.wattson.ui.section.CapabilitySection
+import com.syed.wattson.ui.section.CycleHistorySection
 import com.syed.wattson.ui.section.SessionSection
 import com.syed.wattson.ui.section.UpdateSection
 import com.syed.wattson.ui.util.formatStartClock
@@ -133,6 +134,7 @@ private fun ReportContent(model: BatteryUiModel) {
         item(key = "capability") { CapabilitySection(model) }
         item(key = "history") { BatteryHistorySection(model) }
         item(key = "session") { SessionSection(model) }
+        item(key = "cycles") { CycleHistorySection(model) }
         item(key = "updates") { UpdateSection() }
     }
 }

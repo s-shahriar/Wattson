@@ -110,3 +110,14 @@ fun formatHours(hours: Double): String {
     val m = totalMinutes % 60
     return if (h > 0) "${h}h ${m}m" else "${m}m"
 }
+
+/**
+ * "20h42", "3h13", "47m" — the same durations as [formatDuration] with the spaces and
+ * unit letters that will not fit a table column taken out.
+ */
+fun formatSpanCompact(ms: Long): String {
+    if (ms <= 0) return "0m"
+    val minutes = ms / 60_000
+    val hours = minutes / 60
+    return if (hours > 0) String.format("%dh%02d", hours, minutes % 60) else "${minutes}m"
+}
