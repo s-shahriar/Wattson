@@ -86,6 +86,8 @@ data class ChargingUi(
 data class CycleUi(
     /** When the run began, e.g. "23 Aug 11:40 PM". */
     val label: String,
+    /** When it ended, e.g. "→ 11:29 AM", dated only when the day cannot be inferred. */
+    val endLabel: String,
     val screenOnMs: Long,
     val screenOffMs: Long,
     val onBatteryMs: Long,

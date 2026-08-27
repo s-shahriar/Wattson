@@ -83,14 +83,25 @@ private fun CycleRow(
 ) {
     Column(Modifier.fillMaxWidth().padding(top = 10.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                text = cycle.label,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.weight(LABEL_WEIGHT),
-            )
+            // Start over end, stacked. The span will not fit beside the four figures on
+            // one line, and the row is already as tall as two lines of this size, so the
+            // second one costs nothing that was being used.
+            Column(Modifier.weight(LABEL_WEIGHT)) {
+                Text(
+                    text = cycle.label,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text = cycle.endLabel,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.outline,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
             // The two durations carry the same colours as the bar beneath them, so the
             // split can be read off either one.
             FigureCell(formatSpanCompact(cycle.screenOnMs), screenOnColor, FIGURE_WEIGHT)

@@ -99,15 +99,23 @@ fun summarizeCycles(
     if (open != null && runs.isNotEmpty()) runs.removeAt(runs.size - 1)
 
     val complete = runs.filter { it.startMs != points.first().timestampMs }
-    val formatter = DateTimeFormatter.ofPattern("d MMM h:mm a")
+    val dated = DateTimeFormatter.ofPattern("d MMM h:mm a")
+    val timeOnly = DateTimeFormatter.ofPattern("h:mm a")
 
     val kept = complete
         .filter { it.onBatteryMs >= MIN_CYCLE_MS && it.usedPercent >= MIN_CYCLE_DROP_PERCENT }
         .takeLast(MAX_CYCLES)
 
     return kept.asReversed().map { run ->
+        val began = Instant.ofEpochMilli(run.startMs).atZone(zone)
+        val ended = Instant.ofEpochMilli(run.endMs).atZone(zone)
+        // The end usually needs no date: the row prints the hours on battery two columns
+        // over, so "26 Aug 6:37 PM" and "16h52" already say which morning "11:29 AM" is.
+        // Past that the run outlived the inference and has to say so.
+        val endFormat = if (ended.toLocalDate() > began.toLocalDate().plusDays(1)) dated else timeOnly
         CycleUi(
-            label = Instant.ofEpochMilli(run.startMs).atZone(zone).format(formatter),
+            label = began.format(dated),
+            endLabel = "→ " + ended.format(endFormat),
             screenOnMs = run.screenOnMs,
             screenOffMs = run.screenOffMs,
             onBatteryMs = run.onBatteryMs,
@@ -134,7 +142,8 @@ private class Segment(val startMs: Long, val startLevel: Int) {
 /** One unplugged run: a segment, plus any that a blip rather than a charge separated from it. */
 private class Run(first: Segment) {
     val startMs = first.startMs
-    private var endMs = first.endMs
+    var endMs = first.endMs
+        private set
     private var endLevel = first.endLevel
     var screenOnMs = first.screenOnMs
         private set
