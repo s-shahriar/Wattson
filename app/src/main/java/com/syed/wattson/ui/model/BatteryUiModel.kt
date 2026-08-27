@@ -81,8 +81,7 @@ data class ChargingUi(
 /**
  * One completed unplugged run, ready to draw.
  *
- * [screenOnFraction] splits the bar and [lengthFraction] sets its width, so both are
- * resolved here rather than in the row.
+ * [screenOnFraction] splits the bar, and is divided here rather than in the row.
  */
 data class CycleUi(
     /** When the run began, e.g. "23 Aug 11:40 PM". */
@@ -94,8 +93,6 @@ data class CycleUi(
     val usedPercent: Int,
     /** Screen-on share of this run, 0f..1f. */
     val screenOnFraction: Float,
-    /** This run's length against the longest on show, 0f..1f. */
-    val lengthFraction: Float,
 )
 
 /** One column of the history chart: a time slice with its level and what was happening. */

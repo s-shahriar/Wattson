@@ -105,10 +105,6 @@ fun summarizeCycles(
         .filter { it.onBatteryMs >= MIN_CYCLE_MS && it.usedPercent >= MIN_CYCLE_DROP_PERCENT }
         .takeLast(MAX_CYCLES)
 
-    // The bar is scaled against the longest run on show, so the card always uses its full
-    // width and rows stay comparable with each other rather than with some fixed span.
-    val longest = kept.maxOfOrNull { it.onBatteryMs }?.takeIf { it > 0L } ?: return emptyList()
-
     return kept.asReversed().map { run ->
         CycleUi(
             label = Instant.ofEpochMilli(run.startMs).atZone(zone).format(formatter),
@@ -120,7 +116,6 @@ fun summarizeCycles(
             // reads as a bug.
             usedPercent = run.usedPercent.coerceAtMost(100),
             screenOnFraction = run.screenOnMs.toFloat() / run.onBatteryMs,
-            lengthFraction = run.onBatteryMs.toFloat() / longest,
         )
     }
 }

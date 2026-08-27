@@ -20,33 +20,30 @@ import androidx.compose.ui.unit.dp
 import com.syed.wattson.ui.component.ExpressiveSpring
 
 /**
- * One cycle's bar: its length is the time that cycle spent on battery against the longest
- * cycle on show, and the split inside it is screen-on against screen-off.
+ * One cycle's bar: the whole width is that cycle, split into screen-on and screen-off.
  *
- * Two facts in one row of pixels — how long the phone lasted, and where the time went —
- * so the column of bars can be read as a shape before any of the numbers are.
+ * The bar used to be scaled to the cycle's length as well, so a short cycle stopped part
+ * way across and left the rest of the row empty. Nobody read that emptiness as "this
+ * cycle was shorter" — it read as a third state the legend had forgotten to name, and it
+ * was asked about twice. It was redundant besides: the row already prints the hours on
+ * battery a column to the left. Every bar now runs the full width, which is what makes
+ * the orange lengths mean the same thing on every row: a third of one bar is a third of
+ * its cycle, whether that cycle ran three hours or twenty.
  */
 @Composable
 fun CycleBar(
-    lengthFraction: Float,
     screenOnFraction: Float,
     modifier: Modifier = Modifier,
     height: Dp = 8.dp,
     screenOnColor: Color = MaterialTheme.colorScheme.primary,
     screenOffColor: Color = MaterialTheme.colorScheme.outline,
 ) {
-    val animated by animateFloatAsState(
-        // Never zero-width: a forty-minute cycle beside a twenty-hour one is a sliver,
-        // and a sliver still says "this one was short" where nothing at all says nothing.
-        targetValue = lengthFraction.coerceIn(MIN_LENGTH, 1f),
+    val screenOn by animateFloatAsState(
+        targetValue = screenOnFraction.coerceIn(0f, 1f),
         animationSpec = ExpressiveSpring,
         label = "cycleBar",
     )
-    val screenOn = screenOnFraction.coerceIn(0f, 1f)
 
-    // No track behind the bar. A tinted remainder is a third tone in a drawing that has
-    // only two things to say, and it reads as a third category rather than as the space
-    // a shorter cycle did not need.
     Box(
         modifier
             .fillMaxWidth()
@@ -54,7 +51,7 @@ fun CycleBar(
     ) {
         Row(
             Modifier
-                .fillMaxWidth(animated)
+                .fillMaxWidth()
                 .fillMaxHeight()
                 .clip(RoundedCornerShape(percent = 50)),
         ) {
@@ -76,5 +73,4 @@ private fun RowScope.Segment(weight: Float, color: Color) {
     )
 }
 
-private const val MIN_LENGTH = 0.03f
 private const val MIN_SEGMENT = 0.02f

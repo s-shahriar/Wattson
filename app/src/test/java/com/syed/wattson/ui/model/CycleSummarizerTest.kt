@@ -56,7 +56,7 @@ class CycleSummarizerTest {
 
     /** Newest first, so the card reads top-down like the rest of the screen. */
     @Test
-    fun `cycles come back newest first and scaled against the longest`() {
+    fun `cycles come back newest first`() {
         val cycles = summarize(
             point(0, 100, charging = true),
             point(10, 99),
@@ -72,8 +72,6 @@ class CycleSummarizerTest {
         )
 
         assertEquals(listOf(150, 300), cycles.map { (it.onBatteryMs / 60_000).toInt() })
-        assertEquals(0.5f, cycles[0].lengthFraction, 0.001f)
-        assertEquals(1f, cycles[1].lengthFraction, 0.001f)
     }
 
     /**

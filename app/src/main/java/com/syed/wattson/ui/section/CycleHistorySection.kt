@@ -52,7 +52,7 @@ fun CycleHistorySection(
 
     SectionCard(
         title = if (cycles.size == 1) "Last cycle" else "Last ${cycles.size} cycles",
-        subtitle = "one run on battery per row · the longest fills the width",
+        subtitle = "one run on battery per row · orange is screen on",
         modifier = modifier,
     ) {
         // "screen on" and "screen off" do not fit a column this narrow, so the heading
@@ -109,7 +109,6 @@ private fun CycleRow(
         }
         Spacer(Modifier.height(6.dp))
         CycleBar(
-            lengthFraction = cycle.lengthFraction,
             screenOnFraction = cycle.screenOnFraction,
             screenOnColor = screenOnColor,
             screenOffColor = screenOffColor,
