@@ -161,6 +161,58 @@ class CycleSummarizerTest {
         assertEquals(1_240 * 60_000L, cycle.onBatteryMs)
     }
 
+    /**
+     * Verbatim shape of what this device logged on 25 August: a minute plugged into AC at
+     * 41% that gave back one percent. It ended the run, and a twenty-two hour cycle was
+     * reported as 16h38/59% followed by 5h18/42% — two cycles the phone never had.
+     */
+    @Test
+    fun `a charge too brief to be a charge does not end a run`() {
+        val cycles = summarize(
+            point(0, 100, charging = true),
+            // One run: 100 -> 41, a minute on a charger, then 42 -> 0.
+            point(10, 100, screenOn = true),
+            point(1_000, 41),
+            point(1_001, 41, charging = true),
+            point(1_002, 42),
+            point(1_320, 0),
+            // A real charge, and a fresh run to keep this one off the in-progress rule.
+            point(1_460, 100, charging = true),
+            point(1_470, 100),
+            point(1_600, 60),
+        )
+
+        assertEquals(1, cycles.size)
+        val cycle = cycles.first()
+        // 990 minutes before the blip and 318 after it. The minute on the charger is in
+        // neither: it was not time on battery.
+        assertEquals(1_308 * 60_000L, cycle.onBatteryMs)
+        assertEquals(990 * 60_000L, cycle.screenOnMs)
+        // 59 down to the blip and 42 after it, which is one percent more than the cell
+        // holds, because the blip handed one back.
+        assertEquals(100, cycle.usedPercent)
+    }
+
+    /** Brief, but a tenth of the battery back is a charge whatever the clock says. */
+    @Test
+    fun `a short charge that puts real charge back does end a run`() {
+        val cycles = summarize(
+            point(0, 100, charging = true),
+            point(10, 90),
+            point(200, 50),
+            point(201, 50, charging = true),
+            point(203, 62, charging = true),
+            point(210, 62),
+            point(400, 20),
+            point(460, 100, charging = true),
+            point(470, 100),
+            point(500, 90),
+        )
+
+        assertEquals(listOf(190, 190), cycles.map { (it.onBatteryMs / 60_000).toInt() })
+        assertEquals(listOf(42, 40), cycles.map { it.usedPercent })
+    }
+
     @Test
     fun `no history means no card`() {
         assertTrue(summarizeCycles(emptyList(), zone).isEmpty())
