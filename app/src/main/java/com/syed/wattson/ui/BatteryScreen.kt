@@ -24,7 +24,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Tab
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -40,6 +46,8 @@ import com.syed.wattson.ui.section.BatteryStatusSection
 import com.syed.wattson.ui.section.CapabilitySection
 import com.syed.wattson.ui.section.CycleHistorySection
 import com.syed.wattson.ui.section.SessionSection
+import com.syed.wattson.ui.diagnose.DiagnoseScreen
+import com.syed.wattson.ui.diagnose.DiagnoseViewModel
 import com.syed.wattson.ui.section.UpdateSection
 import com.syed.wattson.ui.util.formatStartClock
 
@@ -49,15 +57,27 @@ import com.syed.wattson.ui.util.formatStartClock
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
+fun BatteryScreen(
+    viewModel: BatteryViewModel = viewModel(),
+    diagnoseViewModel: DiagnoseViewModel = viewModel(),
+) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     val state = viewModel.state
+    var tab by remember { mutableStateOf(Tabs.BATTERY) }
+    val onBattery = tab == Tabs.BATTERY
 
-    // Live cards tick only while this screen is actually resumed in front of the user.
-    // Minimising, switching apps or quitting fires onPauseOrDispose and cancels the poll.
-    LifecycleResumeEffect(viewModel) {
-        viewModel.startLiveUpdates()
-        onPauseOrDispose { viewModel.stopLiveUpdates() }
+    // Live cards tick only while this screen is actually resumed in front of the user AND
+    // the tab they are on is showing. Minimising, switching apps or quitting fires
+    // onPauseOrDispose and cancels the poll; so does stepping over to Diagnose, where
+    // nothing on screen is live and a poll would be a five-second timer for nobody.
+    LifecycleResumeEffect(onBattery) {
+        if (onBattery) viewModel.startLiveUpdates()
+        onPauseOrDispose {
+            viewModel.stopLiveUpdates()
+            // Leaving the app drops the span index too: a megabyte held for a screen
+            // nobody is looking at is the kind of thing this app exists not to do.
+            if (!onBattery) diagnoseViewModel.release()
+        }
     }
 
     Scaffold(
@@ -71,23 +91,46 @@ fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
                 title = { TitleBlock(state) },
                 actions = {
                     // Lives in the bar rather than a FAB: a floating button sat on top of
-                    // the content at every scroll position.
-                    FilledTonalIconButton(
-                        onClick = viewModel::refresh,
-                        modifier = Modifier.padding(end = 8.dp),
-                    ) {
-                        Icon(Icons.Filled.Refresh, contentDescription = "Refresh")
+                    // the content at every scroll position. Hidden on Diagnose, which
+                    // refreshes itself from its own button and nothing else.
+                    if (onBattery) {
+                        FilledTonalIconButton(
+                            onClick = viewModel::refresh,
+                            modifier = Modifier.padding(end = 8.dp),
+                        ) {
+                            Icon(Icons.Filled.Refresh, contentDescription = "Refresh")
+                        }
                     }
                 },
                 scrollBehavior = scrollBehavior,
             )
+            PrimaryTabRow(selectedTabIndex = tab.ordinal) {
+                Tabs.entries.forEach { entry ->
+                    Tab(
+                        selected = tab == entry,
+                        onClick = {
+                            // Stepping away from Diagnose releases what it was holding.
+                            if (entry != Tabs.DIAGNOSE) diagnoseViewModel.release()
+                            tab = entry
+                        },
+                        text = { Text(entry.label) },
+                    )
+                }
+            }
             // Only while the live card is up but the dumps have not landed yet.
-            if (viewModel.isLoadingStats && state is UiState.Ready) {
+            if (onBattery && viewModel.isLoadingStats && state is UiState.Ready) {
                 LinearProgressIndicator(Modifier.fillMaxWidth())
             }
             }
         },
     ) { padding ->
+        if (!onBattery) {
+            DiagnoseScreen(
+                modifier = Modifier.padding(padding),
+                viewModel = diagnoseViewModel,
+            )
+            return@Scaffold
+        }
         PullToRefreshBox(
             // Only drive the pull indicator once a report is on screen. During the first
             // load the centred spinner is already showing, and both at once read as two
@@ -106,6 +149,12 @@ fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
             }
         }
     }
+}
+
+/** The two things the app does. Battery is what it has always shown. */
+private enum class Tabs(val label: String) {
+    BATTERY("Battery"),
+    DIAGNOSE("Diagnose"),
 }
 
 @Composable

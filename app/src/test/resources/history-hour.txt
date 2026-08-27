@@ -1,0 +1,2165 @@
+  08-27 09:55:07.673 018
+  08-27 09:55:07.710 018 +sensor +state=1000:"sensor:0x9"
+  08-27 09:55:07.741 018 +mobile_radio -cellular_high_tx_power +state=10138:"sensor:0x2"
+  08-27 09:55:12.660 018 +cellular_high_tx_power
+  08-27 09:55:17.994 018 -mobile_radio
+  08-27 09:55:22.857 018 phone_signal_strength=good -cellular_high_tx_power
+  08-27 09:55:51.150 018 +cellular_high_tx_power
+  08-27 09:56:02.473 018 phone_signal_strength=good -cellular_high_tx_power
+  08-27 09:56:22.735 018 +state=1000:"sensor:0x2c"
+  08-27 09:56:22.774 018 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 09:56:22.871 018 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 09:56:24.044 018 -sensor -state=1000:"sensor:0x2c"
+  08-27 09:56:29.055 018 +sensor phone_signal_strength=great +state=1000:"sensor:0x2c"
+  08-27 09:56:30.355 018 -sensor -state=1000:"sensor:0x2c"
+  08-27 09:56:30.363 018 -state=1000:"sensor:0x9"
+  08-27 09:56:33.380 018 +cellular_high_tx_power
+  08-27 09:57:45.394 018 +sensor +state=1000:"sensor:0x9"
+  08-27 09:57:45.426 018 +job=1000:"android/com.android.server.notification.NotificationHistoryJobService"
+  08-27 09:57:45.428 018 -cellular_high_tx_power -job=1000:"android/com.android.server.notification.NotificationHistoryJobService"
+  08-27 09:57:51.331 018 +cellular_high_tx_power
+  08-27 09:57:51.522 018 temp=322 volt=3683 charge=760
+  08-27 09:58:01.838 018 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 09:58:11.871 018 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 09:59:00.419 018 +state=1000:"sensor:0x2c"
+  08-27 09:59:01.681 018 -sensor -cellular_high_tx_power -state=1000:"sensor:0x2c"
+  08-27 09:59:06.694 018 +sensor +state=1000:"sensor:0x2c"
+  08-27 09:59:07.965 018 -sensor device_idle=full +cellular_high_tx_power -state=1000:"sensor:0x2c"
+  08-27 09:59:24.540 018 -cellular_high_tx_power -tmpwhitelist=u0a257:"sync by top app"
+  08-27 09:59:51.498 018 +cellular_high_tx_power
+  08-27 10:00:00.049 018 +tmpwhitelist=1000:"1f06666 com.android.settings.battery.action.PERIODIC_JOB_UPDATE/u0"
+  08-27 10:00:10.055 018 -tmpwhitelist=1000:"1f06666 com.android.settings.battery.action.PERIODIC_JOB_UPDATE/u0"
+  08-27 10:00:56.456 018 -state=10138:"sensor:0x2"
+  08-27 10:00:57.553 018 -cellular_high_tx_power screenwake=1000:"android.policy:KEY"
+  08-27 10:00:57.559 018 +screen +cellular_high_tx_power display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:00:57.586 018 charge=756
+  08-27 10:00:57.611 018 +sensor +state=10201:"sensor:0xc"
+  08-27 10:00:57.621 018 +state=1000:"sensor:0x2c"
+  08-27 10:00:57.652 018 +state=1000:"sensor:0x26"
+  08-27 10:00:57.665 018 +state=1000:"sensor:0x30"
+  08-27 10:00:57.693 018 +ble_scan
+  08-27 10:01:08.800 018 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:01:08.880 018 -ble_scan
+  08-27 10:01:09.302 018 -cellular_high_tx_power -state=1000:"sensor:0x30"
+  08-27 10:01:09.304 018 -screen display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:01:09.311 018 -state=1000:"sensor:0x26"
+  08-27 10:01:09.323 018 volt=3643 charge=755 phone_signal_strength=good -state=10201:"sensor:0xc"
+  08-27 10:01:22.241 018 +cellular_high_tx_power
+  08-27 10:01:39.264 018 phone_signal_strength=great -cellular_high_tx_power
+  08-27 10:01:51.081 018 phone_signal_strength=good +cellular_high_tx_power
+  08-27 10:02:11.934 018 phone_signal_strength=great -cellular_high_tx_power
+  08-27 10:02:26.597 018 +sensor +state=10138:"sensor:0x2"
+  08-27 10:02:28.552 018 +cellular_high_tx_power
+  08-27 10:02:41.827 018 phone_signal_strength=great -cellular_high_tx_power
+  08-27 10:02:43.807 018 -sensor -state=10138:"sensor:0x2"
+  08-27 10:02:43.873 018 +sensor +state=10138:"sensor:0x2"
+  08-27 10:02:45.783 018 +cellular_high_tx_power
+  08-27 10:02:45.786 018 +screen -cellular_high_tx_power +state=1000:"sensor:0x26"
+  08-27 10:02:45.819 018 +cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:02:45.827 018 volt=3688 charge=751
+  08-27 10:02:45.831 018 +ble_scan +state=1000:"sensor:0x2c"
+  08-27 10:02:45.836 018 +state=1000:"sensor:0x30"
+  08-27 10:02:46.115 018 -sensor -state=10138:"sensor:0x2"
+  08-27 10:02:46.232 018 -cellular_high_tx_power +tmpwhitelist=u0a201:"f9ab1b9 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:02:47.157 018 -state=10201:"sensor:0xc"
+  08-27 10:02:48.502 018 +sensor +cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:02:49.321 018 -sensor -state=1000:"sensor:0x9"
+  08-27 10:02:49.349 018 -state=10201:"sensor:0xc"
+  08-27 10:02:51.814 018 +mobile_radio
+  08-27 10:02:51.841 018 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:02:51.900 018 +tmpwhitelist=u0a257:"sync by top app"
+  08-27 10:02:52.390 018 +cellular_high_tx_power
+  08-27 10:02:52.392 018 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:02:52.413 018 +job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:02:52.485 018 +job=u0a258:"com.facebook.katana/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:02:52.552 018 -cellular_high_tx_power -job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:02:52.563 018 +cellular_high_tx_power
+  08-27 10:02:52.933 018 -job=u0a258:"com.facebook.katana/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:02:59.044 018 volt=3639 charge=748
+  08-27 10:03:02.401 018 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:03:02.877 018 -top=u0a209:"com.android.launcher3"
+  08-27 10:03:02.877 018 -cellular_high_tx_power +top=u0a102:"com.android.packageinstaller"
+  08-27 10:03:04.515 018 -top=u0a102:"com.android.packageinstaller"
+  08-27 10:03:04.516 018 +top=u0a209:"com.android.launcher3"
+  08-27 10:03:04.547 018 +tmpwhitelist=1000:"keychain"
+  08-27 10:03:04.566 018 +cellular_high_tx_power
+  08-27 10:03:04.752 018 +job=u0a226:"#MediaServiceV2#@androidx.work.systemjobscheduler@com.android.providers.media.module/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:05.018 018 -job=u0a226:"#MediaServiceV2#@androidx.work.systemjobscheduler@com.android.providers.media.module/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:06.233 018 -tmpwhitelist=u0a201:"f9ab1b9 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:03:07.180 018 +job=u0a261:"#GnpWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.191 018 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.194 018 -cellular_high_tx_power +job=u0a139:"#TikTokWorker#com.google.android.apps.search.googleapp.discover.sync.FeedSync#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.196 018 +job=u0a313:"#ping_flush_one_off#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.434 018 +cellular_high_tx_power
+  08-27 10:03:07.510 018 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.514 018 -cellular_high_tx_power +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:03:07.518 018 +cellular_high_tx_power
+  08-27 10:03:07.518 018 -job=u0a313:"#ping_flush_one_off#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.533 018 -cellular_high_tx_power +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:03:07.543 018 +cellular_high_tx_power
+  08-27 10:03:07.585 018 -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:03:07.589 018 -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:03:07.593 018 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.685 018 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:07.694 018 +cellular_high_tx_power
+  08-27 10:03:07.698 018 +job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:08.120 018 +fg=u0a137:"com.google.android.apps.wellbeing"
+  08-27 10:03:08.257 018 -fg=u0a137:"com.google.android.apps.wellbeing"
+  08-27 10:03:08.653 018 -job=u0a261:"#GnpWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:08.667 018 +job=u0a258:"#StoryTrayPredictionPrefetchWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:08.991 018 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:03:09.176 018 -job=u0a258:"#StoryTrayPredictionPrefetchWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:09.182 018 +job=u0a258:"#FeedBackgroundPrefetchWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:09.758 018 -job=u0a258:"#FeedBackgroundPrefetchWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:09.764 018 +cellular_high_tx_power
+  08-27 10:03:09.764 018 +job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:03:10.228 018 -job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:10.231 018 -cellular_high_tx_power +job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:10.375 018 -job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:10.379 018 +job=u0a316:"#PushabilityCheckerWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:10.396 018 -job=u0a316:"#PushabilityCheckerWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:10.877 018 -top=u0a209:"com.android.launcher3"
+  08-27 10:03:10.877 018 +top=u0a290:"com.linkedin.android"
+  08-27 10:03:10.877 018 +cellular_high_tx_power
+  08-27 10:03:11.834 018 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:12.517 018 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:12.776 018 -cellular_high_tx_power -job=u0a139:"#TikTokWorker#com.google.android.apps.search.googleapp.discover.sync.FeedSync#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:13.086 017 temp=337 volt=3543 charge=744
+  08-27 10:03:13.596 017 -job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:03:13.617 017 +cellular_high_tx_power
+  08-27 10:03:13.870 017 +job=u0a316:"com.instagram.android.piko/com.instagram.notifications.push.IgPushRegistrationService"
+  08-27 10:03:14.932 017 -cellular_high_tx_power -job=u0a316:"com.instagram.android.piko/com.instagram.notifications.push.IgPushRegistrationService"
+  08-27 10:03:15.366 017 +cellular_high_tx_power
+  08-27 10:03:21.258 017 volt=3644 charge=742
+  08-27 10:03:24.750 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:25.036 017 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:03:25.394 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:26.394 017 +cellular_high_tx_power
+  08-27 10:03:26.778 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:27.164 017 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:27.569 017 +cellular_high_tx_power
+  08-27 10:03:28.384 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:28.803 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:28.856 017 -cellular_high_tx_power +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:29.265 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:29.602 017 +cellular_high_tx_power
+  08-27 10:03:30.356 017 +job=u0a151:"com.android.vending/com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain"
+  08-27 10:03:32.393 017 -job=u0a151:"com.android.vending/com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain"
+  08-27 10:03:33.051 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:33.491 017 -cellular_high_tx_power -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:33.993 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:34.597 017 -tmpwhitelist=1000:"keychain"
+  08-27 10:03:34.665 017 +cellular_high_tx_power
+  08-27 10:03:44.027 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:44.941 017 -cellular_high_tx_power +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:45.345 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:45.800 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:45.823 017 +cellular_high_tx_power
+  08-27 10:03:45.941 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:46.167 017 -cellular_high_tx_power -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:46.473 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:46.837 017 +cellular_high_tx_power
+  08-27 10:03:47.385 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:47.453 017 -cellular_high_tx_power +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:47.789 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:47.850 017 +cellular_high_tx_power
+  08-27 10:03:48.083 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:48.884 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:49.221 017 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:49.884 017 +cellular_high_tx_power
+  08-27 10:03:51.408 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:51.802 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:51.886 017 +cellular_high_tx_power
+  08-27 10:03:53.015 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:53.367 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:54.092 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:54.506 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:54.949 017 +cellular_high_tx_power
+  08-27 10:03:57.559 017 +sensor +state=10138:"sensor:0x2"
+  08-27 10:03:58.984 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:03:59.410 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:00.306 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:01.218 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:01.507 017 -cellular_high_tx_power +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:02.059 017 +cellular_high_tx_power
+  08-27 10:04:02.467 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:02.477 017 -cellular_high_tx_power +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:02.486 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:03.262 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:03.792 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:04.082 017 +cellular_high_tx_power
+  08-27 10:04:06.659 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:07.057 017 -cellular_high_tx_power -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:07.153 017 +cellular_high_tx_power
+  08-27 10:04:10.140 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:10.391 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:10.528 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:10.892 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:11.232 017 +cellular_high_tx_power
+  08-27 10:04:11.279 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:12.036 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:13.581 017 +cellular_high_tx_power
+  08-27 10:04:13.866 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:15.405 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:16.142 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:16.219 017 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:04:16.297 017 +cellular_high_tx_power
+  08-27 10:04:16.385 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:16.569 017 -cellular_high_tx_power -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:16.860 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:17.073 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:17.317 017 +cellular_high_tx_power
+  08-27 10:04:17.532 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:17.768 017 -cellular_high_tx_power +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:17.949 017 +video +cellular_high_tx_power +state=10290:"video"
+  08-27 10:04:18.387 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:18.421 017 +job=u0a313:"#des_dispatch_all_task#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:18.535 017 -cellular_high_tx_power -job=u0a313:"#des_dispatch_all_task#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:19.244 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:19.460 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:19.781 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:20.138 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:20.395 017 +cellular_high_tx_power
+  08-27 10:04:20.396 017 +state=10138:"sensor:0x21"
+  08-27 10:04:20.402 017 +state=10138:"sensor:0xb"
+  08-27 10:04:20.541 017 -sensor -cellular_high_tx_power -state=10138:"sensor:0xb"
+  08-27 10:04:20.544 017 -state=10138:"sensor:0x21"
+  08-27 10:04:21.490 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:21.550 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:21.864 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:22.418 017 +cellular_high_tx_power
+  08-27 10:04:22.494 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:22.883 017 -cellular_high_tx_power +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:22.942 017 -longwake=u0a313:"AudioMix"
+  08-27 10:04:22.952 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:23.254 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:23.434 017 +cellular_high_tx_power
+  08-27 10:04:23.508 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:23.876 017 -cellular_high_tx_power +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:24.099 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:24.301 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:24.593 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:25.458 017 +cellular_high_tx_power
+  08-27 10:04:26.216 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:26.257 017 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:04:26.484 017 +cellular_high_tx_power
+  08-27 10:04:27.122 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:27.681 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:28.353 017 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:28.380 017 +cellular_high_tx_power
+  08-27 10:04:28.531 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:28.905 017 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:29.064 017 -video +cellular_high_tx_power -state=10290:"video"
+  08-27 10:04:30.476 017 +video +state=10290:"video"
+  08-27 10:04:30.490 017 -cellular_high_tx_power +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:30.498 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:30.626 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:30.892 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:31.142 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:31.541 017 +cellular_high_tx_power
+  08-27 10:04:31.942 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:31.996 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:32.360 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:32.563 017 +cellular_high_tx_power
+  08-27 10:04:32.879 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:33.196 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:33.571 017 +cellular_high_tx_power
+  08-27 10:04:34.728 017 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:35.031 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:35.604 017 +cellular_high_tx_power
+  08-27 10:04:35.670 017 -video -state=10290:"video"
+  08-27 10:04:36.317 017 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:04:36.408 017 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:36.621 017 +cellular_high_tx_power
+  08-27 10:04:37.095 017 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:38.109 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:38.212 017 +video +state=10290:"video"
+  08-27 10:04:38.256 017 -cellular_high_tx_power +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:38.527 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:38.649 017 +cellular_high_tx_power
+  08-27 10:04:39.094 017 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:39.245 017 -cellular_high_tx_power +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:39.659 017 +cellular_high_tx_power
+  08-27 10:04:39.719 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:39.870 017 -cellular_high_tx_power +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:40.238 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:40.678 017 +cellular_high_tx_power
+  08-27 10:04:42.391 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:42.755 017 -cellular_high_tx_power -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:43.373 017 -top=u0a290:"com.linkedin.android"
+  08-27 10:04:43.373 017 +cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:04:45.065 017 -top=u0a209:"com.android.launcher3"
+  08-27 10:04:45.065 017 -cellular_high_tx_power +top=u0a257:"com.facebook.orca"
+  08-27 10:04:45.066 017 +cellular_high_tx_power
+  08-27 10:04:45.113 017 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:45.131 017 -cellular_high_tx_power +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:45.296 017 +sensor +state=10257:"sensor:0x2c"
+  08-27 10:04:45.457 017 +cellular_high_tx_power
+  08-27 10:04:45.977 017 -video -state=10290:"video"
+  08-27 10:04:45.984 017 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:45.988 017 +cellular_high_tx_power
+  08-27 10:04:45.997 017 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:46.093 017 +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:04:46.101 017 -cellular_high_tx_power +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:04:46.115 017 -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:04:46.116 017 -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:04:46.155 017 -top=u0a257:"com.facebook.orca"
+  08-27 10:04:46.156 017 +cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:04:47.379 017 +job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:47.430 017 -cellular_high_tx_power -job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:04:47.748 017 +cellular_high_tx_power
+  08-27 10:04:48.667 017 -sensor -state=10257:"sensor:0x2c"
+  08-27 10:04:48.907 017 -top=u0a209:"com.android.launcher3"
+  08-27 10:04:48.907 017 -cellular_high_tx_power +top=u0a258:"com.facebook.katana"
+  08-27 10:04:48.908 017 +cellular_high_tx_power
+  08-27 10:04:49.124 017 +sensor +state=10258:"sensor:0x21"
+  08-27 10:04:49.162 017 -cellular_high_tx_power +state=10258:"sensor:0x2c"
+  08-27 10:04:49.513 017 +cellular_high_tx_power
+  08-27 10:04:49.734 017 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:04:49.858 017 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:05:03.645 016 charge=724
+  08-27 10:05:03.646 016 -cellular_high_tx_power
+  08-27 10:05:03.654 016 +cellular_high_tx_power
+  08-27 10:05:13.876 016 +job=u0a316:"com.instagram.android.piko/com.instagram.jobscheduler.bgfetch.scheduler.IgBgFetchSchedulerService"
+  08-27 10:05:16.444 016 -cellular_high_tx_power -job=u0a316:"com.instagram.android.piko/com.instagram.jobscheduler.bgfetch.scheduler.IgBgFetchSchedulerService"
+  08-27 10:05:17.122 016 +cellular_high_tx_power
+  08-27 10:05:31.659 016 +tmpwhitelist=u0a201:"9921642 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:05:39.897 016 +longwake=u0a313:"AudioMix"
+  08-27 10:05:49.051 016 volt=3618 charge=717
+  08-27 10:05:51.662 016 -tmpwhitelist=u0a201:"9921642 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:05:59.950 016 -top=u0a258:"com.facebook.katana"
+  08-27 10:05:59.950 016 -cellular_high_tx_power +top=u0a109:"com.android.intentresolver"
+  08-27 10:06:00.070 016 +cellular_high_tx_power
+  08-27 10:06:01.441 016 -top=u0a109:"com.android.intentresolver"
+  08-27 10:06:01.441 016 -cellular_high_tx_power +top=u0a257:"com.facebook.orca"
+  08-27 10:06:01.441 016 +cellular_high_tx_power
+  08-27 10:06:01.838 016 -sensor -state=10258:"sensor:0x2c"
+  08-27 10:06:01.846 016 +sensor -cellular_high_tx_power +state=10257:"sensor:0x2c"
+  08-27 10:06:01.934 016 +cellular_high_tx_power
+  08-27 10:06:02.331 016 -sensor -state=10258:"sensor:0x21"
+  08-27 10:06:02.402 016 -cellular_high_tx_power +job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:06:02.491 016 -job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:06:02.504 016 +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:06:02.513 016 +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:06:02.517 016 -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:06:02.517 016 -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:06:02.780 016 +cellular_high_tx_power
+  08-27 10:06:03.469 016 -top=u0a257:"com.facebook.orca"
+  08-27 10:06:03.469 016 -cellular_high_tx_power +top=u0a258:"com.facebook.katana"
+  08-27 10:06:03.470 016 +cellular_high_tx_power
+  08-27 10:06:03.481 016 +sensor +state=10258:"sensor:0x21"
+  08-27 10:06:03.492 016 -cellular_high_tx_power +state=10258:"sensor:0x2c"
+  08-27 10:06:03.788 016 +cellular_high_tx_power
+  08-27 10:06:04.254 016 +job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:06:04.354 016 -cellular_high_tx_power -job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:06:04.398 016 +fg=u0a257:"com.facebook.orca"
+  08-27 10:06:04.399 016 +cellular_high_tx_power
+  08-27 10:06:05.324 016 -fg=u0a257:"com.facebook.orca"
+  08-27 10:06:05.458 016 -sensor -state=10257:"sensor:0x2c"
+  08-27 10:06:38.746 016 +tmpwhitelist=u0a201:"2b806ff android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:07:03.487 016 -top=u0a258:"com.facebook.katana"
+  08-27 10:07:03.487 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:07:04.868 016 -cellular_high_tx_power -state=10258:"sensor:0x21"
+  08-27 10:07:04.922 016 +job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:07:05.051 016 -job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:07:05.073 016 +cellular_high_tx_power
+  08-27 10:07:06.217 016 -state=10258:"sensor:0x2c"
+  08-27 10:07:15.141 016 +tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:07:15.184 016 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:07:15.184 016 +top=u0a313:"com.google.android.youtube"
+  08-27 10:07:15.185 016 +cellular_high_tx_power
+  08-27 10:07:15.520 016 +sensor -cellular_high_tx_power +state=10313:"sensor:0x2c"
+  08-27 10:07:15.695 016 +cellular_high_tx_power
+  08-27 10:07:15.831 016 +video +state=10313:"video"
+  08-27 10:07:16.035 016 volt=3512 charge=701
+  08-27 10:07:18.017 016 -fg=u0a313:"com.google.android.youtube"
+  08-27 10:07:18.457 016 -audio -state=10313:"audio"
+  08-27 10:07:18.458 016 -cellular_high_tx_power -longwake=u0a313:"AudioMix"
+  08-27 10:07:18.575 016 phone_signal_strength=good +cellular_high_tx_power
+  08-27 10:07:19.640 016 -sensor -state=10138:"sensor:0x2"
+  08-27 10:07:20.997 016 -video -state=10313:"video"
+  08-27 10:07:22.210 016 -top=u0a313:"com.google.android.youtube"
+  08-27 10:07:22.210 016 phone_signal_strength=moderate +top=u0a209:"com.android.launcher3"
+  08-27 10:07:22.922 016 -state=10313:"sensor:0x2c"
+  08-27 10:07:24.115 016 -mobile_radio
+  08-27 10:07:24.163 016 -cellular_high_tx_power conn=-1:"DISCONNECTED"
+  08-27 10:07:24.288 016 +mobile_radio phone_signal_strength=good +job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:07:24.967 016 +cellular_high_tx_power
+  08-27 10:07:24.968 016 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:07:24.983 016 -cellular_high_tx_power -job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:07:24.989 016 +cellular_high_tx_power -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:07:26.520 016 -tmpwhitelist=u0a201:"2b806ff android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:07:26.718 016 phone_signal_strength=moderate -cellular_high_tx_power
+  08-27 10:07:28.764 016 +cellular_high_tx_power
+  08-27 10:07:34.735 016 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:07:34.746 016 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:07:35.520 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:07:35.520 016 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:07:35.522 016 +cellular_high_tx_power
+  08-27 10:07:35.547 016 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:07:36.646 016 -top=u0a313:"com.google.android.youtube"
+  08-27 10:07:36.646 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:07:36.748 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:07:36.748 016 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:07:36.768 016 +cellular_high_tx_power
+  08-27 10:07:42.915 016 +tmpwhitelist=u0a201:"4decfdb android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:07:44.788 016 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:07:44.807 016 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:07:45.147 016 -tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:07:51.137 016 phone_signal_strength=great -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:07:51.221 016 +cellular_high_tx_power
+  08-27 10:07:51.563 016 volt=3650 charge=696
+  08-27 10:07:55.096 016 -top=u0a313:"com.google.android.youtube"
+  08-27 10:07:55.096 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:07:59.684 016 -sensor -state=10313:"sensor:0x2c"
+  08-27 10:08:00.481 016 +sensor -cellular_high_tx_power +state=10138:"sensor:0x2"
+  08-27 10:08:01.529 016 +cellular_high_tx_power
+  08-27 10:08:02.919 016 -cellular_high_tx_power -tmpwhitelist=u0a201:"4decfdb android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:08:05.403 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:08:05.403 016 +top=u0a313:"com.google.android.youtube"
+  08-27 10:08:05.403 016 +cellular_high_tx_power
+  08-27 10:08:05.426 016 +state=10313:"sensor:0x2c"
+  08-27 10:08:08.839 016 -top=u0a313:"com.google.android.youtube"
+  08-27 10:08:08.839 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:08:09.306 016 -sensor -state=10313:"sensor:0x2c"
+  08-27 10:08:10.927 016 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:08:10.927 016 +top=u0a258:"com.facebook.katana"
+  08-27 10:08:10.927 016 +cellular_high_tx_power
+  08-27 10:08:11.004 016 +sensor +state=10258:"sensor:0x21"
+  08-27 10:08:11.025 016 -cellular_high_tx_power +state=10258:"sensor:0x2c"
+  08-27 10:08:11.483 016 +cellular_high_tx_power
+  08-27 10:08:23.499 016 +job=u0a258:"com.facebook.katana/com.facebook.falco.jobscheduler.FFJobService"
+  08-27 10:08:41.677 016 -mobile_radio
+  08-27 10:08:41.697 016 -cellular_high_tx_power conn=-1:"DISCONNECTED"
+  08-27 10:08:41.730 016 +mobile_radio +cellular_high_tx_power
+  08-27 10:08:42.292 016 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:08:42.330 016 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:08:42.997 016 -job=u0a258:"com.facebook.katana/com.facebook.falco.jobscheduler.FFJobService"
+  08-27 10:08:45.579 016 -top=u0a258:"com.facebook.katana"
+  08-27 10:08:45.579 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:08:46.679 016 -sensor -state=10258:"sensor:0x21"
+  08-27 10:08:47.976 016 -state=10258:"sensor:0x2c"
+  08-27 10:08:52.115 016 -mobile_radio stats=0:"procstate-change"
+  08-27 10:08:52.351 016 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:08:52.356 016 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:08:52.845 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:08:52.845 016 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:08:52.846 016 +cellular_high_tx_power
+  08-27 10:08:52.884 016 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:09:01.433 016 -top=u0a313:"com.google.android.youtube"
+  08-27 10:09:01.433 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:09:02.085 016 -sensor -state=10313:"sensor:0x2c"
+  08-27 10:09:07.277 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:09:07.277 016 -cellular_high_tx_power +top=u0a258:"com.facebook.katana"
+  08-27 10:09:07.278 016 +cellular_high_tx_power
+  08-27 10:09:07.285 016 +sensor +state=10258:"sensor:0x21"
+  08-27 10:09:07.296 016 -cellular_high_tx_power +state=10258:"sensor:0x2c"
+  08-27 10:09:07.866 016 +cellular_high_tx_power
+  08-27 10:09:25.431 016 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:09:25.542 016 -cellular_high_tx_power -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:09:31.496 016 -sensor -state=10138:"sensor:0x2"
+  08-27 10:09:31.560 016 +sensor +state=10138:"sensor:0x2"
+  08-27 10:09:40.211 016 +cellular_high_tx_power
+  08-27 10:09:40.215 016 -top=u0a258:"com.facebook.katana"
+  08-27 10:09:40.215 016 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:09:40.695 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:09:40.695 016 +top=u0a258:"com.facebook.katana"
+  08-27 10:09:40.726 016 +cellular_high_tx_power
+  08-27 10:09:41.793 016 +longwake=1001:"*telephony-radio*"
+  08-27 10:09:42.032 016 -top=u0a258:"com.facebook.katana"
+  08-27 10:09:42.032 016 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:09:43.566 016 +cellular_high_tx_power
+  08-27 10:09:44.630 016 -sensor -state=10258:"sensor:0x21"
+  08-27 10:09:45.914 016 -cellular_high_tx_power -state=10258:"sensor:0x2c"
+  08-27 10:09:46.034 016 +cellular_high_tx_power
+  08-27 10:09:57.684 016 -state=10138:"sensor:0x2"
+  08-27 10:10:07.081 016 -longwake=1001:"*telephony-radio*"
+  08-27 10:10:18.139 016 +sensor +state=10138:"sensor:0x2"
+  08-27 10:10:20.274 016 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:10:20.274 016 +top=u0a313:"com.google.android.youtube"
+  08-27 10:10:20.275 016 +cellular_high_tx_power
+  08-27 10:10:20.292 016 +state=10313:"sensor:0x2c"
+  08-27 10:10:24.355 016 +tmpwhitelist=u0a201:"24035ee android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:10:24.793 016 -top=u0a313:"com.google.android.youtube"
+  08-27 10:10:24.793 016 +top=u0a209:"com.android.launcher3"
+  08-27 10:10:25.198 016 -sensor -state=10313:"sensor:0x2c"
+  08-27 10:10:37.666 016 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:37.993 016 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:41.159 016 +phone_scanning phone_state=out phone_signal_strength=none
+  08-27 10:10:41.330 016 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:41.467 016 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:42.315 016 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:42.442 016 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:44.357 016 -cellular_high_tx_power -tmpwhitelist=u0a201:"24035ee android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:10:44.732 016 -phone_scanning phone_state=in phone_signal_strength=great +cellular_high_tx_power
+  08-27 10:10:44.817 016 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:44.939 016 -cellular_high_tx_power -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:50.605 016 +cellular_high_tx_power
+  08-27 10:10:52.920 016 +phone_scanning phone_state=out phone_signal_strength=none
+  08-27 10:10:54.196 016 -phone_scanning phone_state=in phone_signal_strength=good
+  08-27 10:10:54.318 016 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:54.411 016 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:54.631 016 +mobile_radio phone_signal_strength=great -cellular_high_tx_power
+  08-27 10:10:55.678 016 +tmpwhitelist=1002:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.VIEW"
+  08-27 10:10:55.719 016 -top=u0a209:"com.android.launcher3"
+  08-27 10:10:55.719 016 +top=u0a271:"com.brave.browser"
+  08-27 10:10:55.720 016 +cellular_high_tx_power
+  08-27 10:10:56.917 016 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:57.038 015 volt=3604 charge=676 -cellular_high_tx_power
+  08-27 10:10:57.042 015 +cellular_high_tx_power -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:10:57.826 015 -top=u0a271:"com.brave.browser"
+  08-27 10:10:57.826 015 +top=u0a209:"com.android.launcher3"
+  08-27 10:10:58.734 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:10:59.169 015 +cellular_high_tx_power
+  08-27 10:10:59.170 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:10:59.192 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:02.508 015 -tmpwhitelist=u0a257:"sync by top app"
+  08-27 10:11:09.217 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:09.226 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:12.284 015 volt=3639 charge=674
+  08-27 10:11:13.963 015 +tmpwhitelist=u0a201:"13c787 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:11:25.683 015 -cellular_high_tx_power -tmpwhitelist=1002:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.VIEW"
+  08-27 10:11:40.429 015 -tmpwhitelist=u0a201:"13c787 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:11:44.697 015 +cellular_high_tx_power
+  08-27 10:11:51.530 015 -mobile_radio
+  08-27 10:11:51.595 015 +mobile_radio
+  08-27 10:11:52.118 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:52.128 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:52.390 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:11:52.462 015 +cellular_high_tx_power
+  08-27 10:11:53.112 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:53.115 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:11:57.378 015 -top=u0a209:"com.android.launcher3"
+  08-27 10:11:57.378 015 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:11:57.379 015 +cellular_high_tx_power
+  08-27 10:11:57.414 015 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:12:03.134 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:12:03.139 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:12:12.397 015 +tmpwhitelist=u0a201:"3b75c28 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:12:32.404 015 -cellular_high_tx_power -tmpwhitelist=u0a201:"3b75c28 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:12:33.818 015 +cellular_high_tx_power
+  08-27 10:12:33.833 015 -top=u0a313:"com.google.android.youtube"
+  08-27 10:12:33.833 015 +top=u0a209:"com.android.launcher3"
+  08-27 10:12:36.985 015 -sensor -state=10313:"sensor:0x2c"
+  08-27 10:12:52.173 015 -cellular_high_tx_power -state=1000:"sensor:0x2c"
+  08-27 10:12:52.288 015 +cellular_high_tx_power
+  08-27 10:12:52.397 015 -ble_scan
+  08-27 10:12:52.672 015 -state=1000:"sensor:0x30"
+  08-27 10:12:52.692 015 -screen
+  08-27 10:12:52.705 015 temp=322 charge=664
+  08-27 10:12:52.723 015 -cellular_high_tx_power -state=1000:"sensor:0x26"
+  08-27 10:12:52.804 015 +cellular_high_tx_power
+  08-27 10:12:53.886 015 -wake_lock=u0a201:"Scrims" -cellular_high_tx_power
+  08-27 10:12:54.661 015 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:12:56.467 015 +wake_lock=u0a138:"CallbackRunner"
+  08-27 10:12:56.516 015 -state=10138:"sensor:0x2"
+  08-27 10:12:56.607 015 -wake_lock=u0a138:"CallbackRunner" wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:12:57.320 015 +wake_lock=u0a258:"*walarm*:WakingExecutorService.ACTION_ALARM.com.facebook.katana.Mqtt_Wakeup"
+  08-27 10:12:57.325 015 +cellular_high_tx_power
+  08-27 10:12:57.358 015 -wake_lock=u0a258:"*walarm*:WakingExecutorService.ACTION_ALARM.com.facebook.katana.Mqtt_Wakeup"
+  08-27 10:12:58.828 015 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:00.926 015 +wake_lock=1000:"*alarm*:TIME_TICK" -cellular_high_tx_power wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:01.648 015 -wake_lock=u0a138:"CollectionLib-SigCollector"
+  08-27 10:13:01.718 015 +sensor +state=10138:"sensor:0x2"
+  08-27 10:13:01.728 015 +wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:01.741 015 -wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:04.308 015 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:10.911 015 -running
+  08-27 10:13:11.369 015 volt=3679 charge=663 +running wake_reason=0:"unknown"
+  08-27 10:13:11.378 015 +wake_lock=u0a138:"CallbackRunner" -sensor -state=10138:"sensor:0x2"
+  08-27 10:13:11.398 015 -wake_lock=u0a138:"CollectionLib-SigCollector"
+  08-27 10:13:11.456 015 +wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:11.469 015 -running -wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:12.361 015 +running wake_reason=0:"unknown"
+  08-27 10:13:13.640 015 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:14.806 015 +wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:14.813 015 -wake_lock=u0a138:"GCM_WORK" wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:16.476 015 +wake_lock=u0a138:"*walarm*:com.google.android.location.ALARM_WAKEUP_ACTIVITY_DETECTION"
+  08-27 10:13:16.504 015 -wake_lock=u0a138:"CollectionLib-SigCollector"
+  08-27 10:13:16.555 015 +wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:16.581 015 -wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:17.795 015 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:21.585 015 +wake_lock=u0a138:"*walarm*:com.google.android.location.ALARM_WAKEUP_ACTIVITY_DETECTION"
+  08-27 10:13:21.607 015 -wake_lock=u0a138:"CollectionLib-SigCollector"
+  08-27 10:13:21.677 015 +wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:21.688 015 -wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:25.815 015 +wake_lock=u0a138:"*walarm*:com.google.android.intent.action.GCM_RECONNECT"
+  08-27 10:13:30.834 015 -wake_lock=u0a138:"GCM_CONN_ALARM"
+  08-27 10:13:30.941 015 +wake_lock=u0a138:"*walarm*:com.google.android.location.ALARM_WAKEUP_ACTIVITY_DETECTION" wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:13:31.854 015 -wake_lock=u0a138:"CollectionLib-SigCollector"
+  08-27 10:13:31.936 015 +wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:31.977 015 -wake_lock=u0a138:"CallbackRunner"
+  08-27 10:13:37.080 015 +wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:37.088 015 -wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:37.094 015 +wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:37.098 015 -wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:38.237 015 +wake_lock=u0a138:"GCM_READ"
+  08-27 10:13:38.254 015 -wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:38.276 015 +wake_lock=u0a138:"GCM_READ"
+  08-27 10:13:38.287 015 -wake_lock=u0a138:"GCM_WORK"
+  08-27 10:13:38.435 015 +wake_lock=u0a138:"GCM_READ" +cellular_high_tx_power
+  08-27 10:13:38.752 015 -wake_lock=u0a322:"GOOGLE_C2DM"
+  08-27 10:13:43.804 015 -cellular_high_tx_power wake_reason=0:"Abort: Pending Wakeup Sources: IPA_CLIENT_APPS_WAN_CONS rmnet_ipa1"
+  08-27 10:13:47.002 015 +wake_lock=1000:"*walarm*:DeviceIdleController.deep"
+  08-27 10:13:47.012 015 +cellular_high_tx_power
+  08-27 10:13:47.015 015 +sensor +state=1000:"sensor:0x9"
+  08-27 10:13:47.083 015 -wake_lock=u0a258:"*alarm*" -cellular_high_tx_power
+  08-27 10:13:47.105 015 +cellular_high_tx_power
+  08-27 10:13:56.146 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:13:56.173 015 +wake_lock=u0a313:"*job*r/#offline_client_state#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.175 015 +cellular_high_tx_power
+  08-27 10:13:56.175 015 +job=u0a313:"#offline_client_state#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.177 015 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.179 015 -cellular_high_tx_power +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.811 015 -job=u0a313:"#offline_client_state#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.819 015 +cellular_high_tx_power
+  08-27 10:13:56.827 015 +job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.914 015 -job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.922 015 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:13:56.956 015 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:13:56.973 015 +job=u0a322:"#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:56.999 015 -sensor -state=1000:"sensor:0x9"
+  08-27 10:13:57.085 015 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:57.093 015 +job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:13:57.098 015 -cellular_high_tx_power -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:57.105 015 +job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:57.111 015 +job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:57.133 015 -job=u0a290:"#TrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:57.141 015 +job=u0a290:"com.linkedin.android/.notifications.push.RegistrationJobIntentServiceImpl"
+  08-27 10:13:57.149 015 -job=u0a290:"#SendTrackingEventWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:13:57.163 015 -job=u0a290:"com.linkedin.android/.notifications.push.RegistrationJobIntentServiceImpl"
+  08-27 10:13:57.165 015 +cellular_high_tx_power
+  08-27 10:14:00.381 015 -cellular_high_tx_power display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:14:00.381 015 +screen +cellular_high_tx_power
+  08-27 10:14:00.404 015 charge=661
+  08-27 10:14:00.410 015 +sensor +state=1000:"sensor:0x2c"
+  08-27 10:14:00.441 015 +state=10201:"sensor:0xc"
+  08-27 10:14:00.463 015 +state=1000:"sensor:0x26"
+  08-27 10:14:00.475 015 +ble_scan
+  08-27 10:14:00.509 015 +state=1000:"sensor:0x30"
+  08-27 10:14:01.481 015 -sensor -state=10201:"sensor:0xc"
+  08-27 10:14:01.811 015 -cellular_high_tx_power +tmpwhitelist=u0a201:"e9beacc android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:14:02.914 015 +sensor +cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:14:03.671 015 -sensor -state=10201:"sensor:0xc"
+  08-27 10:14:12.572 015 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:14:15.454 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:14:15.478 015 -job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:14:15.481 015 -job=u0a322:"#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:14:15.487 015 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:14:15.489 015 +cellular_high_tx_power
+  08-27 10:14:16.904 015 -state=1000:"sensor:0x2c"
+  08-27 10:14:17.074 015 -ble_scan
+  08-27 10:14:17.405 015 -state=1000:"sensor:0x30"
+  08-27 10:14:17.427 015 -screen -cellular_high_tx_power -state=1000:"sensor:0x26"
+  08-27 10:14:17.445 015 volt=3601 charge=659
+  08-27 10:14:21.817 015 -tmpwhitelist=u0a201:"e9beacc android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:14:23.375 015 -wake_lock=1001:"*telephony-radio*"
+  08-27 10:14:23.375 015 +wake_lock=1001:"*telephony-radio*"
+  08-27 10:14:23.376 015 -wake_lock=1001:"*telephony-radio*" -mobile_radio
+  08-27 10:14:23.394 015 +wake_lock=1000:"NetworkStats"
+  08-27 10:14:23.402 015 -wake_lock=1000:"NetworkStats" conn=-1:"DISCONNECTED"
+  08-27 10:14:23.419 015 +wake_lock=u0a138:"GCM_WORK" +mobile_radio +cellular_high_tx_power
+  08-27 10:14:23.976 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:23.981 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:14:24.009 015 +cellular_high_tx_power -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:24.975 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:24.983 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:28.997 015 -wake_lock=u0a138:"GCM_CONN_ALARM"
+  08-27 10:14:29.185 015 -cellular_high_tx_power wake_reason=0:"Abort: Pending Wakeup Sources: IPA_CLIENT_APPS_LAN_CONS IPA_WS"
+  08-27 10:14:34.609 015 +wake_lock=u0a138:"GCM_WORK"
+  08-27 10:14:34.633 015 -wake_lock=u0a138:"GCM_WORK"
+  08-27 10:14:34.638 015 +wake_lock=u0a138:"GCM_WORK"
+  08-27 10:14:34.641 015 -wake_lock=u0a138:"GCM_WORK"
+  08-27 10:14:35.001 015 +wake_lock=u0a253:"*job*r/com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:35.008 015 +cellular_high_tx_power
+  08-27 10:14:35.010 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:35.019 015 -wake_lock=u0a253:"*job*r/com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService" -cellular_high_tx_power -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:14:35.028 015 +cellular_high_tx_power
+  08-27 10:14:35.666 015 +wake_lock=u0a271:"*job*r/com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService" -cellular_high_tx_power
+  08-27 10:14:35.668 015 +cellular_high_tx_power
+  08-27 10:14:35.669 015 +job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:14:35.671 015 +job=u0a322:"#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:14:35.691 015 -cellular_high_tx_power -job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:14:35.701 015 +cellular_high_tx_power
+  08-27 10:14:38.163 015 -job=u0a322:"#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:14:38.163 015 -wake_lock=u0a322:"*job*r/#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService" -cellular_high_tx_power
+  08-27 10:14:38.168 015 +cellular_high_tx_power
+  08-27 10:14:39.978 015 +wake_lock=u0a322:"*job*r/com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:14:39.988 015 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:14:39.999 015 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:14:39.999 015 -wake_lock=u0a322:"*job*r/com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:14:40.005 015 +cellular_high_tx_power
+  08-27 10:15:31.956 015 +wake_lock=1000:"*alarm*:TIME_TICK" +sensor -cellular_high_tx_power +state=1000:"sensor:0x9"
+  08-27 10:15:31.991 015 -wake_lock=u0a290:"*alarm*"
+  08-27 10:15:31.994 015 +wake_lock=u0a290:"*job*r/#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:15:31.999 015 +cellular_high_tx_power
+  08-27 10:15:32.001 015 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:15:32.012 015 +job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:15:41.901 015 -sensor -cellular_high_tx_power -state=1000:"sensor:0x9"
+  08-27 10:15:47.074 015 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:15:47.090 015 +cellular_high_tx_power
+  08-27 10:15:52.679 015 +screen display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:15:52.698 015 volt=3672 charge=655
+  08-27 10:15:52.713 015 +sensor +state=1000:"sensor:0x2c"
+  08-27 10:15:52.724 015 +state=10201:"sensor:0xc"
+  08-27 10:15:52.770 015 +state=1000:"sensor:0x26"
+  08-27 10:15:52.782 015 +state=1000:"sensor:0x30"
+  08-27 10:15:52.795 015 +ble_scan
+  08-27 10:15:53.124 015 +tmpwhitelist=u0a201:"3ed2d84 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:15:53.910 015 -sensor -state=10201:"sensor:0xc"
+  08-27 10:15:55.279 015 +sensor +state=10201:"sensor:0xc"
+  08-27 10:15:56.116 015 -sensor -state=10201:"sensor:0xc"
+  08-27 10:16:02.956 015 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:16:02.957 015 +top=u0a317:"com.syed.wattson"
+  08-27 10:16:02.957 015 +cellular_high_tx_power
+  08-27 10:16:03.118 015 volt=3625 charge=654
+  08-27 10:16:03.122 015 charge=653
+  08-27 10:16:03.876 015 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:16:03.883 015 -cellular_high_tx_power -job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:16:03.898 015 +cellular_high_tx_power
+  08-27 10:16:03.918 015 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:16:05.258 015 -mobile_radio
+  08-27 10:16:05.280 015 -cellular_high_tx_power conn=-1:"DISCONNECTED"
+  08-27 10:16:05.305 015 +mobile_radio -top=u0a317:"com.syed.wattson"
+  08-27 10:16:05.340 015 +cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:16:05.812 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:16:05.821 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:16:07.356 015 -top=u0a209:"com.android.launcher3"
+  08-27 10:16:07.356 015 -cellular_high_tx_power +top=u0a257:"com.facebook.orca"
+  08-27 10:16:07.357 015 +cellular_high_tx_power
+  08-27 10:16:07.605 015 +sensor +state=10257:"sensor:0x2c"
+  08-27 10:16:07.699 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:16:07.936 015 +cellular_high_tx_power
+  08-27 10:16:08.226 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:16:08.234 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:16:08.335 015 +tmpwhitelist=u0a257:"sync by top app"
+  08-27 10:16:16.458 015 -tmpwhitelist=u0a201:"3ed2d84 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:16:18.257 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:16:18.282 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:16:23.095 015 -top=u0a257:"com.facebook.orca"
+  08-27 10:16:23.096 015 +top=u0a209:"com.android.launcher3"
+  08-27 10:16:23.186 015 -top=u0a209:"com.android.launcher3"
+  08-27 10:16:23.186 015 -cellular_high_tx_power +top=u0a257:"com.facebook.orca"
+  08-27 10:16:23.222 015 +cellular_high_tx_power
+  08-27 10:16:23.315 015 +audio +state=10257:"audio"
+  08-27 10:16:29.575 015 -cellular_high_tx_power +tmpwhitelist=u0a201:"d156bac android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:16:36.583 015 +job=u0a139:"#TikTokWorker#m.google.android.apps.search.assistant.platform.pcp.featuredata.localcalendar.LocalCalendarPeriodicSchedulerWorker#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:16:36.759 015 -job=u0a139:"#TikTokWorker#m.google.android.apps.search.assistant.platform.pcp.featuredata.localcalendar.LocalCalendarPeriodicSchedulerWorker#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:16:38.092 015 -audio -state=10257:"audio"
+  08-27 10:16:42.834 015 +job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:16:42.842 015 -job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:16:49.584 015 -tmpwhitelist=u0a201:"d156bac android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:16:53.923 015 +cellular_high_tx_power stats=0:"procstate-change"
+  08-27 10:17:07.610 015 -top=u0a257:"com.facebook.orca"
+  08-27 10:17:07.610 015 +top=u0a209:"com.android.launcher3"
+  08-27 10:17:07.877 015 -mobile_radio
+  08-27 10:17:07.895 015 -cellular_high_tx_power conn=-1:"DISCONNECTED"
+  08-27 10:17:07.936 015 +mobile_radio +cellular_high_tx_power
+  08-27 10:17:08.445 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:08.451 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:09.667 015 -sensor -state=10257:"sensor:0x2c"
+  08-27 10:17:10.761 015 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:17:11.316 015 +cellular_high_tx_power
+  08-27 10:17:11.325 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:11.334 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:21.364 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:21.374 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:22.828 015 +tmpwhitelist=u0a201:"c0a9775 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:17:40.650 015 -top=u0a209:"com.android.launcher3"
+  08-27 10:17:40.651 015 -cellular_high_tx_power +top=u0a152:"com.google.android.dialer"
+  08-27 10:17:40.653 015 +cellular_high_tx_power
+  08-27 10:17:41.136 015 temp=337 volt=3468 charge=641
+  08-27 10:17:42.830 015 -tmpwhitelist=u0a201:"c0a9775 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:17:44.315 015 -mobile_radio -cellular_high_tx_power conn=-1:"DISCONNECTED"
+  08-27 10:17:44.368 015 +mobile_radio +job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:17:44.443 015 -job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:17:44.800 015 +cellular_high_tx_power
+  08-27 10:17:44.877 015 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:44.884 015 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:47.506 015 -top=u0a152:"com.google.android.dialer"
+  08-27 10:17:47.506 015 -cellular_high_tx_power +top=1001:"com.android.phone"
+  08-27 10:17:47.571 015 +cellular_high_tx_power
+  08-27 10:17:51.563 014 volt=3643 charge=639
+  08-27 10:17:51.564 014 -cellular_high_tx_power
+  08-27 10:17:52.057 014 +cellular_high_tx_power
+  08-27 10:17:53.143 014 -top=1001:"com.android.phone"
+  08-27 10:17:53.143 014 -cellular_high_tx_power +top=u0a152:"com.google.android.dialer"
+  08-27 10:17:53.854 014 +cellular_high_tx_power
+  08-27 10:17:54.692 014 -mobile_radio
+  08-27 10:17:54.915 014 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:54.925 014 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:17:57.066 014 +mobile_radio
+  08-27 10:17:57.302 014 -top=u0a152:"com.google.android.dialer"
+  08-27 10:17:57.302 014 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:17:58.358 014 +cellular_high_tx_power
+  08-27 10:17:59.183 014 charge=638
+  08-27 10:18:02.025 014 +tmpwhitelist=u0a146:"sms-app"
+  08-27 10:18:02.325 014 +tmpwhitelist=1001:"sms-broadcast"
+  08-27 10:18:02.439 014 -cellular_high_tx_power +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:02.925 014 +fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:03.270 014 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:03.506 014 +sensor +state=10138:"sensor:0x21"
+  08-27 10:18:03.514 014 +state=10138:"sensor:0xb"
+  08-27 10:18:03.619 014 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:03.637 014 -sensor -state=10138:"sensor:0xb"
+  08-27 10:18:03.639 014 -state=10138:"sensor:0x21"
+  08-27 10:18:03.649 014 -fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:03.674 014 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:03.684 014 +fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:03.777 014 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:04.240 014 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:05.369 014 phone_signal_strength=good -fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:06.741 014 +cellular_high_tx_power
+  08-27 10:18:07.494 014 -mobile_radio
+  08-27 10:18:16.071 014 -cellular_high_tx_power +fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:16.103 014 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:16.112 014 -fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:16.152 014 +job=1000:"android/com.android.server.notification.NotificationHistoryJobService"
+  08-27 10:18:16.155 014 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:18:16.156 014 -job=1000:"android/com.android.server.notification.NotificationHistoryJobService"
+  08-27 10:18:16.167 014 +fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:16.239 014 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:16.240 014 -fg=u0a146:"com.google.android.apps.messaging"
+  08-27 10:18:16.291 014 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:16.329 014 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:18:16.367 014 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:17.663 014 +cellular_high_tx_power
+  08-27 10:18:18.915 014 +mobile_radio
+  08-27 10:18:18.945 014 -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:18:19.519 014 +cellular_high_tx_power
+  08-27 10:18:19.520 014 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:18:19.529 014 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:18:22.328 014 -tmpwhitelist=1001:"sms-broadcast"
+  08-27 10:18:23.564 014 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:18:23.564 014 +top=u0a313:"com.google.android.youtube"
+  08-27 10:18:23.564 014 +cellular_high_tx_power
+  08-27 10:18:23.840 014 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:18:26.423 014 +tmpwhitelist=u0a201:"5b97d64 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:18:26.810 014 -top=u0a313:"com.google.android.youtube"
+  08-27 10:18:26.810 014 +top=u0a209:"com.android.launcher3"
+  08-27 10:18:26.937 014 -top=u0a209:"com.android.launcher3"
+  08-27 10:18:26.937 014 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:18:26.968 014 +cellular_high_tx_power
+  08-27 10:18:27.022 014 -top=u0a313:"com.google.android.youtube"
+  08-27 10:18:27.022 014 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:18:27.123 014 volt=3509 charge=631 -top=u0a209:"com.android.launcher3"
+  08-27 10:18:27.135 014 +top=u0a313:"com.google.android.youtube"
+  08-27 10:18:27.151 014 +cellular_high_tx_power
+  08-27 10:18:27.224 014 -top=u0a313:"com.google.android.youtube"
+  08-27 10:18:27.224 014 +top=u0a209:"com.android.launcher3"
+  08-27 10:18:27.335 014 -top=u0a209:"com.android.launcher3"
+  08-27 10:18:27.336 014 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:18:27.366 014 +cellular_high_tx_power
+  08-27 10:18:29.552 014 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:18:29.561 014 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:18:29.853 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:30.033 014 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:18:30.068 014 +cellular_high_tx_power
+  08-27 10:18:30.897 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:30.904 014 -cellular_high_tx_power +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:18:30.913 014 +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:18:30.917 014 +video +cellular_high_tx_power +state=10313:"video"
+  08-27 10:18:30.929 014 -cellular_high_tx_power -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:18:30.930 014 -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:18:30.934 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:30.966 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:30.982 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.018 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.025 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.029 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.031 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.038 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.042 014 +job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.134 014 -job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.142 014 +job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.261 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.265 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.272 014 +job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:18:31.386 014 -job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:31.395 014 +cellular_high_tx_power
+  08-27 10:18:31.397 014 +job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:18:31.606 014 -job=u0a257:"com.facebook.orca/com.facebook.analytics2.logger.legacy.uploader.LollipopUploadService"
+  08-27 10:18:31.940 014 +state=10138:"sensor:0x21"
+  08-27 10:18:31.951 014 +state=10138:"sensor:0xb"
+  08-27 10:18:32.052 014 -sensor -state=10138:"sensor:0xb"
+  08-27 10:18:32.053 014 -cellular_high_tx_power -state=10138:"sensor:0x21"
+  08-27 10:18:32.305 014 -audio -state=10313:"audio"
+  08-27 10:18:33.402 014 +audio +state=10313:"audio"
+  08-27 10:18:33.808 014 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:34.058 014 +sensor +state=10138:"sensor:0x21"
+  08-27 10:18:34.066 014 +state=10138:"sensor:0xb"
+  08-27 10:18:34.136 014 -sensor -state=10138:"sensor:0xb"
+  08-27 10:18:34.139 014 +cellular_high_tx_power -state=10138:"sensor:0x21"
+  08-27 10:18:34.214 014 +sensor +state=10138:"sensor:0x21"
+  08-27 10:18:34.224 014 +state=10138:"sensor:0xb"
+  08-27 10:18:34.285 014 -sensor -cellular_high_tx_power -state=10138:"sensor:0xb"
+  08-27 10:18:34.287 014 -state=10138:"sensor:0x21"
+  08-27 10:18:34.565 014 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:34.581 014 -audio -state=10313:"audio"
+  08-27 10:18:36.275 014 phone_signal_strength=great -video +cellular_high_tx_power -state=10313:"video"
+  08-27 10:18:37.710 014 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:18:38.274 014 +video +cellular_high_tx_power +state=10313:"video"
+  08-27 10:18:38.484 014 +sensor +state=10138:"sensor:0x21"
+  08-27 10:18:38.492 014 phone_signal_strength=good -cellular_high_tx_power +state=10138:"sensor:0xb"
+  08-27 10:18:38.578 014 -sensor -state=10138:"sensor:0xb"
+  08-27 10:18:38.581 014 -state=10138:"sensor:0x21"
+  08-27 10:18:38.847 014 -audio -state=10313:"audio"
+  08-27 10:18:40.198 014 -job=u0a271:"com.brave.browser/org.chromium.components.background_task_scheduler.internal.BackgroundTaskJobService"
+  08-27 10:18:40.211 014 +cellular_high_tx_power
+  08-27 10:18:41.417 014 -video -state=10313:"video"
+  08-27 10:18:45.226 014 phone_signal_strength=good -cellular_high_tx_power -tmpwhitelist=u0a146:"sms-app"
+  08-27 10:18:46.258 014 +cellular_high_tx_power
+  08-27 10:18:46.270 014 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:46.424 014 -cellular_high_tx_power -tmpwhitelist=u0a201:"5b97d64 android.bluetooth.device.action.NAME_CHANGED/u0"
+  08-27 10:18:46.866 014 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:18:46.874 014 +cellular_high_tx_power
+  08-27 10:18:57.312 014 +audio +state=10313:"audio"
+  08-27 10:18:57.879 014 +video +state=10313:"video"
+  08-27 10:18:59.551 014 +sensor +state=10138:"sensor:0x21"
+  08-27 10:18:59.563 014 -cellular_high_tx_power +state=10138:"sensor:0xb"
+  08-27 10:18:59.626 014 -sensor -state=10138:"sensor:0xb"
+  08-27 10:18:59.628 014 -state=10138:"sensor:0x21"
+  08-27 10:18:59.907 014 -audio -state=10313:"audio"
+  08-27 10:19:00.010 014 +fg=u0a313:"com.google.android.youtube"
+  08-27 10:19:00.175 014 +audio +state=10313:"audio"
+  08-27 10:19:00.200 014 +cellular_high_tx_power
+  08-27 10:19:00.891 014 -top=u0a313:"com.google.android.youtube"
+  08-27 10:19:00.891 014 +top=u0a209:"com.android.launcher3"
+  08-27 10:19:01.919 014 -state=10313:"sensor:0x2c"
+  08-27 10:19:02.307 014 +sensor -cellular_high_tx_power +state=10138:"sensor:0x21"
+  08-27 10:19:02.321 014 +state=10138:"sensor:0xb"
+  08-27 10:19:02.360 014 -video +cellular_high_tx_power -state=10313:"video"
+  08-27 10:19:02.409 014 -sensor -cellular_high_tx_power -state=10138:"sensor:0xb"
+  08-27 10:19:02.410 014 phone_signal_strength=good -state=10138:"sensor:0x21"
+  08-27 10:19:04.792 014 +sensor +state=10138:"sensor:0x21"
+  08-27 10:19:04.804 014 +state=10138:"sensor:0xb"
+  08-27 10:19:04.874 014 -sensor -state=10138:"sensor:0xb"
+  08-27 10:19:04.877 014 -state=10138:"sensor:0x21"
+  08-27 10:19:06.810 014 +cellular_high_tx_power
+  08-27 10:19:07.615 014 phone_signal_strength=great -cellular_high_tx_power conn=0:"CONNECTED"
+  08-27 10:19:11.088 014 -top=u0a209:"com.android.launcher3"
+  08-27 10:19:11.088 014 +top=u0a257:"com.facebook.orca"
+  08-27 10:19:11.090 014 +cellular_high_tx_power
+  08-27 10:19:11.185 014 +sensor +state=10257:"sensor:0x2c"
+  08-27 10:19:12.547 014 +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:19:12.560 014 -cellular_high_tx_power +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:19:12.522 014 +cellular_high_tx_power -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:19:12.525 014 -cellular_high_tx_power -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:19:12.958 014 +cellular_high_tx_power
+  08-27 10:19:21.043 013 temp=357 volt=3579 charge=617
+  08-27 10:19:21.044 013 -cellular_high_tx_power
+  08-27 10:19:23.167 013 +cellular_high_tx_power
+  08-27 10:19:23.177 013 -top=u0a257:"com.facebook.orca"
+  08-27 10:19:23.177 013 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:19:23.311 013 -top=u0a209:"com.android.launcher3"
+  08-27 10:19:23.312 013 +top=u0a257:"com.facebook.orca"
+  08-27 10:19:23.324 013 +cellular_high_tx_power
+  08-27 10:19:25.047 013 volt=3515 charge=615
+  08-27 10:19:32.740 013 -top=u0a257:"com.facebook.orca"
+  08-27 10:19:32.740 013 +top=u0a209:"com.android.launcher3"
+  08-27 10:19:34.066 013 +job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:19:34.143 013 -cellular_high_tx_power -job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:19:35.350 013 -sensor -state=10257:"sensor:0x2c"
+  08-27 10:19:35.426 013 +sensor +state=10138:"sensor:0x21"
+  08-27 10:19:35.438 013 +state=10138:"sensor:0xb"
+  08-27 10:19:35.525 013 -sensor -state=10138:"sensor:0xb"
+  08-27 10:19:35.529 013 -state=10138:"sensor:0x21"
+  08-27 10:19:41.420 013 brightness=dark -state=1000:"sensor:0x2c"
+  08-27 10:19:41.544 013 +cellular_high_tx_power
+  08-27 10:19:41.689 013 -ble_scan
+  08-27 10:19:41.918 013 -cellular_high_tx_power -state=1000:"sensor:0x30"
+  08-27 10:19:41.920 013 +cellular_high_tx_power
+  08-27 10:19:41.929 013 -screen
+  08-27 10:19:41.949 013 +sensor +state=10201:"sensor:0xc"
+  08-27 10:19:41.950 013 volt=3600 charge=611 -sensor -cellular_high_tx_power -state=1000:"sensor:0x26"
+  08-27 10:19:41.963 013 +cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:19:42.478 013 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:19:42.495 013 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:19:42.499 013 +cellular_high_tx_power
+  08-27 10:19:46.460 013 -cellular_high_tx_power screenwake=1000:"android.policy:KEY"
+  08-27 10:19:46.465 013 +screen
+  08-27 10:19:46.483 013 volt=3637 charge=610 +cellular_high_tx_power
+  08-27 10:19:46.493 013 +sensor +state=1000:"sensor:0x2c"
+  08-27 10:19:46.521 013 +state=1000:"sensor:0x26"
+  08-27 10:19:46.537 013 +state=10201:"sensor:0xc"
+  08-27 10:19:46.579 013 +ble_scan
+  08-27 10:19:46.593 013 +state=1000:"sensor:0x30"
+  08-27 10:19:57.452 013 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:19:57.541 013 -ble_scan
+  08-27 10:19:57.952 013 -cellular_high_tx_power -state=1000:"sensor:0x30"
+  08-27 10:19:57.955 013 -screen display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:19:57.975 013 volt=3606 charge=608 -state=1000:"sensor:0x26"
+  08-27 10:19:57.978 013 +cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:19:58.157 013 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:19:58.166 013 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:19:58.169 013 +cellular_high_tx_power
+  08-27 10:20:00.069 013 +tmpwhitelist=1000:"7e5cf6 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:20:00.140 013 -cellular_high_tx_power +longwake=u0a313:"AudioMix"
+  08-27 10:20:00.216 013 +cellular_high_tx_power
+  08-27 10:20:01.655 013 +job=u0a139:"#TikTokWorker#com.google.apps.tiktok.sync.impl.workmanager.SyncPeriodicWorker#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:20:01.771 013 -cellular_high_tx_power -job=u0a139:"#TikTokWorker#com.google.apps.tiktok.sync.impl.workmanager.SyncPeriodicWorker#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:20:10.080 013 -tmpwhitelist=1000:"7e5cf6 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:20:15.821 013 +cellular_high_tx_power
+  08-27 10:20:15.826 013 +job=u0a261:"#TikTokWorker#com.google.apps.dynamite.workers.PeriodicPrefetchWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:20:17.378 013 -cellular_high_tx_power -job=u0a261:"#TikTokWorker#com.google.apps.dynamite.workers.PeriodicPrefetchWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:20:17.392 013 +cellular_high_tx_power
+  08-27 10:20:56.483 013 +sensor -cellular_high_tx_power +state=1000:"sensor:0x9"
+  08-27 10:21:00.278 013 +cellular_high_tx_power
+  08-27 10:21:06.379 013 -sensor -state=1000:"sensor:0x9"
+  08-27 10:21:35.242 013 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:21:35.335 013 -cellular_high_tx_power -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:21:54.337 013 +cellular_high_tx_power
+  08-27 10:22:09.510 013 volt=3648 charge=598
+  08-27 10:22:32.117 013 +sensor +state=1000:"sensor:0x9"
+  08-27 10:22:41.978 013 -sensor -state=1000:"sensor:0x9"
+  08-27 10:22:42.818 013 +tmpwhitelist=u0a322:"4121928 com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:22:42.931 013 -cellular_high_tx_power +fg=u0a322:"com.whatsapp"
+  08-27 10:22:42.932 013 +cellular_high_tx_power
+  08-27 10:22:43.433 013 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:22:43.451 013 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:22:44.274 013 +cellular_high_tx_power
+  08-27 10:22:44.385 013 +sensor +state=10201:"sensor:0xc"
+  08-27 10:22:44.486 013 -sensor -cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:22:44.500 013 charge=596 +sensor +screen +state=10201:"sensor:0xc"
+  08-27 10:22:44.537 013 +state=1000:"sensor:0x26"
+  08-27 10:22:44.559 013 +state=1000:"sensor:0x30"
+  08-27 10:22:45.655 013 -fg=u0a322:"com.whatsapp"
+  08-27 10:22:45.665 013 +cellular_high_tx_power
+  08-27 10:22:53.719 013 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:23:00.514 013 -sensor -state=1000:"sensor:0x30"
+  08-27 10:23:00.519 013 -screen -cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:23:00.533 013 charge=594 -state=1000:"sensor:0x26"
+  08-27 10:23:00.552 013 -state=10201:"sensor:0xc"
+  08-27 10:23:02.825 013 -tmpwhitelist=u0a322:"4121928 com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:23:03.787 013 +cellular_high_tx_power -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:24:11.987 013 +sensor +state=1000:"sensor:0x9"
+  08-27 10:24:12.089 013 device_idle=light -tmpwhitelist=u0a257:"sync by top app"
+  08-27 10:24:21.944 013 -sensor -cellular_high_tx_power -state=1000:"sensor:0x9"
+  08-27 10:24:54.567 013 +cellular_high_tx_power
+  08-27 10:25:51.954 013 +sensor -cellular_high_tx_power +state=1000:"sensor:0x9"
+  08-27 10:25:54.654 013 +cellular_high_tx_power
+  08-27 10:26:01.951 013 -sensor -state=1000:"sensor:0x9"
+  08-27 10:26:08.297 013 -cellular_high_tx_power +tmpwhitelist=u0a257:"c7a3de com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:26:08.499 013 +fg=u0a257:"com.facebook.orca"
+  08-27 10:26:08.500 013 +cellular_high_tx_power
+  08-27 10:26:09.928 013 +sensor +state=10201:"sensor:0xc"
+  08-27 10:26:10.025 013 -sensor -cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:26:10.036 013 +screen +cellular_high_tx_power
+  08-27 10:26:10.052 013 +sensor +state=1000:"sensor:0x26"
+  08-27 10:26:10.052 013 volt=3627 charge=583 -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:26:10.085 013 +cellular_high_tx_power +state=1000:"sensor:0x30"
+  08-27 10:26:15.667 013 -sensor -state=1000:"sensor:0x30"
+  08-27 10:26:15.675 013 -screen -cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:26:15.695 013 -state=1000:"sensor:0x26"
+  08-27 10:26:15.704 013 phone_signal_strength=good -state=10201:"sensor:0xc"
+  08-27 10:26:18.519 013 -fg=u0a257:"com.facebook.orca"
+  08-27 10:26:18.524 013 +cellular_high_tx_power
+  08-27 10:26:28.305 013 -tmpwhitelist=u0a257:"c7a3de com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:26:47.212 013 phone_signal_strength=great -cellular_high_tx_power
+  08-27 10:26:54.747 013 +cellular_high_tx_power
+  08-27 10:27:02.350 013 +sensor +state=1000:"sensor:0x9"
+  08-27 10:27:12.177 013 -sensor -cellular_high_tx_power -state=1000:"sensor:0x9"
+  08-27 10:27:51.511 013 charge=576
+  08-27 10:27:54.839 013 +cellular_high_tx_power
+  08-27 10:28:39.593 013 +tmpwhitelist=u0a257:"139d25b com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:28:39.637 013 -cellular_high_tx_power +fg=u0a257:"com.facebook.orca"
+  08-27 10:28:39.638 013 +cellular_high_tx_power
+  08-27 10:28:41.105 013 +sensor +state=10201:"sensor:0xc"
+  08-27 10:28:41.211 013 -sensor -cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:28:41.231 013 charge=572 +sensor +screen +state=1000:"sensor:0x26"
+  08-27 10:28:41.262 013 +state=10201:"sensor:0xc"
+  08-27 10:28:41.283 013 +cellular_high_tx_power +state=1000:"sensor:0x30"
+  08-27 10:28:42.190 013 +state=1000:"sensor:0x9"
+  08-27 10:28:42.936 013 -cellular_high_tx_power
+  08-27 10:28:45.158 013 +cellular_high_tx_power
+  08-27 10:28:46.816 013 -sensor -state=1000:"sensor:0x30"
+  08-27 10:28:46.826 013 -screen -cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:28:46.842 013 -state=1000:"sensor:0x26"
+  08-27 10:28:46.856 013 +cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:28:49.657 013 -fg=u0a257:"com.facebook.orca"
+  08-27 10:28:52.244 013 -state=1000:"sensor:0x9"
+  08-27 10:28:59.600 013 -tmpwhitelist=u0a257:"139d25b com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:30:12.017 013 +sensor +state=1000:"sensor:0x9"
+  08-27 10:30:15.107 013 +job=u0a171:"#TaskAppSearchWorker#@androidx.work.systemjobscheduler@com.google.android.calendar/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:30:15.115 013 +job=u0a258:"com.facebook.katana/com.facebook.papaya.fb.client.services.FBPapayaJobService"
+  08-27 10:30:15.121 013 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:30:15.958 013 -job=u0a171:"#TaskAppSearchWorker#@androidx.work.systemjobscheduler@com.google.android.calendar/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:30:16.644 013 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:30:17.114 013 -job=u0a258:"com.facebook.katana/com.facebook.papaya.fb.client.services.FBPapayaJobService"
+  08-27 10:30:41.597 013 -cellular_high_tx_power stats=0:"wakelock-change"
+  08-27 10:30:49.245 013 -sensor -state=1000:"sensor:0x9"
+  08-27 10:30:55.045 013 +cellular_high_tx_power
+  08-27 10:31:09.294 013 +screen brightness=bright -cellular_high_tx_power display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:31:09.311 013 charge=560 +sensor +cellular_high_tx_power +state=1000:"sensor:0x26"
+  08-27 10:31:09.339 013 +state=1000:"sensor:0x30"
+  08-27 10:31:09.343 013 -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:31:09.352 013 +cellular_high_tx_power +state=1000:"sensor:0x2c"
+  08-27 10:31:09.376 013 +ble_scan
+  08-27 10:31:10.687 013 -sensor -state=10201:"sensor:0xc"
+  08-27 10:31:11.975 013 +sensor +state=10201:"sensor:0xc"
+  08-27 10:31:12.801 013 -sensor -state=10201:"sensor:0xc"
+  08-27 10:31:12.820 013 -cellular_high_tx_power active=1000:"unlocked"
+  08-27 10:31:12.820 013 device_idle=off +cellular_high_tx_power
+  08-27 10:31:13.562 013 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:31:13.578 013 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:31:13.591 013 +cellular_high_tx_power
+  08-27 10:31:13.912 013 volt=3555 charge=559
+  08-27 10:31:14.904 013 +wifi
+  08-27 10:31:14.982 013 +wifi_scan
+  08-27 10:31:15.071 013 -mobile_radio wifi_suppl=disconn conn=-1:"DISCONNECTED"
+  08-27 10:31:15.340 013 +mobile_radio
+  08-27 10:31:15.817 013 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:31:16.042 013 -wifi_scan -cellular_high_tx_power
+  08-27 10:31:16.060 013 +wifi_scan
+  08-27 10:31:16.156 013 -wifi_scan wifi_suppl=disabled +cellular_high_tx_power
+  08-27 10:31:16.239 013 +wifi_scan wifi_suppl=associated
+  08-27 10:31:16.268 013 -wifi_scan wifi_suppl=4-way-handshake
+  08-27 10:31:17.721 013 +wifi_radio -cellular_high_tx_power stats=0:"wifi-data: active"
+  08-27 10:31:17.844 012 charge=558
+  08-27 10:31:18.072 012 +job=u0a313:"#device_context_task#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:18.076 012 +job=u0a313:"#notification_registration_task#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:18.077 012 +job=u0a313:"#mdx_background_scanner#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:18.091 012 +cellular_high_tx_power
+  08-27 10:31:18.109 012 -job=u0a313:"#device_context_task#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:18.128 012 -cellular_high_tx_power -job=u0a313:"#notification_registration_task#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:18.205 012 -job=u0a313:"#mdx_background_scanner#@androidx.work.systemjobscheduler@com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:18.206 012 +wifi_scan +wifi_multicast +cellular_high_tx_power
+  08-27 10:31:18.316 012 +tmpwhitelist=u0a322:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:com.whatsapp.intent.action.MARK_AS_READ"
+  08-27 10:31:18.416 012 -cellular_high_tx_power +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:31:18.423 012 -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:31:18.536 012 +cellular_high_tx_power
+  08-27 10:31:19.118 012 +tmpwhitelist=u0a257:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:com.facebook.orca.notify.SECURE_VIEW"
+  08-27 10:31:19.158 012 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:31:19.158 012 +top=u0a257:"com.facebook.orca"
+  08-27 10:31:19.159 012 +cellular_high_tx_power
+  08-27 10:31:19.280 012 +sensor +state=10257:"sensor:0x2c"
+  08-27 10:31:20.610 012 +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:31:20.618 012 -cellular_high_tx_power +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:31:20.626 012 -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:31:20.628 012 -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:31:20.781 012 -wifi_scan
+  08-27 10:31:26.200 012 +wifi_scan -wifi_multicast
+  08-27 10:31:27.876 012 +cellular_high_tx_power
+  08-27 10:31:28.314 012 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:31:28.717 012 -mobile_radio
+  08-27 10:31:28.908 012 temp=367 volt=3505 charge=554
+  08-27 10:31:28.910 012 -wifi_scan
+  08-27 10:31:32.647 012 -top=u0a257:"com.facebook.orca"
+  08-27 10:31:32.647 012 +top=u0a209:"com.android.launcher3"
+  08-27 10:31:33.464 012 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:31:33.693 012 -ble_scan
+  08-27 10:31:33.969 012 -state=1000:"sensor:0x30"
+  08-27 10:31:33.977 012 -screen
+  08-27 10:31:33.997 012 volt=3598 charge=553
+  08-27 10:31:34.000 012 +sensor -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:31:34.000 012 +job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:34.019 012 -sensor -state=1000:"sensor:0x26"
+  08-27 10:31:34.030 012 -state=10201:"sensor:0xc"
+  08-27 10:31:34.097 012 -job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:31:35.258 012 -state=10257:"sensor:0x2c"
+  08-27 10:31:37.343 012 +cellular_high_tx_power
+  08-27 10:31:48.324 012 -tmpwhitelist=u0a322:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:com.whatsapp.intent.action.MARK_AS_READ"
+  08-27 10:32:48.535 012 +sensor -cellular_high_tx_power +state=1000:"sensor:0x9"
+  08-27 10:32:55.266 012 +cellular_high_tx_power
+  08-27 10:33:17.259 012 +state=1000:"sensor:0x2c"
+  08-27 10:33:17.294 012 +job=u0a258:"#StoryTrayPredictionPrefetchWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:33:17.303 012 -cellular_high_tx_power +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:33:17.373 012 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:33:17.381 012 -job=u0a258:"#StoryTrayPredictionPrefetchWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:33:17.388 012 +cellular_high_tx_power
+  08-27 10:33:18.510 012 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:33:23.519 012 +sensor -cellular_high_tx_power +state=1000:"sensor:0x2c"
+  08-27 10:33:24.796 012 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:33:24.806 012 -state=1000:"sensor:0x9"
+  08-27 10:33:37.017 012 +cellular_high_tx_power
+  08-27 10:34:17.359 012 +screen display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:34:17.388 012 temp=350 volt=3666 charge=547 +sensor -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:34:17.432 012 +ble_scan +cellular_high_tx_power +state=1000:"sensor:0x26"
+  08-27 10:34:17.440 012 -cellular_high_tx_power +state=1000:"sensor:0x2c"
+  08-27 10:34:17.443 012 +cellular_high_tx_power +state=1000:"sensor:0x30"
+  08-27 10:34:17.457 012 +job=u0a187:"com.google.android.apps.work.clouddpc/.base.services.HealthCheckJobService"
+  08-27 10:34:17.472 012 +job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:34:17.491 012 phone_signal_strength=great -cellular_high_tx_power +job=u0a258:"com.facebook.katana/com.facebook.falco.jobscheduler.FFJobService"
+  08-27 10:34:17.548 012 +cellular_high_tx_power
+  08-27 10:34:18.000 012 -job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:34:18.093 012 -job=u0a187:"com.google.android.apps.work.clouddpc/.base.services.HealthCheckJobService"
+  08-27 10:34:18.291 012 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:34:18.299 012 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:34:18.313 012 +cellular_high_tx_power
+  08-27 10:34:18.370 012 -sensor -state=10201:"sensor:0xc"
+  08-27 10:34:19.570 012 +sensor +state=10201:"sensor:0xc"
+  08-27 10:34:20.452 012 -sensor -state=10201:"sensor:0xc"
+  08-27 10:34:21.567 012 +tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:34:21.601 012 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:34:21.601 012 +top=u0a313:"com.google.android.youtube"
+  08-27 10:34:21.603 012 +cellular_high_tx_power
+  08-27 10:34:21.903 012 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:34:22.211 012 +video +state=10313:"video"
+  08-27 10:34:22.267 012 -job=u0a258:"com.facebook.katana/com.facebook.falco.jobscheduler.FFJobService"
+  08-27 10:34:22.430 012 +wifi_multicast
+  08-27 10:34:22.685 012 -wifi_multicast -cellular_high_tx_power
+  08-27 10:34:22.694 012 +wifi_multicast
+  08-27 10:34:23.746 012 +cellular_high_tx_power
+  08-27 10:34:23.757 012 -top=u0a313:"com.google.android.youtube"
+  08-27 10:34:23.757 012 +top=u0a209:"com.android.launcher3"
+  08-27 10:34:23.842 012 -top=u0a209:"com.android.launcher3"
+  08-27 10:34:23.842 012 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:34:23.875 012 +cellular_high_tx_power
+  08-27 10:34:23.995 012 -fg=u0a313:"com.google.android.youtube"
+  08-27 10:34:24.419 012 -audio -state=10313:"audio"
+  08-27 10:34:24.421 012 -cellular_high_tx_power -longwake=u0a313:"AudioMix"
+  08-27 10:34:26.663 012 wifi_signal_strength=2 +cellular_high_tx_power conn=1:"CONNECTED"
+  08-27 10:34:26.983 012 -video -state=10313:"video"
+  08-27 10:34:29.065 012 +fg=u0a313:"com.google.android.youtube"
+  08-27 10:34:29.119 012 -wifi_multicast -cellular_high_tx_power
+  08-27 10:34:29.122 012 +wifi_multicast wifi_signal_strength=3 +cellular_high_tx_power conn=1:"CONNECTED"
+  08-27 10:34:29.863 012 +video +state=10313:"video"
+  08-27 10:34:29.975 012 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:34:33.078 012 +cellular_high_tx_power
+  08-27 10:34:33.082 012 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:34:33.705 012 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:34:33.854 012 +cellular_high_tx_power
+  08-27 10:34:34.188 012 +state=10138:"sensor:0x21"
+  08-27 10:34:34.201 012 -cellular_high_tx_power +state=10138:"sensor:0xb"
+  08-27 10:34:34.322 012 -sensor -state=10138:"sensor:0xb"
+  08-27 10:34:34.328 012 phone_signal_strength=great -state=10138:"sensor:0x21"
+  08-27 10:34:41.193 012 +cellular_high_tx_power
+  08-27 10:34:41.582 012 -audio -state=10313:"audio"
+  08-27 10:34:41.817 012 -cellular_high_tx_power conn=1:"CONNECTED"
+  08-27 10:34:42.283 012 +audio +state=10313:"audio"
+  08-27 10:34:44.609 012 +cellular_high_tx_power
+  08-27 10:34:44.894 012 -cellular_high_tx_power conn=1:"CONNECTED"
+  08-27 10:34:45.024 012 -audio -state=10313:"audio"
+  08-27 10:34:45.395 012 +audio +state=10313:"audio"
+  08-27 10:34:45.635 012 phone_signal_strength=good +cellular_high_tx_power
+  08-27 10:34:46.938 012 -audio -state=10313:"audio"
+  08-27 10:34:47.510 012 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:34:47.730 012 +cellular_high_tx_power
+  08-27 10:34:49.623 012 -audio -state=10313:"audio"
+  08-27 10:34:50.156 012 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:34:51.572 012 -tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:34:52.033 012 +cellular_high_tx_power
+  08-27 10:34:52.040 012 -top=u0a313:"com.google.android.youtube"
+  08-27 10:34:52.040 012 +top=u0a209:"com.android.launcher3"
+  08-27 10:34:52.752 012 -state=10313:"sensor:0x2c"
+  08-27 10:34:52.832 012 -wifi_multicast brightness=dark -state=1000:"sensor:0x2c"
+  08-27 10:34:53.185 012 -video -state=10313:"video"
+  08-27 10:34:53.262 012 -ble_scan
+  08-27 10:34:53.609 012 +sensor -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:34:53.629 012 -sensor -state=1000:"sensor:0x30"
+  08-27 10:34:53.631 012 -screen +cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:34:53.650 012 volt=3552 charge=540
+  08-27 10:34:53.653 012 -cellular_high_tx_power -state=10201:"sensor:0xc"
+  08-27 10:34:53.661 012 +cellular_high_tx_power -state=1000:"sensor:0x26"
+  08-27 10:34:53.936 012 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:34:53.958 012 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:34:53.963 012 +cellular_high_tx_power
+  08-27 10:35:13.204 012 +screen brightness=dim display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:35:13.229 012 volt=3651 charge=539
+  08-27 10:35:13.233 012 +sensor -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:35:13.249 012 +cellular_high_tx_power +state=1000:"sensor:0x26"
+  08-27 10:35:13.278 012 +ble_scan
+  08-27 10:35:13.304 012 -cellular_high_tx_power +state=1000:"sensor:0x2c"
+  08-27 10:35:13.307 012 +cellular_high_tx_power +state=1000:"sensor:0x30"
+  08-27 10:35:14.040 012 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:35:14.048 012 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:35:14.050 012 +cellular_high_tx_power
+  08-27 10:35:14.425 012 -sensor -state=10201:"sensor:0xc"
+  08-27 10:35:15.531 012 +sensor +state=10201:"sensor:0xc"
+  08-27 10:35:16.398 012 -sensor -state=10201:"sensor:0xc"
+  08-27 10:35:17.493 012 +tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:35:17.532 012 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:35:17.532 012 +top=u0a313:"com.google.android.youtube"
+  08-27 10:35:17.533 012 +cellular_high_tx_power
+  08-27 10:35:17.579 012 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:35:17.723 012 +video +state=10313:"video"
+  08-27 10:35:17.780 012 +wifi_multicast
+  08-27 10:35:17.827 012 +job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:35:18.729 012 -audio -cellular_high_tx_power -state=10313:"audio"
+  08-27 10:35:19.669 012 +cellular_high_tx_power
+  08-27 10:35:19.789 012 -job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:35:19.821 012 -cellular_high_tx_power +job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:35:19.976 012 +job=u0a316:"#PushabilityCheckerWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:35:19.988 012 -job=u0a316:"#EmergencyPushPeriodicFetchWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:35:20.014 012 -job=u0a316:"#PushabilityCheckerWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:35:20.153 012 +audio +state=10313:"audio"
+  08-27 10:35:21.586 012 +job=u0a316:"com.instagram.android.piko/com.instagram.notifications.push.IgPushRegistrationService"
+  08-27 10:35:22.085 012 -job=u0a316:"com.instagram.android.piko/com.instagram.notifications.push.IgPushRegistrationService"
+  08-27 10:35:22.702 012 +cellular_high_tx_power
+  08-27 10:35:24.352 012 -audio -state=10313:"audio"
+  08-27 10:35:25.087 012 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:35:25.335 012 +cellular_high_tx_power
+  08-27 10:35:27.335 012 -top=u0a313:"com.google.android.youtube"
+  08-27 10:35:27.335 012 +top=u0a209:"com.android.launcher3"
+  08-27 10:35:28.123 012 -sensor -state=10313:"sensor:0x2c"
+  08-27 10:35:28.146 012 -wifi_multicast brightness=dark -state=1000:"sensor:0x2c"
+  08-27 10:35:28.321 012 -ble_scan
+  08-27 10:35:28.587 012 -video -state=10313:"video"
+  08-27 10:35:28.677 012 -state=1000:"sensor:0x30"
+  08-27 10:35:28.680 012 -screen -cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:35:28.685 012 +sensor +state=10201:"sensor:0xc"
+  08-27 10:35:28.695 012 volt=3590 charge=536 -sensor -state=10201:"sensor:0xc"
+  08-27 10:35:28.715 012 phone_signal_strength=good +cellular_high_tx_power -state=1000:"sensor:0x26"
+  08-27 10:35:28.972 012 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:35:28.979 012 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:35:28.982 012 +cellular_high_tx_power
+  08-27 10:35:44.085 011 volt=3661 charge=535
+  08-27 10:35:44.086 011 -cellular_high_tx_power
+  08-27 10:35:44.103 011 +cellular_high_tx_power
+  08-27 10:35:47.505 011 -tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:35:48.308 011 +sensor +state=1000:"sensor:0x9"
+  08-27 10:36:20.611 011 -tmpwhitelist=u0a257:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:com.facebook.orca.notify.SECURE_VIEW"
+  08-27 10:36:26.937 011 +tmpwhitelist=1000:"dd58036 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:36:27.223 011 -cellular_high_tx_power +longwake=u0a313:"AudioMix"
+  08-27 10:36:27.764 011 +cellular_high_tx_power
+  08-27 10:36:36.943 011 -tmpwhitelist=1000:"dd58036 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:37:03.337 011 +state=1000:"sensor:0x2c"
+  08-27 10:37:04.591 011 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:37:09.596 011 +sensor +state=1000:"sensor:0x2c"
+  08-27 10:37:10.856 011 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:37:51.513 011 temp=332 charge=530
+  08-27 10:38:20.748 011 -cellular_high_tx_power
+  08-27 10:38:21.757 011 +cellular_high_tx_power
+  08-27 10:39:12.288 011 -cellular_high_tx_power +tmpwhitelist=u0a313:"action=ACTION_DOWN;code=KEYCODE_MEDIA_PAUSE"
+  08-27 10:39:12.327 011 +cellular_high_tx_power
+  08-27 10:39:12.746 011 -audio -state=10313:"audio"
+  08-27 10:39:12.747 011 -cellular_high_tx_power -longwake=u0a313:"AudioMix"
+  08-27 10:39:15.587 011 -wake_lock=1041:"AudioMix"
+  08-27 10:39:17.016 011 -running
+  08-27 10:39:21.446 011 charge=527 +running wake_reason=0:"unknown"
+  08-27 10:39:21.749 011 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:39:24.008 011 -running
+  08-27 10:39:26.780 011 charge=526 +running wake_reason=0:"unknown"
+  08-27 10:39:27.156 011 -running
+  08-27 10:39:30.062 011 +running +wake_lock=1041:"" wake_reason=0:"unknown"
+  08-27 10:39:30.164 011 +audio +state=10313:"audio"
+  08-27 10:39:40.088 011 -tmpwhitelist=u0a313:"action=ACTION_DOWN;code=KEYCODE_MEDIA_PAUSE"
+  08-27 10:39:40.371 011 +tmpwhitelist=u0a313:"action=ACTION_DOWN;code=KEYCODE_MEDIA_PREVIOUS"
+  08-27 10:39:40.453 011 +cellular_high_tx_power
+  08-27 10:39:40.849 011 -audio -state=10313:"audio"
+  08-27 10:39:42.179 011 +audio -cellular_high_tx_power +state=10313:"audio"
+  08-27 10:39:45.227 011 +sensor +state=10138:"sensor:0x21"
+  08-27 10:39:45.237 011 +state=10138:"sensor:0xb"
+  08-27 10:39:45.330 011 -sensor -state=10138:"sensor:0xb"
+  08-27 10:39:45.332 011 -state=10138:"sensor:0x21"
+  08-27 10:39:50.385 011 -tmpwhitelist=u0a313:"action=ACTION_DOWN;code=KEYCODE_MEDIA_PREVIOUS"
+  08-27 10:40:05.890 011 +cellular_high_tx_power
+  08-27 10:40:40.455 011 -cellular_high_tx_power stats=0:"procstate-change"
+  08-27 10:40:42.127 011 +tmpwhitelist=1000:"a9c5f65 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:40:42.205 011 +longwake=u0a313:"AudioMix"
+  08-27 10:40:44.956 011 +screen +cellular_high_tx_power display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:40:44.988 011 temp=320 charge=523
+  08-27 10:40:45.011 011 +sensor +state=1000:"sensor:0x2c"
+  08-27 10:40:45.021 011 +state=1000:"sensor:0x26"
+  08-27 10:40:45.044 011 +state=10201:"sensor:0xc"
+  08-27 10:40:45.079 011 +state=1000:"sensor:0x30"
+  08-27 10:40:45.086 011 +ble_scan
+  08-27 10:40:52.135 011 -tmpwhitelist=1000:"a9c5f65 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:40:57.898 011 volt=3614 charge=521 -cellular_high_tx_power
+  08-27 10:41:05.978 011 +cellular_high_tx_power
+  08-27 10:41:15.321 011 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:41:15.445 011 -ble_scan
+  08-27 10:41:15.807 011 -cellular_high_tx_power -state=1000:"sensor:0x30"
+  08-27 10:41:15.814 011 -state=10201:"sensor:0xc"
+  08-27 10:41:15.815 011 charge=519 -screen display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:41:15.843 011 -state=1000:"sensor:0x26"
+  08-27 10:41:26.083 011 +cellular_high_tx_power
+  08-27 10:41:26.085 011 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:41:27.541 011 +tmpwhitelist=u0a263:"d0a8ca1 com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:41:36.155 011 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:41:38.111 011 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.mediamonitor.MediaMonitorJobSchedulerService"
+  08-27 10:41:38.268 011 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.mediamonitor.MediaMonitorJobSchedulerService"
+  08-27 10:41:47.553 011 -tmpwhitelist=u0a263:"d0a8ca1 com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:47:51.515 011 temp=310 volt=3659 charge=504 -cellular_high_tx_power
+  08-27 10:48:06.507 011 +cellular_high_tx_power stats=0:"procstate-change"
+  08-27 10:49:06.972 011 charge=501 +screen brightness=dim -cellular_high_tx_power display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:49:06.999 011 +sensor +cellular_high_tx_power +state=1000:"sensor:0x26"
+  08-27 10:49:07.012 011 +state=10201:"sensor:0xc"
+  08-27 10:49:07.025 011 +state=1000:"sensor:0x30"
+  08-27 10:49:07.041 011 +ble_scan +state=1000:"sensor:0x2c"
+  08-27 10:49:08.508 011 -sensor -state=10201:"sensor:0xc"
+  08-27 10:49:09.644 011 +sensor +state=10201:"sensor:0xc"
+  08-27 10:49:10.438 011 -sensor -state=1000:"sensor:0x9"
+  08-27 10:49:10.470 011 -state=10201:"sensor:0xc"
+  08-27 10:49:10.510 011 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:10.795 011 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:10.807 011 -cellular_high_tx_power +job=u0a322:"com.whatsapp/.alarmservice.AlarmService"
+  08-27 10:49:10.963 011 -job=u0a322:"com.whatsapp/.alarmservice.AlarmService"
+  08-27 10:49:10.970 011 +cellular_high_tx_power
+  08-27 10:49:11.088 011 +job=u0a322:"#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:11.112 011 volt=3550 charge=500 -cellular_high_tx_power stats=0:"get-health-stats-for-uids"
+  08-27 10:49:11.135 011 +cellular_high_tx_power
+  08-27 10:49:11.229 011 -job=u0a322:"#RestoreChatConnectionWorker#@androidx.work.systemjobscheduler@com.whatsapp/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:11.312 011 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:49:11.348 011 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:49:11.351 011 +cellular_high_tx_power
+  08-27 10:49:11.541 011 +tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:49:11.578 011 -cellular_high_tx_power -top=u0a209:"com.android.launcher3"
+  08-27 10:49:11.578 011 +top=u0a313:"com.google.android.youtube"
+  08-27 10:49:11.579 011 +cellular_high_tx_power
+  08-27 10:49:11.796 011 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:11.814 011 -cellular_high_tx_power -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:11.857 011 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:49:11.967 011 +cellular_high_tx_power
+  08-27 10:49:12.391 011 +wifi_multicast
+  08-27 10:49:13.002 011 +job=u0a316:"#PushabilityCheckerWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:13.054 011 +video +state=10313:"video"
+  08-27 10:49:13.086 011 -cellular_high_tx_power -job=u0a316:"#PushabilityCheckerWorker#@androidx.work.systemjobscheduler@com.instagram.android.piko/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:13.189 011 +cellular_high_tx_power
+  08-27 10:49:13.520 011 +job=u0a278:"com.july.cricinfo/com.startapp.sdk.jobs.SchedulerService"
+  08-27 10:49:13.528 011 -cellular_high_tx_power +job=1000:"@com.android.server.appwidget.AppWidgetServiceImpl.ReportWidgetEventsJob@android/com.android.server.appwidget.ReportWidgetEventsJob"
+  08-27 10:49:13.535 011 +job=1000:"android/com.android.server.notification.NotificationHistoryJobService"
+  08-27 10:49:13.540 011 +cellular_high_tx_power -job=1000:"@com.android.server.appwidget.AppWidgetServiceImpl.ReportWidgetEventsJob@android/com.android.server.appwidget.ReportWidgetEventsJob"
+  08-27 10:49:13.550 011 +job=u0a157:"#TikTokWorker#com.google.android.apps.nbu.files.mediastore.MediaStoreContentChangeListenerWorker#@androidx.work.systemjobscheduler@com.google.android.apps.nbu.files/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:13.561 011 -job=1000:"android/com.android.server.notification.NotificationHistoryJobService"
+  08-27 10:49:13.568 011 +job=u0a254:"#TikTokWorker#com.google.android.libraries.communications.conference.service.CLEAR_CALENDAR_CACHE_WORKER#@androidx.work.systemjobscheduler@com.google.android.apps.tachyon/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:13.759 011 -wifi_multicast -cellular_high_tx_power
+  08-27 10:49:13.764 011 +wifi_multicast +cellular_high_tx_power
+  08-27 10:49:13.932 011 -job=u0a254:"#TikTokWorker#com.google.android.libraries.communications.conference.service.CLEAR_CALENDAR_CACHE_WORKER#@androidx.work.systemjobscheduler@com.google.android.apps.tachyon/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:13.939 011 +job=u0a159:"com.google.android.partnersetup/.InstalledAppJobService"
+  08-27 10:49:14.210 011 -job=u0a159:"com.google.android.partnersetup/.InstalledAppJobService"
+  08-27 10:49:14.215 011 +job=u0a263:"org.telegram.messenger/.KeepAliveJob"
+  08-27 10:49:14.928 011 -top=u0a313:"com.google.android.youtube"
+  08-27 10:49:14.928 011 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:49:14.935 011 -fg=u0a313:"com.google.android.youtube"
+  08-27 10:49:14.981 011 +cellular_high_tx_power
+  08-27 10:49:15.363 011 -audio -state=10313:"audio"
+  08-27 10:49:15.363 011 -cellular_high_tx_power -longwake=u0a313:"AudioMix"
+  08-27 10:49:15.550 011 +cellular_high_tx_power
+  08-27 10:49:15.797 011 -job=u0a263:"org.telegram.messenger/.KeepAliveJob"
+  08-27 10:49:15.807 011 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:15.850 011 -sensor -cellular_high_tx_power -state=10313:"sensor:0x2c"
+  08-27 10:49:15.982 011 +cellular_high_tx_power
+  08-27 10:49:16.198 011 -wifi_multicast
+  08-27 10:49:16.237 011 -video -state=10313:"video"
+  08-27 10:49:16.336 011 +sensor -cellular_high_tx_power +state=10278:"sensor:0x2c"
+  08-27 10:49:16.339 011 +state=10278:"sensor:0x2d"
+  08-27 10:49:16.406 011 +cellular_high_tx_power
+  08-27 10:49:17.183 011 -top=u0a209:"com.android.launcher3"
+  08-27 10:49:17.183 011 -cellular_high_tx_power +top=u0a258:"com.facebook.katana"
+  08-27 10:49:17.185 011 +cellular_high_tx_power
+  08-27 10:49:17.506 011 +state=10258:"sensor:0x21"
+  08-27 10:49:17.547 011 -cellular_high_tx_power +state=10258:"sensor:0x2c"
+  08-27 10:49:17.581 011 -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:17.584 011 +job=u0a263:"org.telegram.messenger/com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+  08-27 10:49:17.588 011 +cellular_high_tx_power
+  08-27 10:49:18.436 011 -job=u0a278:"com.july.cricinfo/com.startapp.sdk.jobs.SchedulerService"
+  08-27 10:49:18.450 011 +job=u0a159:"com.google.android.partnersetup/.PhenotypeJobService"
+  08-27 10:49:19.148 011 -job=u0a263:"org.telegram.messenger/com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+  08-27 10:49:19.155 011 +job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:19.590 011 -job=u0a159:"com.google.android.partnersetup/.PhenotypeJobService"
+  08-27 10:49:19.600 011 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:19.722 011 +job=u0a258:"com.facebook.katana/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:19.778 011 -job=u0a258:"com.facebook.katana/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:19.990 011 -cellular_high_tx_power -job=u0a290:"@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:19.996 011 +cellular_high_tx_power
+  08-27 10:49:19.997 011 +job=u0a159:"com.google.android.partnersetup/.PhenotypeJobService"
+  08-27 10:49:20.113 010 temp=322 volt=3494 charge=496
+  08-27 10:49:20.115 010 -cellular_high_tx_power
+  08-27 10:49:20.395 010 +cellular_high_tx_power -job=u0a159:"com.google.android.partnersetup/.PhenotypeJobService"
+  08-27 10:49:20.475 010 +job=u0a159:"com.google.android.partnersetup/.ClientIdJobService"
+  08-27 10:49:20.775 010 -cellular_high_tx_power -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:20.867 010 +job=u0a316:"com.instagram.android.piko/com.instagram.notifications.push.IgPushRegistrationService"
+  08-27 10:49:21.872 010 -job=u0a157:"#TikTokWorker#com.google.android.apps.nbu.files.mediastore.MediaStoreContentChangeListenerWorker#@androidx.work.systemjobscheduler@com.google.android.apps.nbu.files/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:21.876 010 +cellular_high_tx_power
+  08-27 10:49:22.167 010 -job=u0a316:"com.instagram.android.piko/com.instagram.notifications.push.IgPushRegistrationService"
+  08-27 10:49:22.921 010 -job=u0a159:"com.google.android.partnersetup/.ClientIdJobService"
+  08-27 10:49:23.331 010 +job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:23.792 010 volt=3570 charge=495 -job=u0a146:"#WorkQueueWorkerShim#@androidx.work.systemjobscheduler@com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:27.566 010 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.mediamonitor.MediaMonitorJobSchedulerService"
+  08-27 10:49:28.263 010 -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.mediamonitor.MediaMonitorJobSchedulerService"
+  08-27 10:49:31.464 010 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:31.497 010 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:34.739 010 +job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:35.253 010 -cellular_high_tx_power -job=u0a290:"#RestProxyWorker#@androidx.work.systemjobscheduler@com.linkedin.android/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:35.278 010 +cellular_high_tx_power
+  08-27 10:49:35.487 010 -top=u0a258:"com.facebook.katana"
+  08-27 10:49:35.487 010 -cellular_high_tx_power +top=u0a257:"com.facebook.orca"
+  08-27 10:49:35.487 010 +cellular_high_tx_power
+  08-27 10:49:35.668 010 +state=10257:"sensor:0x2c"
+  08-27 10:49:36.274 010 +job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:36.299 010 -cellular_high_tx_power -job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:36.319 010 +cellular_high_tx_power
+  08-27 10:49:36.447 010 -sensor -state=10258:"sensor:0x21"
+  08-27 10:49:36.556 010 -cellular_high_tx_power +job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:36.650 010 +cellular_high_tx_power
+  08-27 10:49:36.655 010 -job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:36.806 010 +tmpwhitelist=u0a257:"sync by top app"
+  08-27 10:49:36.814 010 -cellular_high_tx_power +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:49:36.819 010 +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:49:36.821 010 +cellular_high_tx_power
+  08-27 10:49:36.831 010 -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:49:36.831 010 -cellular_high_tx_power -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:49:37.419 010 +cellular_high_tx_power
+  08-27 10:49:37.481 010 -state=10258:"sensor:0x2c"
+  08-27 10:49:38.649 010 -top=u0a257:"com.facebook.orca"
+  08-27 10:49:38.649 010 +top=u0a209:"com.android.launcher3"
+  08-27 10:49:40.041 010 +job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:40.224 010 -cellular_high_tx_power -job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:40.466 010 +cellular_high_tx_power
+  08-27 10:49:40.807 010 +job=u0a258:"com.facebook.katana/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:41.204 010 -cellular_high_tx_power -job=u0a258:"com.facebook.katana/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:41.280 010 -state=10257:"sensor:0x2c"
+  08-27 10:49:41.546 010 -tmpwhitelist=u0a313:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:u0a201:android.intent.action.MAIN"
+  08-27 10:49:42.490 010 +cellular_high_tx_power
+  08-27 10:49:43.211 010 -top=u0a209:"com.android.launcher3"
+  08-27 10:49:43.211 010 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:49:43.212 010 +cellular_high_tx_power
+  08-27 10:49:43.552 010 +sensor +state=10313:"sensor:0x2c"
+  08-27 10:49:44.033 010 +wifi_multicast
+  08-27 10:49:44.305 010 -cellular_high_tx_power +job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:44.455 010 -job=u0a257:"com.facebook.orca/com.facebook.conditionalworker.ConditionalWorkerService"
+  08-27 10:49:44.461 010 +cellular_high_tx_power
+  08-27 10:49:44.466 010 -top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.467 010 +top=u0a209:"com.android.launcher3"
+  08-27 10:49:44.551 010 -top=u0a209:"com.android.launcher3"
+  08-27 10:49:44.552 010 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.577 010 +cellular_high_tx_power
+  08-27 10:49:44.650 010 -top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.650 010 -cellular_high_tx_power +top=u0a209:"com.android.launcher3"
+  08-27 10:49:44.733 010 -top=u0a209:"com.android.launcher3"
+  08-27 10:49:44.733 010 +top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.734 010 +cellular_high_tx_power
+  08-27 10:49:44.829 010 -top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.829 010 +top=u0a209:"com.android.launcher3"
+  08-27 10:49:44.924 010 -top=u0a209:"com.android.launcher3"
+  08-27 10:49:44.924 010 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.966 010 +cellular_high_tx_power
+  08-27 10:49:44.989 010 -top=u0a313:"com.google.android.youtube"
+  08-27 10:49:44.989 010 +top=u0a209:"com.android.launcher3"
+  08-27 10:49:45.090 010 -top=u0a209:"com.android.launcher3"
+  08-27 10:49:45.090 010 -cellular_high_tx_power +top=u0a313:"com.google.android.youtube"
+  08-27 10:49:45.099 010 +cellular_high_tx_power
+  08-27 10:49:47.387 010 +state=10138:"sensor:0x21"
+  08-27 10:49:47.399 010 +state=10138:"sensor:0xb"
+  08-27 10:49:47.562 010 -sensor -state=10138:"sensor:0xb"
+  08-27 10:49:47.564 010 -state=10138:"sensor:0x21"
+  08-27 10:49:48.737 010 +audio +state=10313:"audio"
+  08-27 10:49:49.227 010 +sensor +state=10138:"sensor:0x21"
+  08-27 10:49:49.235 010 +state=10138:"sensor:0xb"
+  08-27 10:49:49.293 010 -sensor -state=10138:"sensor:0xb"
+  08-27 10:49:49.295 010 -state=10138:"sensor:0x21"
+  08-27 10:49:49.601 010 -audio -state=10313:"audio"
+  08-27 10:49:50.773 010 +audio +state=10313:"audio"
+  08-27 10:49:51.184 010 +sensor -cellular_high_tx_power +state=10138:"sensor:0x21"
+  08-27 10:49:51.191 010 +state=10138:"sensor:0xb"
+  08-27 10:49:51.233 010 -sensor -state=10138:"sensor:0xb"
+  08-27 10:49:51.235 010 +cellular_high_tx_power -state=10138:"sensor:0x21"
+  08-27 10:49:51.441 010 +tmpwhitelist=u0a261:"6d17cce com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:49:51.556 010 -audio -cellular_high_tx_power -state=10313:"audio"
+  08-27 10:49:51.572 010 +cellular_high_tx_power
+  08-27 10:49:51.729 010 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:51.890 010 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:49:52.666 010 +job=u0a261:"#TikTokWorker#com.google.apps.dynamite.workers.NotificationBackgroundSyncWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:53.590 010 -cellular_high_tx_power -job=u0a261:"#TikTokWorker#com.google.apps.dynamite.workers.NotificationBackgroundSyncWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:49:53.611 010 +cellular_high_tx_power
+  08-27 10:49:55.572 010 +audio +state=10313:"audio"
+  08-27 10:49:56.277 010 +video +state=10313:"video"
+  08-27 10:49:59.750 010 +sensor +state=10138:"sensor:0x21"
+  08-27 10:49:59.759 010 -cellular_high_tx_power +state=10138:"sensor:0xb"
+  08-27 10:49:59.837 010 -sensor -state=10138:"sensor:0xb"
+  08-27 10:49:59.840 010 +cellular_high_tx_power -state=10138:"sensor:0x21"
+  08-27 10:50:11.236 010 -cellular_high_tx_power -tmpwhitelist=u0a261:"6d17cce com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 10:50:11.858 010 +cellular_high_tx_power
+  08-27 10:50:13.879 010 -audio -state=10313:"audio"
+  08-27 10:50:14.365 010 -top=u0a313:"com.google.android.youtube"
+  08-27 10:50:14.365 010 +top=u0a209:"com.android.launcher3"
+  08-27 10:50:15.887 010 +audio +state=10313:"audio"
+  08-27 10:50:15.941 010 -state=10313:"sensor:0x2c"
+  08-27 10:50:15.965 010 +sensor -cellular_high_tx_power +state=10138:"sensor:0x21"
+  08-27 10:50:15.982 010 -wifi_multicast +state=10138:"sensor:0xb"
+  08-27 10:50:16.071 010 -sensor -state=10138:"sensor:0xb"
+  08-27 10:50:16.074 010 -state=10138:"sensor:0x21"
+  08-27 10:50:16.295 010 -video +cellular_high_tx_power -state=10313:"video"
+  08-27 10:50:16.312 010 -audio -cellular_high_tx_power -state=10313:"audio"
+  08-27 10:50:16.357 010 +job=u0a316:"com.instagram.android.piko/com.instagram.jobscheduler.bgfetch.scheduler.IgBgFetchSchedulerService"
+  08-27 10:50:18.758 010 -job=u0a316:"com.instagram.android.piko/com.instagram.jobscheduler.bgfetch.scheduler.IgBgFetchSchedulerService"
+  08-27 10:50:18.936 010 +cellular_high_tx_power
+  08-27 10:51:15.158 010 -state=1000:"sensor:0x2c"
+  08-27 10:51:15.549 010 -ble_scan
+  08-27 10:51:15.653 010 -state=1000:"sensor:0x30"
+  08-27 10:51:15.666 010 -screen -cellular_high_tx_power
+  08-27 10:51:15.693 010 volt=3645 charge=481 -state=1000:"sensor:0x26"
+  08-27 10:51:15.820 010 +tmpwhitelist=1000:"e9572c0 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:51:15.826 010 +cellular_high_tx_power
+  08-27 10:51:15.842 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.842 010 +wake_lock=1001:"*telephony-radio*" -cellular_high_tx_power
+  08-27 10:51:15.842 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 10:51:15.864 010 +wake_lock=u0a201:"NotificationManagerService:post:com.android.systemui"
+  08-27 10:51:16.180 010 +cellular_high_tx_power
+  08-27 10:51:16.181 010 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:51:16.189 010 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:51:16.191 010 +cellular_high_tx_power
+  08-27 10:51:16.851 010 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:51:16.920 010 -wake_lock=u0a201:"Scrims" -cellular_high_tx_power -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:51:17.285 010 -running
+  08-27 10:51:17.306 010 +running wake_reason=0:"unknown"
+  08-27 10:51:17.632 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:51:18.090 010 -running
+  08-27 10:51:21.227 010 volt=3666 +running +wake_lock=u0a201:"*walarm*:com.android.internal.policy.impl.PhoneWindowManager.DELAYED_KEYGUARD"
+  08-27 10:51:21.239 010 +cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:51:21.248 010 +tmpwhitelist=u0a201:"9907fba com.android.internal.policy.impl.PhoneWindowManager.DELAYED_KEYGUARD/u0"
+  08-27 10:51:21.276 010 -wake_lock=u0a201:"show keyguard" -cellular_high_tx_power
+  08-27 10:51:21.278 010 +wake_lock=1027:"NfcService:mRoutingWakeLock"
+  08-27 10:51:21.279 010 -wake_lock=1027:"NfcService:mRoutingWakeLock"
+  08-27 10:51:21.283 010 +wake_lock=1027:"NfcService:mRoutingWakeLock"
+  08-27 10:51:21.284 010 -running -wake_lock=1027:"NfcService:mRoutingWakeLock"
+  08-27 10:51:26.539 010 +running +cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:51:26.907 010 -running
+  08-27 10:51:26.965 010 +running -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:51:27.290 010 -running
+  08-27 10:51:27.530 010 +running +cellular_high_tx_power
+  08-27 10:51:27.707 010 -cellular_high_tx_power wake_reason=0:"Abort: Pending Wakeup Sources: event3"
+  08-27 10:51:27.763 010 +wake_lock=-1:"screen" +screen display_state_changed=-1:"display=0 state=ON reason=KEY"
+  08-27 10:51:27.763 010 +cellular_high_tx_power
+  08-27 10:51:27.786 010 +sensor -cellular_high_tx_power +state=10201:"sensor:0xc"
+  08-27 10:51:27.798 010 +state=1000:"sensor:0x2c"
+  08-27 10:51:27.814 010 +state=1000:"sensor:0x26"
+  08-27 10:51:27.831 010 +ble_scan +cellular_high_tx_power +state=1000:"sensor:0x30"
+  08-27 10:51:28.733 010 -sensor -state=10201:"sensor:0xc"
+  08-27 10:51:30.205 010 +sensor +state=10201:"sensor:0xc"
+  08-27 10:51:31.094 010 -sensor -state=10201:"sensor:0xc"
+  08-27 10:51:33.725 010 +tmpwhitelist=u0a313:"action=ACTION_UP;code=KEYCODE_MEDIA_PLAY"
+  08-27 10:51:34.267 010 -cellular_high_tx_power -tmpwhitelist=1000:"e9572c0 com.android.server.audio.action.CHECK_MUSIC_ACTIVE/u0"
+  08-27 10:51:34.660 010 +cellular_high_tx_power
+  08-27 10:51:36.535 010 -tmpwhitelist=u0a201:"9907fba com.android.internal.policy.impl.PhoneWindowManager.DELAYED_KEYGUARD/u0"
+  08-27 10:51:39.239 010 -top=u0a209:"com.android.launcher3"
+  08-27 10:51:39.239 010 -cellular_high_tx_power +top=u0a258:"com.facebook.katana"
+  08-27 10:51:39.245 010 +cellular_high_tx_power
+  08-27 10:51:39.344 010 +sensor +state=10258:"sensor:0x21"
+  08-27 10:51:39.352 010 -cellular_high_tx_power +state=10258:"sensor:0x2c"
+  08-27 10:51:39.727 010 +cellular_high_tx_power
+  08-27 10:51:39.872 010 +job=u0a261:"#TikTokWorker#com.google.android.apps.dynamite.workers.RetryAllUploadsWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:51:39.997 010 -cellular_high_tx_power -job=u0a261:"#TikTokWorker#com.google.android.apps.dynamite.workers.RetryAllUploadsWorker#@androidx.work.systemjobscheduler@com.google.android.gm/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:51:40.008 010 +cellular_high_tx_power
+  08-27 10:51:43.744 010 -tmpwhitelist=u0a313:"action=ACTION_UP;code=KEYCODE_MEDIA_PLAY"
+  08-27 10:51:54.887 010 -top=u0a258:"com.facebook.katana"
+  08-27 10:51:54.887 010 -cellular_high_tx_power +top=u0a257:"com.facebook.orca"
+  08-27 10:51:54.888 010 +cellular_high_tx_power
+  08-27 10:51:54.992 010 +state=10257:"sensor:0x2c"
+  08-27 10:51:55.703 010 -sensor -state=10258:"sensor:0x21"
+  08-27 10:51:55.736 010 -cellular_high_tx_power +job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:51:55.774 010 -job=u0a258:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.katana/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:51:55.955 010 +job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:51:55.963 010 +sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:51:55.971 010 -job=u0a257:"@SyncManager@com.android.contacts/com.facebook.messenger:android"
+  08-27 10:51:55.971 010 -sync=u0a257:"com.android.contacts/com.facebook.messenger"
+  08-27 10:51:56.630 010 +cellular_high_tx_power
+  08-27 10:51:56.647 010 +tmpwhitelist=u0a313:"action=ACTION_UP;code=KEYCODE_MEDIA_PLAY"
+  08-27 10:51:56.876 010 -cellular_high_tx_power -state=10258:"sensor:0x2c"
+  08-27 10:51:56.916 010 +cellular_high_tx_power
+  08-27 10:52:06.659 010 -tmpwhitelist=u0a313:"action=ACTION_UP;code=KEYCODE_MEDIA_PLAY"
+  08-27 10:52:30.812 010 +tmpwhitelist=1000:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:30.815 010 -cellular_high_tx_power +tmpwhitelist=u0a138:"5a518c7 android.bluetooth.headset.profile.action.ACTIVE_DEVICE_CHANGED/u-1"
+  08-27 10:52:30.815 010 +tmpwhitelist=u0a201:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:30.828 010 +tmpwhitelist=1002:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:30.942 010 +tmpwhitelist=u0a139:"4ab178 android.bluetooth.device.action.ACL_DISCONNECTED/u0"
+  08-27 10:52:31.421 010 +cellular_high_tx_power
+  08-27 10:52:31.431 010 +tmpwhitelist=u0a162:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:42.619 010 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:52:42.726 010 -cellular_high_tx_power -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:52:51.097 010 -tmpwhitelist=1000:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:51.099 010 -tmpwhitelist=u0a201:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:51.152 010 -tmpwhitelist=u0a139:"4ab178 android.bluetooth.device.action.ACL_DISCONNECTED/u0"
+  08-27 10:52:51.158 010 -tmpwhitelist=1002:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:51.313 010 -tmpwhitelist=u0a138:"5a518c7 android.bluetooth.headset.profile.action.ACTIVE_DEVICE_CHANGED/u-1"
+  08-27 10:52:51.596 010 -tmpwhitelist=u0a162:"c1bd092 android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED/u-1"
+  08-27 10:52:55.785 010 +cellular_high_tx_power
+  08-27 10:52:56.669 010 +tmpwhitelist=1000:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:56.670 010 -cellular_high_tx_power +tmpwhitelist=1002:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:56.672 010 +tmpwhitelist=1027:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:56.679 010 +tmpwhitelist=u0a201:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:56.679 010 +tmpwhitelist=u0a221:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:56.689 010 +cellular_high_tx_power
+  08-27 10:52:57.148 010 +tmpwhitelist=u0a261:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:1000:com.google.android.libraries.notifications.SYSTEM_TRAY_EVENT"
+  08-27 10:52:57.170 010 -cellular_high_tx_power +tmpwhitelist=u0a138:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:57.171 010 +tmpwhitelist=u0a139:"c033af2 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:52:57.414 010 +cellular_high_tx_power
+  08-27 10:52:58.618 010 -top=u0a257:"com.facebook.orca"
+  08-27 10:52:58.618 010 +top=u0a209:"com.android.launcher3"
+  08-27 10:52:59.971 010 +job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:53:00.055 010 -cellular_high_tx_power -job=u0a257:"#MutationEngineWorker#@androidx.work.systemjobscheduler@com.facebook.orca/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:53:01.358 010 -state=10257:"sensor:0x2c"
+  08-27 10:53:04.401 010 +cellular_high_tx_power
+  08-27 10:53:04.405 010 +job=u0a261:"com.google.android.gm/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService"
+  08-27 10:53:06.132 010 -cellular_high_tx_power -job=u0a261:"com.google.android.gm/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService"
+  08-27 10:53:06.270 010 +cellular_high_tx_power
+  08-27 10:53:06.673 010 -tmpwhitelist=1002:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:06.842 010 -cellular_high_tx_power -tmpwhitelist=1027:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:06.845 010 -tmpwhitelist=u0a201:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:06.847 010 -tmpwhitelist=u0a221:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:07.178 010 -tmpwhitelist=u0a139:"c033af2 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:07.526 010 -tmpwhitelist=1000:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:08.020 010 -tmpwhitelist=u0a138:"d2b7a56 android.bluetooth.adapter.action.STATE_CHANGED/u-1"
+  08-27 10:53:14.130 010 +cellular_high_tx_power stats=0:"procstate-change"
+  08-27 10:53:14.406 010 -state=10138:"sensor:0x2c"
+  08-27 10:53:14.411 010 +sensor -cellular_high_tx_power +state=10138:"sensor:0x9"
+  08-27 10:53:15.434 010 +cellular_high_tx_power
+  08-27 10:53:27.160 010 -tmpwhitelist=u0a261:"setPendingIntentAllowlistDuration,reason:NotificationManagerService,pendingintent:1000:com.google.android.libraries.notifications.SYSTEM_TRAY_EVENT"
+  08-27 10:53:51.605 010 brightness=dark -cellular_high_tx_power
+  08-27 10:54:15.436 010 +cellular_high_tx_power stats=0:"procstate-change"
+  08-27 10:54:48.396 010 brightness=dim -cellular_high_tx_power
+  08-27 10:54:50.898 010 +cellular_high_tx_power
+  08-27 10:54:50.933 010 +job=u0a253:"com.google.android.apps.photos/.backup.core.UriTriggeredBackupJob"
+  08-27 10:54:51.231 010 +job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:54:51.263 010 -cellular_high_tx_power -job=u0a253:"com.google.android.apps.photos/.backup.core.UriTriggeredBackupJob"
+  08-27 10:55:02.288 010 +cellular_high_tx_power -job=u0a253:"com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService"
+  08-27 10:55:46.632 010 -cellular_high_tx_power +job=u0a139:"#TikTokWorker#com.google.apps.tiktok.sync.impl.workmanager.SyncPeriodicWorker#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:55:46.642 010 +job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:55:46.707 010 -job=u0a146:"com.google.android.apps.messaging/.shared.datamodel.action.execution.ActionJobService"
+  08-27 10:55:47.039 010 -job=u0a139:"#TikTokWorker#com.google.apps.tiktok.sync.impl.workmanager.SyncPeriodicWorker#@androidx.work.systemjobscheduler@com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService"
+  08-27 10:55:49.478 010 -sensor +cellular_high_tx_power -state=1000:"sensor:0x2c"
+  08-27 10:55:49.973 010 -state=1000:"sensor:0x30"
+  08-27 10:55:49.975 010 -screen display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:55:49.988 010 volt=3641 charge=459
+  08-27 10:55:50.011 010 -cellular_high_tx_power -state=1000:"sensor:0x26"
+  08-27 10:55:50.158 010 volt=3572 +cellular_high_tx_power
+  08-27 10:55:50.601 010 +job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:55:50.614 010 -cellular_high_tx_power -job=u0a322:"com.whatsapp/.infra.push.RegistrationIntentService"
+  08-27 10:55:50.617 010 +cellular_high_tx_power
+  08-27 10:55:51.203 010 -wake_lock=u0a201:"Scrims"
+  08-27 10:55:51.449 010 -cellular_high_tx_power wake_reason=0:"Abort: Disabling non-boot cpus failed"
+  08-27 10:55:52.069 010 -running
+  08-27 10:55:54.919 010 volt=3662 +running +wake_lock=u0a201:"*walarm*:com.android.internal.policy.impl.PhoneWindowManager.DELAYED_KEYGUARD" wake_reason=0:"unknown" +tmpwhitelist=u0a201:"71c4c69 com.android.internal.policy.impl.PhoneWindowManager.DELAYED_KEYGUARD/u0"
+  08-27 10:55:55.006 010 -wake_lock=u0a146:"*alarm*"
+  08-27 10:55:55.255 010 -running
+  08-27 10:55:59.963 010 charge=458 +running +cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:56:00.294 010 -running
+  08-27 10:56:04.985 010 +running -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:56:05.313 010 -running
+  08-27 10:56:05.382 010 +running wake_reason=0:"unknown"
+  08-27 10:56:05.643 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:56:06.632 010 -running
+  08-27 10:56:08.781 010 +running +wake_lock=1000:"*alarm*:TIME_TICK" wake_reason=0:"unknown"
+  08-27 10:56:08.782 010 +cellular_high_tx_power
+  08-27 10:56:08.794 010 +sensor +state=1000:"sensor:0x9"
+  08-27 10:56:08.819 010 -wake_lock=u0a146:"*alarm*:TIME_TICK"
+  08-27 10:56:09.084 010 -running -cellular_high_tx_power
+  08-27 10:56:09.159 010 +running wake_reason=0:"unknown"
+  08-27 10:56:09.750 010 -running
+  08-27 10:56:10.100 010 +running wake_reason=0:"unknown"
+  08-27 10:56:10.438 010 -running
+  08-27 10:56:15.419 010 +running +wake_lock=u0a201:"NotificationManagerService:post:com.android.systemui" wake_reason=0:"unknown"
+  08-27 10:56:15.680 010 -wake_lock=u0a201:"NotificationManagerService:post:com.android.systemui"
+  08-27 10:56:15.939 010 -running
+  08-27 10:56:20.648 010 +running wake_reason=0:"unknown"
+  08-27 10:56:20.971 010 -running
+  08-27 10:56:25.652 010 +running wake_reason=0:"unknown"
+  08-27 10:56:25.993 010 -running
+  08-27 10:56:29.147 010 +running wake_reason=0:"unknown"
+  08-27 10:56:29.548 010 -running
+  08-27 10:56:30.776 010 +running wake_reason=0:"unknown"
+  08-27 10:56:31.135 010 -running
+  08-27 10:56:36.110 010 +running wake_reason=0:"unknown"
+  08-27 10:56:36.447 010 -running
+  08-27 10:56:41.420 010 +running wake_reason=0:"unknown"
+  08-27 10:56:41.770 010 -running
+  08-27 10:56:46.551 010 +running wake_reason=0:"unknown"
+  08-27 10:56:46.860 010 -running
+  08-27 10:56:49.408 010 +running wake_reason=0:"unknown"
+  08-27 10:56:49.785 010 -running
+  08-27 10:56:51.675 010 +running wake_reason=0:"unknown"
+  08-27 10:56:52.037 010 -running
+  08-27 10:56:56.689 010 +running wake_reason=0:"unknown"
+  08-27 10:56:57.017 010 -running
+  08-27 10:57:02.009 010 +running wake_reason=0:"unknown"
+  08-27 10:57:02.285 010 -running
+  08-27 10:57:04.252 010 +running wake_reason=0:"unknown"
+  08-27 10:57:04.599 010 -running
+  08-27 10:57:04.991 010 +running wake_reason=0:"unknown"
+  08-27 10:57:05.232 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:57:05.576 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:57:06.908 010 -tmpwhitelist=u0a201:"71c4c69 com.android.internal.policy.impl.PhoneWindowManager.DELAYED_KEYGUARD/u0"
+  08-27 10:57:07.230 010 -running
+  08-27 10:57:12.241 010 +running wake_reason=0:"unknown"
+  08-27 10:57:12.592 010 -running
+  08-27 10:57:17.260 010 +running wake_reason=0:"unknown"
+  08-27 10:57:17.595 010 -running
+  08-27 10:57:22.595 010 +running wake_reason=0:"unknown"
+  08-27 10:57:22.859 010 +wake_lock=1000:"*alarm*:TIME_TICK" wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16" +state=1000:"sensor:0x2c"
+  08-27 10:57:26.315 010 -sensor -state=1000:"sensor:0x2c"
+  08-27 10:57:31.323 010 +sensor +state=1000:"sensor:0x2c"
+  08-27 10:57:33.816 010 -sensor wake_reason=0:"Abort: Pending Wakeup Sources: userspace-abort" -state=1000:"sensor:0x2c"
+  08-27 10:57:33.902 010 -wake_lock=1000:"AnyMotionDetector"
+  08-27 10:57:33.903 010 +wake_lock=1000:"deviceidle_going_idle"
+  08-27 10:57:33.981 010 -wake_lock=1000:"deviceidle_going_idle" device_idle=full +cellular_high_tx_power
+  08-27 10:57:34.523 010 -running -cellular_high_tx_power
+  08-27 10:57:38.052 010 charge=457 +running +wake_lock=u0a138:"CallbackRunner" wake_reason=0:"unknown"
+  08-27 10:57:38.126 010 -running -wake_lock=u0a138:"CallbackRunner"
+  08-27 10:57:42.955 010 +running wake_reason=0:"unknown"
+  08-27 10:57:43.172 010 +cellular_high_tx_power wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16" stats=0:"procstate-change"
+  08-27 10:57:44.897 010 +wake_lock=1000:"*walarm*:WriteBufferAlarm"
+  08-27 10:57:44.941 010 -wake_lock=u0a146:"*walarm*:WriteBufferAlarm" -cellular_high_tx_power
+  08-27 10:57:45.385 010 -running
+  08-27 10:57:47.887 010 +running wake_reason=0:"unknown"
+  08-27 10:57:48.284 010 -running
+  08-27 10:57:52.754 010 +running wake_reason=0:"unknown"
+  08-27 10:57:53.109 010 -running
+  08-27 10:57:53.520 010 +running wake_reason=0:"unknown"
+  08-27 10:57:53.798 010 -running
+  08-27 10:57:58.830 010 +running wake_reason=0:"unknown"
+  08-27 10:57:59.147 010 -running
+  08-27 10:58:03.857 010 +running wake_reason=0:"unknown"
+  08-27 10:58:04.199 010 -running
+  08-27 10:58:07.955 010 +running wake_reason=0:"unknown"
+  08-27 10:58:08.262 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:08.673 010 -running
+  08-27 10:58:09.067 010 +running wake_reason=0:"unknown"
+  08-27 10:58:09.411 010 -running
+  08-27 10:58:11.645 010 +running wake_reason=0:"unknown"
+  08-27 10:58:12.007 010 -running
+  08-27 10:58:12.371 010 +running wake_reason=0:"unknown"
+  08-27 10:58:12.631 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:13.117 010 -running
+  08-27 10:58:13.808 010 +running +cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:58:14.084 010 -running
+  08-27 10:58:14.494 010 +running -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 10:58:14.787 010 -running
+  08-27 10:58:14.916 010 +running wake_reason=0:"unknown"
+  08-27 10:58:15.152 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:15.566 010 -running
+  08-27 10:58:15.928 010 +running wake_reason=0:"unknown"
+  08-27 10:58:16.648 010 -running
+  08-27 10:58:17.579 010 +running wake_reason=0:"unknown"
+  08-27 10:58:17.824 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:18.234 010 -running
+  08-27 10:58:19.517 010 +running wake_reason=0:"unknown"
+  08-27 10:58:19.832 010 -running
+  08-27 10:58:20.852 010 +running wake_reason=0:"unknown"
+  08-27 10:58:21.109 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:21.511 010 -running
+  08-27 10:58:22.484 010 charge=456 +running wake_reason=0:"unknown"
+  08-27 10:58:22.814 010 -running
+  08-27 10:58:23.209 010 +running wake_reason=0:"unknown"
+  08-27 10:58:23.507 010 -running
+  08-27 10:58:24.235 010 +running wake_reason=0:"unknown"
+  08-27 10:58:24.557 010 -running
+  08-27 10:58:24.647 010 +running wake_reason=0:"unknown"
+  08-27 10:58:24.980 010 -running
+  08-27 10:58:25.356 010 +running wake_reason=0:"unknown"
+  08-27 10:58:25.626 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:25.982 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:26.643 010 -running
+  08-27 10:58:27.311 010 +running wake_reason=0:"unknown"
+  08-27 10:58:27.584 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:28.020 010 -running
+  08-27 10:58:28.754 010 +running wake_reason=0:"unknown"
+  08-27 10:58:29.040 010 -running
+  08-27 10:58:29.453 010 +running wake_reason=0:"unknown"
+  08-27 10:58:29.722 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:30.123 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:30.813 010 -running
+  08-27 10:58:31.711 010 +running wake_reason=0:"unknown"
+  08-27 10:58:32.284 010 -running
+  08-27 10:58:32.934 010 +running wake_reason=0:"unknown"
+  08-27 10:58:33.271 010 -running
+  08-27 10:58:34.571 010 +running wake_reason=0:"unknown"
+  08-27 10:58:34.917 010 -running
+  08-27 10:58:34.986 010 +running wake_reason=0:"unknown"
+  08-27 10:58:35.228 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:35.603 010 -running
+  08-27 10:58:35.999 010 +running wake_reason=0:"unknown"
+  08-27 10:58:36.308 010 -running
+  08-27 10:58:36.411 010 +running wake_reason=0:"unknown"
+  08-27 10:58:36.744 010 -running
+  08-27 10:58:37.146 010 +running wake_reason=0:"unknown"
+  08-27 10:58:37.474 010 -running
+  08-27 10:58:38.465 010 +running wake_reason=0:"unknown"
+  08-27 10:58:38.739 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:58:39.158 010 -running
+  08-27 10:58:39.483 010 +running wake_reason=0:"unknown"
+  08-27 10:58:39.769 010 -running
+  08-27 10:58:40.209 010 +running wake_reason=0:"unknown"
+  08-27 10:58:40.496 010 -running
+  08-27 10:58:43.745 010 +running +wake_lock=1000:"*alarm*:TIME_TICK" wake_reason=0:"unknown"
+  08-27 10:58:43.797 010 -wake_lock=u0a146:"*alarm*:TIME_TICK"
+  08-27 10:58:44.087 010 -running
+  08-27 10:58:45.436 010 +running wake_reason=0:"unknown"
+  08-27 10:58:45.782 010 -running
+  08-27 10:58:50.459 010 +running wake_reason=0:"unknown"
+  08-27 10:58:50.793 010 -running
+  08-27 10:58:55.463 010 +running wake_reason=0:"unknown"
+  08-27 10:58:55.808 010 -running
+  08-27 10:58:59.862 010 +running wake_reason=0:"unknown"
+  08-27 10:59:01.069 010 -running
+  08-27 10:59:06.024 010 +running wake_reason=0:"unknown"
+  08-27 10:59:06.353 010 -running
+  08-27 10:59:11.026 010 +running wake_reason=0:"unknown"
+  08-27 10:59:11.373 010 -running
+  08-27 10:59:16.050 010 temp=312 +running +wake_lock=u0a201:"NotificationManagerService:post:com.android.systemui" wake_reason=0:"unknown"
+  08-27 10:59:16.287 010 -wake_lock=u0a201:"NotificationManagerService:post:com.android.systemui"
+  08-27 10:59:16.429 010 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 10:59:17.930 010 +wake_lock=1000:"*alarm*:TIME_TICK"
+  08-27 10:59:17.962 010 -wake_lock=u0a146:"*alarm*:TIME_TICK"
+  08-27 10:59:18.659 010 -running
+  08-27 10:59:21.483 010 charge=455 +running wake_reason=0:"unknown"
+  08-27 10:59:21.819 010 -running
+  08-27 10:59:26.491 010 +running wake_reason=0:"unknown"
+  08-27 10:59:26.832 010 -running
+  08-27 10:59:31.811 010 +running wake_reason=0:"unknown"
+  08-27 10:59:32.144 010 -running
+  08-27 10:59:32.534 010 +running wake_reason=0:"unknown"
+  08-27 10:59:32.787 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 10:59:33.224 010 -running
+  08-27 10:59:33.255 010 +running wake_reason=0:"unknown"
+  08-27 10:59:33.572 010 +cellular_high_tx_power
+  08-27 10:59:33.723 010 +wake_lock=u0a257:"orca:notification_notifyNewMessage"
+  08-27 10:59:33.829 010 -wake_lock=u0a257:"orca:notification_notifyNewMessage" -cellular_high_tx_power
+  08-27 10:59:34.015 010 -running
+  08-27 10:59:36.523 010 +running wake_reason=0:"unknown"
+  08-27 10:59:36.867 010 -running
+  08-27 10:59:41.859 010 +running +wake_lock=u0a257:"NotificationManagerService:post:com.facebook.orca" wake_reason=0:"unknown"
+  08-27 10:59:42.184 010 -wake_lock=u0a257:"NotificationManagerService:post:com.facebook.orca"
+  08-27 10:59:42.391 010 -running
+  08-27 10:59:47.066 010 +running wake_reason=0:"unknown"
+  08-27 10:59:47.436 010 -running
+  08-27 10:59:52.100 010 +running +wake_lock=u0a201:"Doze" +sensor wake_reason=0:"unknown" +state=10201:"sensor:0xc"
+  08-27 10:59:52.288 010 -sensor -state=10201:"sensor:0xc"
+  08-27 10:59:52.303 010 +sensor +screen +state=1000:"sensor:0x26"
+  08-27 10:59:52.341 010 +state=10201:"sensor:0xc"
+  08-27 10:59:52.362 010 +state=1000:"sensor:0x30"
+  08-27 10:59:56.524 010 +cellular_high_tx_power
+  08-27 10:59:57.912 010 -sensor -state=1000:"sensor:0x30"
+  08-27 10:59:57.917 010 -screen -cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 10:59:57.945 010 -state=1000:"sensor:0x26"
+  08-27 10:59:57.970 010 -wake_lock=u0a201:"Scrims" wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16" -state=10201:"sensor:0xc"
+  08-27 10:59:59.381 010 +wake_lock=1000:"*walarm*:WriteBufferAlarm"
+  08-27 10:59:59.426 010 -wake_lock=u0a146:"*walarm*:WriteBufferAlarm"
+  08-27 11:00:00.018 010 +wake_lock=1000:"*alarm*:TIME_TICK" +tmpwhitelist=1000:"b5b32cd com.android.settings.battery.action.PERIODIC_JOB_UPDATE/u0"
+  08-27 11:00:00.095 010 +cellular_high_tx_power
+  08-27 11:00:00.102 010 -wake_lock=u0a146:"*alarm*:TIME_TICK"
+  08-27 11:00:00.105 010 +wake_lock=1001:"*telephony-radio*" -cellular_high_tx_power
+  08-27 11:00:00.105 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:00.105 010 +wake_lock=1000:"*telephony-radio*"
+  08-27 11:00:00.111 010 -wake_lock=1000:"*telephony-radio*"
+  08-27 11:00:00.111 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:00.111 010 -wake_lock=1001:"*telephony-radio*" stats=0:"get-stats"
+  08-27 11:00:00.150 010 +cellular_high_tx_power
+  08-27 11:00:00.388 010 -running
+  08-27 11:00:02.629 010 +running +wake_lock=1001:"*telephony-radio*" -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 11:00:02.641 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:02.641 010 +wake_lock=1000:"*telephony-radio*"
+  08-27 11:00:02.648 010 -wake_lock=1000:"*telephony-radio*"
+  08-27 11:00:02.648 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:02.648 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:02.656 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:02.656 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:02.656 010 +wake_lock=1000:"*telephony-radio*"
+  08-27 11:00:02.660 010 -wake_lock=1000:"*telephony-radio*"
+  08-27 11:00:02.660 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:02.661 010 -running -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:04.905 010 +running wake_reason=0:"unknown"
+  08-27 11:00:05.188 010 -running
+  08-27 11:00:05.605 010 +running wake_reason=0:"unknown"
+  08-27 11:00:06.505 010 -running
+  08-27 11:00:07.148 010 volt=3641 +running wake_reason=0:"unknown"
+  08-27 11:00:07.496 010 -running
+  08-27 11:00:07.558 010 +running wake_reason=0:"unknown"
+  08-27 11:00:07.807 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 11:00:08.203 010 -running
+  08-27 11:00:12.868 010 volt=3671 +running wake_reason=0:"unknown"
+  08-27 11:00:13.151 010 -running
+  08-27 11:00:18.194 010 +running wake_reason=0:"unknown"
+  08-27 11:00:18.485 010 -running
+  08-27 11:00:23.226 010 charge=454 +running wake_reason=0:"unknown"
+  08-27 11:00:23.566 010 -running
+  08-27 11:00:28.244 010 +running wake_reason=0:"unknown"
+  08-27 11:00:28.584 010 -running
+  08-27 11:00:33.565 010 +running wake_reason=0:"unknown" -tmpwhitelist=u0a257:"sync by top app"
+  08-27 11:00:34.271 010 -running
+  08-27 11:00:38.597 010 +running wake_reason=0:"unknown"
+  08-27 11:00:38.971 010 -running
+  08-27 11:00:39.931 010 +running wake_reason=0:"unknown"
+  08-27 11:00:40.287 010 -running
+  08-27 11:00:40.631 010 +running wake_reason=0:"unknown"
+  08-27 11:00:41.017 010 -running
+  08-27 11:00:41.667 010 +running wake_reason=0:"unknown"
+  08-27 11:00:42.012 010 -running
+  08-27 11:00:42.378 010 +running wake_reason=0:"unknown"
+  08-27 11:00:42.729 010 -running
+  08-27 11:00:43.711 010 +running wake_reason=0:"unknown"
+  08-27 11:00:44.023 010 -running
+  08-27 11:00:46.874 010 +running wake_reason=0:"unknown"
+  08-27 11:00:47.186 010 -running
+  08-27 11:00:49.120 010 +running wake_reason=0:"unknown"
+  08-27 11:00:49.406 010 -running
+  08-27 11:00:50.774 010 +running wake_reason=0:"unknown"
+  08-27 11:00:51.108 010 -running
+  08-27 11:00:54.247 010 +running wake_reason=0:"unknown"
+  08-27 11:00:54.581 010 -running
+  08-27 11:00:54.955 010 +running wake_reason=0:"unknown"
+  08-27 11:00:55.271 010 -running
+  08-27 11:00:57.542 010 +running wake_reason=0:"unknown"
+  08-27 11:00:57.884 010 +wake_lock=u0a194:"NotifyRegistrantLock" wake_reason=0:"unknown"
+  08-27 11:00:58.160 010 -wake_lock=u0a194:"NotifyRegistrantLock" wake_reason=0:"Abort: Last active Wakeup Source: qrtr_0"
+  08-27 11:00:58.345 010 +wake_lock=u0a194:"NotifyRegistrantLock"
+  08-27 11:00:58.550 010 -wake_lock=u0a194:"NotifyRegistrantLock"
+  08-27 11:00:58.816 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:58.816 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:58.816 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:58.827 010 -wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:58.828 010 +wake_lock=1001:"*telephony-radio*"
+  08-27 11:00:58.828 010 -wake_lock=1001:"*telephony-radio*" +cellular_high_tx_power
+  08-27 11:00:59.012 010 -tmpwhitelist=1000:"b5b32cd com.android.settings.battery.action.PERIODIC_JOB_UPDATE/u0"
+  08-27 11:00:59.429 010 -running -cellular_high_tx_power
+  08-27 11:00:59.465 010 +running wake_reason=0:"unknown"
+  08-27 11:00:59.847 010 -running
+  08-27 11:00:59.891 010 +running wake_reason=0:"unknown"
+  08-27 11:01:00.527 010 -running
+  08-27 11:01:04.807 010 +running wake_reason=0:"unknown"
+  08-27 11:01:05.148 010 -running
+  08-27 11:01:05.830 010 +running wake_reason=0:"unknown"
+  08-27 11:01:06.197 010 -running
+  08-27 11:01:07.163 010 +running +wake_lock=u0a138:"GCM_READ" wake_reason=0:"unknown"
+  08-27 11:01:07.285 010 +tmpwhitelist=u0a257:"5f99fd5 com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 11:01:07.405 010 +fg=u0a257:"com.facebook.orca"
+  08-27 11:01:07.406 010 +cellular_high_tx_power
+  08-27 11:01:07.426 010 -wake_lock=u0a257:"androidx.core:wake:com.facebook.orca/com.facebook.push.fcm.FcmListenerService"
+  08-27 11:01:07.464 010 +wake_lock=u0a257:"NotificationManagerService:post:com.facebook.orca" -cellular_high_tx_power
+  08-27 11:01:07.469 010 -wake_lock=u0a257:"NotificationManagerService:post:com.facebook.orca"
+  08-27 11:01:07.819 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 11:01:08.488 010 +cellular_high_tx_power
+  08-27 11:01:08.514 010 +wake_lock=u0a257:"orca:notification_notifyNewMessage"
+  08-27 11:01:08.807 010 -wake_lock=u0a257:"NotificationManagerService:post:com.facebook.orca" -cellular_high_tx_power
+  08-27 11:01:08.885 010 +sensor +state=10201:"sensor:0xc"
+  08-27 11:01:08.885 010 +wake_lock=u0a201:"Doze"
+  08-27 11:01:08.984 010 -sensor -state=10201:"sensor:0xc"
+  08-27 11:01:08.996 010 +sensor +screen +state=1000:"sensor:0x26"
+  08-27 11:01:09.019 010 charge=453 +state=10201:"sensor:0xc"
+  08-27 11:01:09.046 010 +state=1000:"sensor:0x30"
+  08-27 11:01:09.063 010 +cellular_high_tx_power
+  08-27 11:01:14.599 010 -sensor -state=1000:"sensor:0x30"
+  08-27 11:01:14.602 010 -cellular_high_tx_power display_state_changed=-1:"display=0 state=OFF reason=UNKNOWN"
+  08-27 11:01:14.602 010 -screen -state=1000:"sensor:0x26"
+  08-27 11:01:14.636 010 -wake_lock=u0a201:"Scrims" -state=10201:"sensor:0xc"
+  08-27 11:01:16.646 010 -running
+  08-27 11:01:17.390 010 +running wake_reason=0:"unknown"
+  08-27 11:01:17.736 010 -running
+  08-27 11:01:17.808 010 +running wake_reason=0:"unknown"
+  08-27 11:01:18.116 010 -running
+  08-27 11:01:20.662 010 +running wake_reason=0:"unknown"
+  08-27 11:01:20.985 010 -running
+  08-27 11:01:21.992 010 +running -fg=u0a257:"com.facebook.orca"
+  08-27 11:01:22.005 010 +cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 11:01:22.289 010 -running
+  08-27 11:01:23.630 010 +running -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 11:01:23.873 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 11:01:24.282 010 -running
+  08-27 11:01:25.901 010 +running wake_reason=0:"unknown"
+  08-27 11:01:26.266 010 -running
+  08-27 11:01:30.307 010 volt=3671 +running +cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 11:01:30.642 010 -running
+  08-27 11:01:31.010 010 +running -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 11:01:31.390 010 -running
+  08-27 11:01:33.265 010 +running wake_reason=0:"unknown"
+  08-27 11:01:33.554 010 -running
+  08-27 11:01:36.128 010 +running wake_reason=0:"unknown"
+  08-27 11:01:36.431 010 -running
+  08-27 11:01:36.839 010 +running wake_reason=0:"unknown"
+  08-27 11:01:37.464 010 wake_reason=0:"Abort: Callback failed on 18800000.qcom,icnss in icnss_pm_suspend_noirq+0x0/0xf8 returned -11"
+  08-27 11:01:38.088 010 -running
+  08-27 11:01:41.558 010 +running wake_reason=0:"unknown"
+  08-27 11:01:41.949 010 -running
+  08-27 11:01:42.890 010 +running wake_reason=0:"unknown"
+  08-27 11:01:43.178 010 -running
+  08-27 11:01:46.367 010 +running wake_reason=0:"unknown"
+  08-27 11:01:47.141 010 -running
+  08-27 11:01:51.500 010 charge=452 +running wake_reason=0:"unknown"
+  08-27 11:01:51.838 010 -running
+  08-27 11:01:56.825 010 +running wake_reason=0:"unknown"
+  08-27 11:01:57.187 010 -running
+  08-27 11:02:01.843 010 +running wake_reason=0:"unknown"
+  08-27 11:02:02.145 010 -running
+  08-27 11:02:03.170 010 +running wake_reason=0:"unknown"
+  08-27 11:02:03.543 010 -running
+  08-27 11:02:06.961 010 +running wake_reason=0:"unknown"
+  08-27 11:02:07.316 010 -running
+  08-27 11:02:12.291 010 +running wake_reason=0:"unknown"
+  08-27 11:02:12.614 010 -running
+  08-27 11:02:17.600 010 +running wake_reason=0:"unknown"
+  08-27 11:02:17.946 010 -running
+  08-27 11:02:22.936 010 +running +cellular_high_tx_power
+  08-27 11:02:22.947 010 -running -cellular_high_tx_power wake_reason=0:"unknown"
+  08-27 11:02:23.358 010 +running wake_reason=0:"unknown"
+  08-27 11:02:23.727 010 -running
+  08-27 11:02:28.052 010 +running wake_reason=0:"unknown"
+  08-27 11:02:29.250 010 -running
+  08-27 11:02:33.279 010 +running wake_reason=0:"unknown" -tmpwhitelist=u0a257:"5f99fd5 com.google.android.c2dm.intent.RECEIVE/u0"
+  08-27 11:02:33.604 010 -running
+  08-27 11:02:38.598 010 +running wake_reason=0:"unknown"
+  08-27 11:02:38.904 010 -running
+  08-27 11:02:43.612 010 +running wake_reason=0:"unknown"
+  08-27 11:02:43.926 010 -running
+  08-27 11:02:44.339 010 +running wake_reason=0:"unknown"
+  08-27 11:02:44.682 010 -running
+  08-27 11:02:45.377 010 +running wake_reason=0:"unknown"
+  08-27 11:02:45.739 010 -running
+  08-27 11:02:47.934 010 +running wake_reason=0:"unknown"
+  08-27 11:02:48.277 010 -running
+  08-27 11:02:48.959 010 +running wake_reason=0:"unknown"
+  08-27 11:02:49.321 010 -running
+  08-27 11:02:52.744 010 +running wake_reason=0:"unknown"
+  08-27 11:02:53.079 010 -running
+  08-27 11:02:54.070 010 +running wake_reason=0:"unknown"
+  08-27 11:02:54.441 010 -running
+  08-27 11:02:59.091 010 +running wake_reason=0:"unknown"
+  08-27 11:02:59.452 010 -running
+  08-27 11:03:02.262 010 +running wake_reason=0:"unknown"
+  08-27 11:03:02.645 010 -running
+  08-27 11:03:03.581 010 +running wake_reason=0:"unknown"
+  08-27 11:03:03.851 010 wake_reason=0:"Abort: Callback failed on alarmtimer in platform_pm_suspend+0x0/0x5c returned -16"
+  08-27 11:03:05.449 010 +wake_lock=1000:"*alarm*:TIME_TICK"
+  08-27 11:03:05.485 010 -wake_lock=u0a146:"*alarm*:TIME_TICK"
+  08-27 11:03:06.037 010 -running
+  08-27 11:03:09.529 010 +running wake_reason=0:"unknown"
+  08-27 11:03:09.969 010 wifi_suppl=associated +cellular_high_tx_power
+  08-27 11:03:10.001 010 +wake_lock=1073:"IpReachabilityMonitor.wlan0" -cellular_high_tx_power
+  08-27 11:03:16.510 010 -wake_lock=1073:"IpReachabilityMonitor.wlan0"
+  08-27 11:03:17.544 010 -running
+  08-27 11:03:19.859 010 charge=451 +running wake_reason=0:"unknown"
+  08-27 11:03:20.170 010 -running
+  08-27 11:03:25.082 010 +running wake_reason=0:"unknown"
+  08-27 11:03:25.384 010 -running
+  08-27 11:03:30.295 010 +running wake_reason=0:"unknown"
+  08-27 11:03:30.624 010 -running
+  08-27 11:03:35.624 010 charge=450 +running wake_reason=0:"unknown"
+  08-27 11:03:35.916 010 -running
+  08-27 11:03:40.633 010 +running wake_reason=0:"unknown"
+  08-27 11:03:40.966 010 -running
+  08-27 11:03:45.863 010 +running wake_reason=0:"unknown"
+  08-27 11:03:46.192 010 -running
+  08-27 11:03:50.984 010 +running wake_reason=0:"unknown"
+  08-27 11:03:51.283 010 -running
+  08-27 11:03:56.100 010 +running wake_reason=0:"unknown"
+  08-27 11:03:56.441 010 -running
+  08-27 11:04:01.129 010 charge=449 +running wake_reason=0:"unknown"
+  08-27 11:04:01.393 010 -running
+  08-27 11:04:06.442 010 +running wake_reason=0:"unknown"
+  08-27 11:04:06.728 010 -running
+  08-27 11:04:11.463 010 +running wake_reason=0:"unknown"
+  08-27 11:04:11.778 010 -running
+  08-27 11:04:16.587 010 +running wake_reason=0:"unknown"
+  08-27 11:04:16.900 010 -running
+  08-27 11:04:21.702 010 charge=448 +running wake_reason=0:"unknown"
+  08-27 11:04:22.027 010 -running
+  08-27 11:04:27.027 010 +running wake_reason=0:"unknown"
+  08-27 11:04:27.357 010 -running
+  08-27 11:04:32.252 010 +running wake_reason=0:"unknown"
+  08-27 11:04:32.596 010 -running
+  08-27 11:04:37.585 010 +running wake_reason=0:"unknown"
+  08-27 11:04:37.938 010 -running
+  08-27 11:04:42.698 010 +running wake_reason=0:"unknown"
+  08-27 11:04:43.263 010 -running
+  08-27 11:04:47.715 010 charge=447 +running wake_reason=0:"unknown"
+  08-27 11:04:48.021 010 -running
+  08-27 11:04:52.833 010 +running wake_reason=0:"unknown"
+  08-27 11:04:53.143 010 -running
+  08-27 11:04:58.060 010 +running wake_reason=0:"unknown"
+  08-27 11:04:58.385 010 -running
+  08-27 11:05:03.385 010 +running wake_reason=0:"unknown"

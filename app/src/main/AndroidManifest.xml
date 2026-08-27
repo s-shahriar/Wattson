@@ -38,6 +38,20 @@
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
+    <!--
+      Turns a uid into an app name for the Diagnose tab.
+
+      The battery history blames a window on uids, not names: "u0a313 held the phone
+      awake for seventeen minutes". Since Android 11 an app cannot see another package
+      unless it says which ones it wants, and there is no way to name in advance the set
+      of apps that might be draining a battery — so it has to be all of them.
+
+      It grants no ability to read anything from those apps. It is a lookup from a number
+      to a label, done on the device, only while a report is on screen, and no part of it
+      leaves the phone. Without it every row on that tab reads "uid 10313".
+    -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 

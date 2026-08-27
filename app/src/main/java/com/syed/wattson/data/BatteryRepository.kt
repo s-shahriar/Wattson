@@ -4,6 +4,7 @@ import android.content.Context
 import com.syed.wattson.data.model.BatteryNow
 import com.syed.wattson.data.model.BatteryReport
 import com.syed.wattson.data.model.ChargingInfo
+import com.syed.wattson.data.model.DiagnosisIndex
 import com.syed.wattson.data.model.HistoryPoint
 import com.syed.wattson.data.model.LiveSnapshot
 import com.syed.wattson.data.model.RootUnavailableException
@@ -11,9 +12,12 @@ import com.syed.wattson.data.model.StatsUnavailableException
 import com.syed.wattson.data.model.BatteryStats
 import com.syed.wattson.data.parser.BatteryHistoryReducer
 import com.syed.wattson.data.parser.BatteryStatsParser
+import com.syed.wattson.data.parser.DiagnosisIndexer
 import com.syed.wattson.data.parser.DumpsysOutput
 import com.syed.wattson.data.source.LiveBatterySource
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
@@ -148,6 +152,43 @@ class BatteryRepository(
     }
 
     /**
+     * The span index behind the Diagnose tab.
+     *
+     * Same one dump the history already streams, folded by a second reducer instead of
+     * the first. Called only from the confirm tap: opening the tab runs nothing, and
+     * nothing here schedules a repeat. The caller owns the result and is expected to drop
+     * it when its answers leave the screen — see `DiagnoseViewModel`.
+     *
+     * Returns null rather than throwing when the dump fails or comes back truncated: a
+     * window measured from a stream that stopped at an arbitrary moment in the past would
+     * read as a quiet hour rather than as missing data.
+     */
+    suspend fun loadDiagnosisIndex(): DiagnosisIndex? = withContext(Dispatchers.IO) {
+        val activeTier = currentTier()
+        if (activeTier == DataTier.BASIC) return@withContext null
+
+        val indexer = DiagnosisIndexer()
+        var seen = 0L
+        val dump = try {
+            streamShell(CMD_HISTORY, activeTier, HISTORY_TIMEOUT_SECONDS) { line ->
+                // Leaving the tab stops the dump where it stands rather than letting it
+                // read out the remaining twenty megabytes for nobody. Throwing out of the
+                // read loop is what Shell's reaping is waiting for: it unwinds into the
+                // finally that force-destroys the process.
+                if (++seen % CANCEL_CHECK_INTERVAL == 0L) ensureActive()
+                indexer.accept(line)
+            }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (t: Throwable) {
+            null
+        } ?: return@withContext null
+
+        if (!dump.ok || indexer.truncated) return@withContext null
+        indexer.build().takeIf { it.isUsable }
+    }
+
+    /**
      * Cheap poll of just the live values — level, status, temperature and charge rate.
      *
      * Returns null when the read fails so the caller can simply keep the previous values
@@ -217,6 +258,13 @@ class BatteryRepository(
         /** Reduced in-process by [BatteryHistoryReducer], not on the device — see its docs. */
         const val CMD_HISTORY =
             "dumpsys -t $DUMPSYS_TIMEOUT_SECONDS batterystats --history"
+
+        /**
+         * Lines between checks that the caller still wants this. A field read per line
+         * would be free enough, but the dump is 350,000 lines and free enough times
+         * 350,000 is not nothing.
+         */
+        const val CANCEL_CHECK_INTERVAL = 4_096L
 
         const val LIVE_TIMEOUT_SECONDS = 10L
         const val MICRO_PER_MILLI = 1_000
