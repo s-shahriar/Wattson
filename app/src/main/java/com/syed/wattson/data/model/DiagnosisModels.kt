@@ -77,6 +77,16 @@ class DiagnosisIndex(
     /** Battery percentage at [levelSec], one entry per change. */
     val levelSec: IntArray,
     val levelPercent: IntArray,
+    /**
+     * Alternating start,end seconds of every stretch the phone spent on a charger.
+     *
+     * Not a [SystemFlag]: it is not a drain and has no business in the list of states a
+     * window can be blamed on. It is here because a window that contains one is a window
+     * whose figures mean something different — a level range must never be answered by a
+     * stretch that includes a charge, and a clock range that happens to include one has
+     * to say so.
+     */
+    val chargingSpans: IntArray = IntArray(0),
 ) {
     fun nameOf(id: Int): String = names.getOrElse(id) { "" }
 

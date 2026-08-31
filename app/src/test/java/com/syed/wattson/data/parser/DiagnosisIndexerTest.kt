@@ -216,4 +216,37 @@ class DiagnosisIndexerTest {
         assertEquals(listOf(0, 60), index.flagOf(SystemFlag.SCREEN).toList())
         assertTrue(index.flagOf(SystemFlag.CPU_RUNNING).isEmpty())
     }
+    @Test
+    fun `charging becomes a span, and the flap around it does not`() {
+        // Verbatim shape of a charger negotiating: not-charging, charging, not-charging,
+        // charging, all inside four seconds, then a real charge and an unplug.
+        val index = build(
+            line(0, 40, "status=discharging"),
+            line(600, 39, "status=not-charging"),
+            line(601, 40, "status=charging"),
+            line(604, 40, "status=not-charging"),
+            line(605, 41, "status=charging"),
+            line(4_205, 90, "status=discharging"),
+        )
+        val spans = index.chargingSpans.toList()
+        assertEquals(listOf(601, 604, 605, 4_205), spans)
+    }
+
+    /** A phone dumped while it is plugged in has been charging since it was plugged in. */
+    @Test
+    fun `a charge still running at the end of the buffer is closed there`() {
+        val index = build(
+            line(0, 40, "status=discharging"),
+            line(600, 39, "status=charging"),
+            line(3_600, 70),
+        )
+        assertEquals(listOf(600, 3_600), index.chargingSpans.toList())
+    }
+
+    @Test
+    fun `a buffer that never saw a charger has no charging spans`() {
+        val index = build(line(0, 40, "status=discharging"), line(600, 39))
+        assertEquals(0, index.chargingSpans.size)
+    }
+
 }

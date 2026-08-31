@@ -57,6 +57,11 @@ class DiagnosisIndexer(
     private val levelPercent = IntBag()
     private var lastLevel = -1
 
+    private val chargingSpans = IntBag()
+
+    /** Second the current charge began, or [NOT_CHARGING]. */
+    private var chargingSince = NOT_CHARGING
+
     var truncated = false
         private set
 
@@ -78,6 +83,20 @@ class DiagnosisIndexer(
             levelSec.add(sec)
             levelPercent.add(level)
             lastLevel = level
+        }
+
+        // Behind the guard for the same reason the reducer puts it there: "status=" is on
+        // a few hundred records and the four comparisons would otherwise run on all of
+        // them. not-charging is folded into discharging — a negotiating charger flaps
+        // between the two several times a second, and each flap would otherwise open and
+        // close a span.
+        if (line.indexOf(STATUS, LEVEL_AT) > 0) {
+            when {
+                line.contains(STATUS_CHARGING) || line.contains(STATUS_FULL) ->
+                    if (chargingSince == NOT_CHARGING) chargingSince = sec
+                line.contains(STATUS_DISCHARGING) || line.contains(STATUS_NOT_CHARGING) ->
+                    closeCharge(sec)
+            }
         }
 
         // The coulomb counter is the only exact figure in the dump: percentages are a
@@ -159,6 +178,14 @@ class DiagnosisIndexer(
         if (added && label != null) openSlot[kind] = Triple(sec, idOf(label), uid)
     }
 
+    private fun closeCharge(sec: Int) {
+        val start = chargingSince
+        chargingSince = NOT_CHARGING
+        if (start == NOT_CHARGING || sec <= start) return
+        chargingSpans.add(start)
+        chargingSpans.add(sec)
+    }
+
     private fun close(kind: EventKind, start: Int, end: Int, nameId: Int, uid: Int) {
         if (end <= start) return
         spanStarts.getValue(kind).add(start)
@@ -227,6 +254,9 @@ class DiagnosisIndexer(
         }
         openSlot.clear()
         flagOpen.clear()
+        // A phone dumped while it is plugged in has been charging since it was plugged in
+        // and still is; the span runs to the end of the buffer like any other.
+        closeCharge(lastSec)
 
         return DiagnosisIndex(
             epochMs = if (epochMs == Long.MIN_VALUE) nowMs else epochMs,
@@ -245,6 +275,7 @@ class DiagnosisIndexer(
             chargeMah = chargeMah.toArray(),
             levelSec = levelSec.toArray(),
             levelPercent = levelPercent.toArray(),
+            chargingSpans = chargingSpans.toArray(),
         )
     }
 
@@ -322,6 +353,13 @@ class DiagnosisIndexer(
         const val LEVEL_AT = 21
         const val MIN_RECORD_LENGTH = LEVEL_AT + 3
         const val CHARGE = "charge="
+        const val STATUS = "status="
+        const val STATUS_CHARGING = "status=charging"
+        const val STATUS_FULL = "status=full"
+        const val STATUS_DISCHARGING = "status=discharging"
+        const val STATUS_NOT_CHARGING = "status=not-charging"
+
+        const val NOT_CHARGING = -1
 
         /** Android packs uids as user * 100000 + 10000 + app. */
         const val PER_USER_RANGE = 100_000
