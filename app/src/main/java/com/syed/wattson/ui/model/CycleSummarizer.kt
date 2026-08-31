@@ -46,12 +46,17 @@ private const val MIN_CHARGE_GAIN_PERCENT = 5
  * in force at the start of each gap — which is exact, since the reducer only emits a
  * sample when one of those states actually changes.
  *
- * Two runs are deliberately never returned:
- *  - the one still in progress. It has no end, and the session card above already reports
- *    it in more detail than this card could.
- *  - the one holding the oldest sample, when the history begins mid-discharge. Its start
- *    level and its durations are both clipped by the buffer, so its row would understate
- *    a cycle rather than describe one.
+ * The run still in progress is deliberately never returned: it has no end, and the
+ * session card above already reports it in more detail than this card could.
+ *
+ * The run holding the oldest sample is returned, flagged [CycleUi.partial]. It used to be
+ * dropped, on the grounds that a buffer beginning mid-discharge clips both its start level
+ * and its durations, so its row understates a cycle rather than describing one. That is
+ * true and it is not worth the cost: `batterystats` resets its buffer on a reboot and on
+ * every charge to full, so a phone that has been reset once since it was last unplugged
+ * has exactly two runs in the buffer — one clipped, one in progress — and dropping both
+ * left the card with nothing to draw and no reason given. An understated row that says so
+ * beats a card that vanishes.
  *
  * Pure and cheap: one pass over a couple of thousand samples, nothing retained.
  */
@@ -98,11 +103,13 @@ fun summarizeCycles(
     // method and throws NoSuchMethodError below API 35.
     if (open != null && runs.isNotEmpty()) runs.removeAt(runs.size - 1)
 
-    val complete = runs.filter { it.startMs != points.first().timestampMs }
+    // The run that opens with the buffer is as old as the history goes, so nothing before
+    // it was recorded and its figures are floors rather than totals.
+    val clippedStart = points.first().timestampMs
     val dated = DateTimeFormatter.ofPattern("d MMM h:mm a")
     val timeOnly = DateTimeFormatter.ofPattern("h:mm a")
 
-    val kept = complete
+    val kept = runs
         .filter { it.onBatteryMs >= MIN_CYCLE_MS && it.usedPercent >= MIN_CYCLE_DROP_PERCENT }
         .takeLast(MAX_CYCLES)
 
@@ -124,6 +131,7 @@ fun summarizeCycles(
             // reads as a bug.
             usedPercent = run.usedPercent.coerceAtMost(100),
             screenOnFraction = run.screenOnMs.toFloat() / run.onBatteryMs,
+            partial = run.startMs == clippedStart,
         )
     }
 }

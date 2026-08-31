@@ -95,6 +95,11 @@ data class CycleUi(
     val usedPercent: Int,
     /** Screen-on share of this run, 0f..1f. */
     val screenOnFraction: Float,
+    /**
+     * True when the history buffer opens inside this run, so every figure in it is a
+     * floor: the run began before the oldest record and nothing before that was kept.
+     */
+    val partial: Boolean = false,
 )
 
 /** One column of the history chart: a time slice with its level and what was happening. */

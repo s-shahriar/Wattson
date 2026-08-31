@@ -45,10 +45,29 @@ fun CycleHistorySection(
     modifier: Modifier = Modifier,
 ) {
     val cycles = model.cycles
-    if (cycles.isEmpty()) return
-
     val palette = chartPalette()
     val screenOff = MaterialTheme.colorScheme.outline
+
+    if (cycles.isEmpty()) {
+        // Not hidden. A card that quietly disappears reads as a bug, and this state is
+        // ordinary: `batterystats` wipes its buffer on a reboot and on every charge to
+        // full, and until the phone is plugged in again the only run in it is the one
+        // still going.
+        SectionCard(
+            title = "Last cycles",
+            subtitle = "one run on battery per row",
+            modifier = modifier,
+        ) {
+            Text(
+                text = "No finished run on battery in the history yet. Android clears its " +
+                    "battery history when the phone reboots or charges to full, and the run " +
+                    "since then is still going — the session card above is measuring it.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        return
+    }
 
     SectionCard(
         title = if (cycles.size == 1) "Last cycle" else "Last ${cycles.size} cycles",
@@ -70,6 +89,15 @@ fun CycleHistorySection(
                 cycle = cycle,
                 screenOnColor = palette.screenOn,
                 screenOffColor = screenOff,
+            )
+        }
+        if (cycles.any { it.partial }) {
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = "≥ marks the oldest run: the history begins part-way through it, so " +
+                    "its times and its percentage are floors, not totals.",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.outline,
             )
         }
     }
@@ -112,7 +140,10 @@ private fun CycleRow(
                 weight = FIGURE_WEIGHT,
             )
             FigureCell(
-                text = "${cycle.usedPercent}%",
+                // A clipped run spent at least this much; it may have spent more before
+                // the buffer started. The same goes for the three durations beside it,
+                // and the footnote under the card says so once rather than four times.
+                text = if (cycle.partial) "≥${cycle.usedPercent}%" else "${cycle.usedPercent}%",
                 color = MaterialTheme.colorScheme.onSurface,
                 weight = USED_WEIGHT,
                 bold = true,

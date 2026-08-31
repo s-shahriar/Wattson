@@ -28,8 +28,9 @@ class CycleSummarizerTest {
     private fun summarize(vararg points: HistoryPoint) = summarizeCycles(points.toList(), zone)
 
     /**
-     * The first run is dropped for beginning at the oldest sample the buffer holds, and
-     * the last for still being in progress — so a fixture needs three runs to report one.
+     * The last run is dropped for still being in progress, and a run that begins at the
+     * oldest sample the buffer holds comes back flagged [CycleUi.partial] — so a fixture
+     * that wants one plain row starts on a charging sample and ends mid-discharge.
      */
     @Test
     fun `splits runs on the charge transitions and times the screen states`() {
@@ -114,9 +115,13 @@ class CycleSummarizerTest {
         assertEquals(190 * 60_000L, cycles.first().onBatteryMs)
     }
 
-    /** History that opens mid-discharge has a clipped first run, not a short one. */
+    /**
+     * History that opens mid-discharge has a clipped first run, not a short one — and it
+     * is still the only completed run there is on a phone whose buffer was reset once
+     * since it was last unplugged. Dropping it emptied the card and gave no reason.
+     */
     @Test
-    fun `the run the buffer cut off is left out`() {
+    fun `the run the buffer cut off comes back flagged`() {
         val cycles = summarize(
             point(0, 80),
             point(120, 40),
@@ -126,7 +131,49 @@ class CycleSummarizerTest {
             point(400, 50),
         )
 
-        assertTrue("a run clipped by the buffer was reported", cycles.isEmpty())
+        assertEquals(1, cycles.size)
+        assertTrue("the clipped run was not flagged", cycles.first().partial)
+        assertEquals(40, cycles.first().usedPercent)
+        assertEquals(120 * 60_000L, cycles.first().onBatteryMs)
+    }
+
+    /** Only the run the buffer opens inside is a floor; the ones after it are exact. */
+    @Test
+    fun `runs the buffer holds whole are not flagged`() {
+        val cycles = summarize(
+            point(0, 100, charging = true),
+            point(10, 99),
+            point(200, 50),
+            point(200, 50, charging = true),
+            point(260, 95, charging = true),
+            point(270, 95),
+            point(500, 40),
+        )
+
+        assertEquals(1, cycles.size)
+        assertTrue("a run wholly inside the buffer was flagged", !cycles.first().partial)
+    }
+
+    /**
+     * The shape this device was in on 31 August, and the bug it exposed: `batterystats`
+     * had reset its buffer at midday, the phone ran to 4% that night, charged, and was
+     * still on that charge when the card was drawn. One run clipped, one in progress —
+     * and with the clipped one dropped the card had nothing to draw and vanished.
+     */
+    @Test
+    fun `one clipped run and one in progress still fill the card`() {
+        val cycles = summarize(
+            point(0, 90),
+            point(700, 4),
+            point(700, 4, charging = true),
+            point(760, 84, charging = true),
+            point(770, 84),
+            point(1_360, 53),
+        )
+
+        assertEquals(1, cycles.size)
+        assertTrue(cycles.first().partial)
+        assertEquals(86, cycles.first().usedPercent)
     }
 
     /**
