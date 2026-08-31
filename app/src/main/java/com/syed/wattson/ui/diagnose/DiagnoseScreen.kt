@@ -10,21 +10,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
+import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -47,7 +50,6 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import kotlin.math.roundToInt
 
 /**
  * The Diagnose tab: choose a window, confirm it, read what happened in it.
@@ -123,29 +125,114 @@ private fun WindowPicker(viewModel: DiagnoseViewModel, state: DiagnoseState) {
 
 @Composable
 private fun LevelPicker(viewModel: DiagnoseViewModel) {
-    // The slider runs low to high because that is the direction an axis runs; the window
-    // it describes runs the other way, which is what the caption says out loud.
-    val from = viewModel.levelTo.toFloat()
-    val to = viewModel.levelFrom.toFloat()
-    PickerLabel("From ${viewModel.levelFrom}% down to ${viewModel.levelTo}%")
-    RangeSlider(
-        value = from..to,
-        onValueChange = { range ->
-            viewModel.setLevels(range.endInclusive.roundToInt(), range.start.roundToInt())
-        },
-        valueRange = 0f..100f,
-        modifier = Modifier.fillMaxWidth(),
+    // Stepped, not dragged. A range slider on a 392dp screen moves about three percent per
+    // pixel of thumb, so landing on 41 rather than 38 is a matter of luck; these are the
+    // two numbers the question is actually about and they are worth being able to state.
+    QuickRow(LEVEL_PRESETS) { preset -> viewModel.selectLastPercent(preset.points) }
+
+    Spacer(Modifier.height(14.dp))
+    LevelRow(
+        label = "From",
+        value = viewModel.levelFrom,
+        onDelta = { delta -> viewModel.setLevels(viewModel.levelFrom + delta, viewModel.levelTo) },
     )
+    Spacer(Modifier.height(8.dp))
+    LevelRow(
+        label = "down to",
+        value = viewModel.levelTo,
+        onDelta = { delta -> viewModel.setLevels(viewModel.levelFrom, viewModel.levelTo + delta) },
+    )
+
+    Spacer(Modifier.height(12.dp))
+    PickerLabel(
+        "${viewModel.levelFrom - viewModel.levelTo} points, " +
+            "${viewModel.levelFrom}% → ${viewModel.levelTo}%",
+    )
+    Spacer(Modifier.height(4.dp))
     Caption(
-        "Measures the last completed run through that range — which may be days ago, and " +
-            "is never the run the battery is on now.",
+        "Answered by the most recent single run on battery that covers the whole range. A " +
+            "stretch spanning a charge is never used, so nothing below is half one cycle " +
+            "and half the one before it.",
     )
 }
+
+/** One end of the level range: a name, a number, and a percent either side of it. */
+@Composable
+private fun LevelRow(label: String, value: Int, onDelta: (Int) -> Unit) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f),
+        )
+        StepButton("−") { onDelta(-1) }
+        Text(
+            text = "$value%",
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.width(74.dp),
+        )
+        StepButton("+") { onDelta(+1) }
+    }
+}
+
+@Composable
+private fun StepButton(glyph: String, onClick: () -> Unit) {
+    FilledTonalIconButton(onClick = onClick, modifier = Modifier.size(44.dp)) {
+        Text(text = glyph, style = MaterialTheme.typography.titleLarge)
+    }
+}
+
+/** A scrolling strip of one-tap windows. Quicker to reach than any picker, and reversible. */
+@Composable
+private fun <T : Preset> QuickRow(presets: List<T>, onPick: (T) -> Unit) {
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(presets) { preset ->
+            SuggestionChip(onClick = { onPick(preset) }, label = { Text(preset.label) })
+        }
+    }
+}
+
+private interface Preset {
+    val label: String
+}
+
+private data class LevelPreset(override val label: String, val points: Int) : Preset
+
+private data class TimePreset(
+    override val label: String,
+    /** Minutes back from now, or null for "today so far". */
+    val minutes: Long?,
+) : Preset
+
+private val LEVEL_PRESETS = listOf(
+    LevelPreset("Last 5%", 5),
+    LevelPreset("Last 10%", 10),
+    LevelPreset("Last 15%", 15),
+    LevelPreset("Last 20%", 20),
+    LevelPreset("Last 30%", 30),
+)
+
+private val TIME_PRESETS = listOf(
+    TimePreset("Last 15 min", 15),
+    TimePreset("Last 30 min", 30),
+    TimePreset("Last hour", 60),
+    TimePreset("Last 2 hr", 120),
+    TimePreset("Last 6 hr", 360),
+    TimePreset("Today", null),
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimePicker(viewModel: DiagnoseViewModel) {
     var editing by remember { mutableStateOf<Editing?>(null) }
+
+    QuickRow(TIME_PRESETS) { preset ->
+        preset.minutes?.let(viewModel::selectLastMinutes) ?: viewModel.selectToday()
+    }
+    Spacer(Modifier.height(14.dp))
 
     Text(
         text = "Day",
@@ -224,15 +311,25 @@ private fun ClockField(
 @Composable
 private fun ClockDialog(initial: LocalTime, onDismiss: () -> Unit, onPick: (LocalTime) -> Unit) {
     val state = rememberTimePickerState(initial.hour, initial.minute, is24Hour = false)
+    // The dial leads. It is the face every alarm clock on the phone already uses, so the
+    // gesture is known and the hour lands in one drag, where typing it means two fields, a
+    // keyboard and an AM/PM. The keypad is one tap away for what a dial is bad at, which
+    // is anything that has to be exact to the minute.
+    var dial by remember { mutableStateOf(true) }
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = { onPick(LocalTime.of(state.hour, state.minute)) }) { Text("Set") }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
-        // Typed, not dialled: a clock face is charming and slow, and this is a field
-        // somebody is going to change three times in a row while narrowing something down.
-        text = { TimeInput(state = state) },
+        text = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                if (dial) TimePicker(state = state) else TimeInput(state = state)
+                TextButton(onClick = { dial = !dial }) {
+                    Text(if (dial) "Type the time instead" else "Use the dial instead")
+                }
+            }
+        },
     )
 }
 

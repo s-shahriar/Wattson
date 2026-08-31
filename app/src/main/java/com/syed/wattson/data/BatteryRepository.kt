@@ -199,6 +199,18 @@ class BatteryRepository(
     }
 
     /**
+     * The percentage showing on the phone right now, or null.
+     *
+     * Synchronous and free: `BatteryManager` and the sticky `ACTION_BATTERY_CHANGED`
+     * broadcast are both already-published values, so this forks nothing, reads no dump
+     * and starts nothing that outlives the call. It exists for the Diagnose tab's "last
+     * 10%" presets, which have to know where the battery is to say where it came from.
+     */
+    fun levelNow(): Int? = runCatching { liveSource.read().now.levelPercent }
+        .getOrNull()
+        ?.takeIf { it in 0..100 }
+
+    /**
      * One shell round-trip over `/sys/class/power_supply/battery`.
      *
      * Everything both live cards need comes from here, so the poll never has to touch

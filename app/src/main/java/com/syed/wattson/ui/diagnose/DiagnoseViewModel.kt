@@ -12,9 +12,11 @@ import com.syed.wattson.ui.model.WindowAnalyzer
 import com.syed.wattson.ui.model.WindowReport
 import kotlinx.coroutines.Job
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.launch
 
 /** Which of the two ways of choosing a window is showing. */
@@ -34,11 +36,12 @@ sealed interface DiagnoseState {
 /**
  * Drives the Diagnose tab, and does absolutely nothing until asked.
  *
- * There is no `init` block, no poll, no observer and no work on construction: opening the
- * tab costs a `BatteryRepository` instance and nothing else. The dump runs on [analyze],
- * which is reachable only from the confirm button, and [release] drops the index the
- * moment the tab is left — so the megabyte it costs is held only while the answers built
- * from it are in front of somebody.
+ * There is no poll, no observer, and no dump on construction: opening the tab costs a
+ * `BatteryRepository` instance and one read of the battery level the platform has already
+ * published, which is what lets the level picker open on the range somebody came here to
+ * ask about. The dump runs on [analyze], which is reachable only from the confirm button,
+ * and [release] drops the index the moment the tab is left — so the megabyte it costs is
+ * held only while the answers built from it are in front of somebody.
  */
 class DiagnoseViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -56,7 +59,13 @@ class DiagnoseViewModel(application: Application) : AndroidViewModel(application
     var mode by mutableStateOf(WindowMode.LEVEL)
         private set
 
-    /** Level range, as a pair of percentages. Defaults to the ten points above empty-ish. */
+    /**
+     * Level range, as a pair of percentages.
+     *
+     * Opens on the ten points the battery has just come down through, which is the
+     * question somebody arriving at this tab has almost always come to ask. Falls back to
+     * a fixed range on a device that will not say where the battery is.
+     */
     var levelFrom by mutableStateOf(DEFAULT_LEVEL_FROM)
         private set
     var levelTo by mutableStateOf(DEFAULT_LEVEL_TO)
@@ -66,10 +75,15 @@ class DiagnoseViewModel(application: Application) : AndroidViewModel(application
     var day by mutableStateOf(LocalDate.now())
         private set
 
-    /** Wall-clock start and end. An end before the start means it ran past midnight. */
-    var fromTime by mutableStateOf(LocalTime.of(DEFAULT_FROM_HOUR, 0))
+    /**
+     * Wall-clock start and end. An end before the start means it ran past midnight.
+     *
+     * Opens on midnight to now — today so far. The old default was a fixed 10 to 11 AM,
+     * which is an hour nobody asked about and, before noon, an hour that has not happened.
+     */
+    var fromTime by mutableStateOf(LocalTime.MIDNIGHT)
         private set
-    var toTime by mutableStateOf(LocalTime.of(DEFAULT_TO_HOUR, 0))
+    var toTime by mutableStateOf(nowToTheMinute())
         private set
 
     /** Days the picker offers, newest first — as far back as the history ever reaches. */
@@ -78,6 +92,18 @@ class DiagnoseViewModel(application: Application) : AndroidViewModel(application
 
     /** True when the end time is earlier than the start, so the window crosses midnight. */
     val crossesMidnight: Boolean get() = !toTime.isAfter(fromTime)
+
+    init {
+        // The one thing this class does without being asked, and it reads no dump: the
+        // level is a value the platform has already published, and having it means the
+        // picker opens on the ten points somebody came here to ask about rather than on
+        // a range plucked out of the air.
+        val now = repository.levelNow()
+        if (now != null && now >= 1) {
+            levelFrom = (now + DEFAULT_LEVEL_SPAN).coerceAtMost(100)
+            levelTo = now.coerceAtMost(levelFrom - 1)
+        }
+    }
 
     fun selectMode(next: WindowMode) {
         if (next == mode) return
@@ -89,8 +115,41 @@ class DiagnoseViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun setLevels(from: Int, to: Int) {
+        // A ceiling at or below the floor describes no descent at all, so the pair is kept
+        // at least one point apart whichever end was moved.
         levelFrom = from.coerceIn(1, 100)
-        levelTo = to.coerceIn(0, 99)
+        levelTo = to.coerceIn(0, levelFrom - 1)
+        invalidate()
+    }
+
+    /**
+     * "The last 10%": the [points] the battery has just come down through, ending where
+     * it stands now.
+     *
+     * Near a full battery there may not be that many points behind it — 100% down to 95%
+     * is all the history there is for a phone at 95 — and the picker then shows the range
+     * it can actually answer rather than one it cannot.
+     */
+    fun selectLastPercent(points: Int) {
+        val now = repository.levelNow() ?: levelTo
+        setLevels(from = (now + points).coerceAtMost(100), to = now)
+    }
+
+    /** "The last hour": a clock window of [minutes] ending now, day and all. */
+    fun selectLastMinutes(minutes: Long) {
+        val end = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)
+        val start = end.minusMinutes(minutes)
+        day = start.toLocalDate()
+        fromTime = start.toLocalTime()
+        toTime = end.toLocalTime()
+        invalidate()
+    }
+
+    /** Midnight to now, which is what "today" means to somebody asking about today. */
+    fun selectToday() {
+        day = LocalDate.now()
+        fromTime = LocalTime.MIDNIGHT
+        toTime = nowToTheMinute()
         invalidate()
     }
 
@@ -144,7 +203,9 @@ class DiagnoseViewModel(application: Application) : AndroidViewModel(application
     private fun fromLevels(loaded: DiagnosisIndex): DiagnoseState {
         val range = WindowAnalyzer.windowForLevels(loaded, levelFrom, levelTo)
             ?: return DiagnoseState.Failed(
-                "The history doesn't hold a run from $levelFrom% down to $levelTo%.",
+                "No single run on battery in the history goes from $levelFrom% all the way " +
+                    "down to $levelTo%. Try a narrower range — a stretch that spans a charge " +
+                    "would answer the question with somebody else's cycle.",
             )
         val report = WindowAnalyzer.analyze(loaded, range.first, range.last)
             ?: return DiagnoseState.Failed("That run was over too quickly to say anything about.")
@@ -198,12 +259,16 @@ class DiagnoseViewModel(application: Application) : AndroidViewModel(application
     private companion object {
         const val DEFAULT_LEVEL_FROM = 40
         const val DEFAULT_LEVEL_TO = 30
-        const val DEFAULT_FROM_HOUR = 10
-        const val DEFAULT_TO_HOUR = 11
+
+        /** How wide "the last N%" opens before anybody touches it. */
+        const val DEFAULT_LEVEL_SPAN = 10
 
         /** The buffer holds about a week on a quiet phone, and rather less on a busy one. */
         const val DAYS_OFFERED = 8
 
         val DAY_LABEL: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM")
+
+        /** Seconds are noise in a window measured in hours, and they make the field jump. */
+        fun nowToTheMinute(): LocalTime = LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
     }
 }
